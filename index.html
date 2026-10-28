@@ -98,7 +98,13 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 .mw i{position:absolute;right:-2px;bottom:22px;width:4px;height:4px;background:#8be874;animation:cp .5s steps(4) infinite}
 @keyframes cp{to{transform:translate(16px,-20px);opacity:0}}
 #lp{font-size:9px;color:#fff;text-shadow:2px 2px 0 var(--ink)}
+.top{position:static!important;padding:6px 0 6px}
+.top::before{display:none!important}
+.cbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding:2px 0 12px}
+.top2{padding:0 0 4px}
 .tabs{flex-wrap:wrap}
+.dcr{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+.dcr svg{width:44px;height:44px}
 .bed3{position:relative;width:104px;height:132px;background:var(--bed) no-repeat center bottom/104px 88px;image-rendering:pixelated;margin:2px 0}
 .bed3 svg.spr{position:absolute;left:12px;bottom:54px;z-index:1}
 .bed3 .sh{position:absolute;left:34px;bottom:56px;width:36px;height:12px;background:rgba(0,0,0,.3);clip-path:polygon(8px 0,28px 0,28px 4px,36px 4px,36px 8px,28px 8px,28px 12px,8px 12px,8px 8px,0 8px,0 4px,8px 4px)}
@@ -123,17 +129,18 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 @keyframes sw{to{background-position:12px 44px,0 0}}
 .w-bow{background:linear-gradient(#e63946 0 4px,#ff9a3c 4px 8px,#ffd23f 8px 12px,#4caf50 12px 16px,#4fc3f7 16px 20px,#3a5bd9 20px 24px,#a855f7 24px 28px) top/100% 28px no-repeat;opacity:.75}
 </style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 <div id="ld"><div class="ldt">ЦВЕТУЩАЯ<br>ФЕРМА</div><div class="lawn" id="lw"><div class="cut" id="cut"></div><div class="mw" id="mw"></div></div><div id="lp">0%</div></div>
 <div class="wrap">
 <div class="top">
   <div class="pf px" id="pf"><div id="pav" class="av"></div><div class="pi"><div><span id="pnk"></span> <span id="prb"></span></div><div class="xb"><i id="pxb"></i></div><div id="plv" class="hint"></div></div></div>
-  <div class="coins px"><div><b><span id="c">0</span><span id="ci"></span></b><small>коины</small></div><div><b><span id="g">0</span><span id="gi"></span></b><small>гемы</small></div><div style="text-align:right"><b id="ips" style="justify-content:flex-end">+0</b><small>в секунду</small></div></div>
+  </div><div class="cbar"><div class="coins px"><div><b><span id="c">0</span><span id="ci"></span></b><small>коины</small></div><div><b><span id="g">0</span><span id="gi"></span></b><small>гемы</small></div><div style="text-align:right"><b id="ips" style="justify-content:flex-end">+0</b><small>в секунду</small></div></div></div><div class="top2">
   <div class="bf px" id="bf"></div><div class="bf px" id="wb"></div>
-  <div class="tabs"><button id="tp">Паки</button><button id="ti">Сумка</button><button id="tb">Баффы</button><button id="tt">Питомцы</button><button id="tm"></button><button id="ts"></button></div>
+  <div class="tabs"><button id="tp">Паки</button><button id="ti">Сумка</button><button id="tb">Баффы</button><button id="tt">Питомцы</button><button id="tq">Задания</button><button id="tl">Рейтинг</button><button id="td">Декор</button><button id="tm"></button><button id="ts"></button></div>
 </div>
-<div class="grid" id="grid"></div>
+<div class="grid" id="grid"></div><div class="dcr" id="dc"></div>
 <p class="note">Нажми на растение, чтобы полить.<br>Иногда из воды выпадают гемы!</p>
 <button class="reset g" id="reset">Начать заново</button>
 </div>
@@ -162,6 +169,12 @@ coin:["...kkkk...","..kyyyyk..",".kyyYYyyk.",".kyYyyyyk.",".kyYyyyyk.",".kyyyyyy
 gem:["..........","..cccccc..",".cwLccccc.","cccccccccc",".cccccccc.","..cccccc..","...cccc...","....cc....","..........",".........."],
 pot:["...l..l...","..lll.lll.","...llgl...","....g.....",".eeeeeeee.",".eEEEEEEe.","..eeeeee..","..eEEEEe..","...eeee...",".........."],
 chest:["..........",".bbbbbbbb.","bBBBBBBBBb","bBBBBBBBBb","kkkkyykkkk","bBBBByBBBb","bBBBBBBBBb","bBBBBBBBBb","bbbbbbbbbb",".........."],
+gnome:["....rr....","...rrrr...","..rrrrrr..","..ffffff..","..wkwwkw..",".wwwwwwww.","..wwwwww..","..bbbbbb..","..bbbbbb..","..kk..kk.."],
+scare:["...yyyy...","..yyyyyy..",".yyyyyyyy.","...ffff...","..fkffkf..","...ffff...","yyyBBBByyy","..yBBBBy..","...BBBB...","...bbbb..."],
+well:["...rrrr...","..rrrrrr..",".rr.bb.rr.","...b..b...","...b..b...","wwwwwwwwww","wwkkkkkkww","wwkcccckww","wwwwwwwwww",".........."],
+pond:["..........","..........","..........","...gggg...",".ggccccgg.","gccLccccLg","gcccccLccg",".gccccccg.","..gggggg..",".........."],
+hay:["..........","..........","..........",".yyyyyyyy.","yYyyyyyYyy","yyyyYyyyyy","BBBBBBBBBB","yyYyyyyyyy","yyyyyyYyyy",".yyyyyyyy."],
+mail:["..rrrrrr..",".rrrrrrrr.",".rwwrrrrr.",".rrrrrrrr.","..rrrrrr..","....BB....","....BB....","....BB....","...bbbb...",".........."],
 quad:["..........","..........","......SBS.",".BBSBBBBBk","BBBBBBBBBN","BBBBSBBBB.",".BBBBBBBB.",".B.B..B.B.",".k.k..k.k.",".........."],
 bird:[".....RR...","....BBBB..","...BBBkBYY","..BBBBBBR.",".BBBBBBBB.","BBBSBBBBB.",".BBSSBBB..","..BBBBBB..","...Y..Y...","...Y..Y..."],
 bun:[".ww....ww.",".wp....pw.",".wp....pw.",".wwwwwwww.","wwwwwwwwww","wwkwwwwkww","wwwwppwwww","wwwkwwkwww",".wwwwwwww.",".........."],
@@ -201,6 +214,7 @@ var PLANTS=[
 {n:"Светогриб",r:4,i:270,s:"mush",pal:{A:"#37e6c8",D:"#14917e"}},
 {n:"Семицветик",r:5,i:800,s:"rain"}
 ];
+PLANTS.push({n:"Клевер",r:0,i:7,s:"herb",pal:{l:"#4cc760",g:"#1f8f3a"}},{n:"Подснежник",r:1,i:16,s:"fl",pal:{A:"#e8f6ff",D:"#9fd0f0",C:"#fff3a0"}},{n:"Лилия",r:2,i:36,s:"fl",pal:{A:"#ff9a3c",D:"#d96a10",C:"#8a4b12"}},{n:"Лунный гриб",r:3,i:90,s:"mush",pal:{A:"#8fb4ff",D:"#4a68c8"}},{n:"Кристальный цветок",r:4,i:300,s:"fl",pal:{A:"#c9f4ff",D:"#58c8f0",C:"#ff8fe0"}},{n:"Звёздная роза",r:5,i:900,s:"ros",pal:{r:"#ff5fd0",d:"#a0208a"}});
 PLANTS.forEach(function(p,i){p.id=i});
 var PACKS=[
 {n:"Горшочек",s:"pot",cost:100,cur:"c",w:[66,26,7,1,0,0],g:.2},
@@ -236,7 +250,7 @@ function build(){
 }
 function bdef(){return S.buff?BUFFS.filter(function(b){return b.id===S.buff.id})[0]:null}
 function tick(dt){
- var pm=1+pb("inc")/100,wx=wxTick(dt),c0=S.coins,inc=0,id=S.buff&&S.buff.id,mult=(id==="x2"?2:id==="rain"?1.5:1)*(1+.1*S.rb)*(wx?wx.m:1)*pm,free=id==="auto"||id==="rain"||!!(wx&&wx.free);
+ var pm=1+pb("inc")/100+decB(),wx=wxTick(dt),c0=S.coins,inc=0,id=S.buff&&S.buff.id,mult=(id==="x2"?2:id==="rain"?1.5:1)*(1+.1*S.rb)*(wx?wx.m:1)*pm,free=id==="auto"||id==="rain"||!!(wx&&wx.free);
  if(S.buff&&dt>0){S.buff.t-=dt;if(S.buff.t<=0){S.buff=null;id=null;mult=(1+.1*S.rb)*(wx?wx.m:1)*pm;free=!!(wx&&wx.free);save()}}
  S.plots.forEach(function(pl,i){
   if(pl.p===null)return;var p=PLANTS[pl.p];
@@ -245,11 +259,11 @@ function tick(dt){
   if(pl.w>0)inc+=p.i*mult;
   var w=$("w"+i),b=$("p"+i);if(w)w.style.width=pl.w+"%";if(b)b.classList.toggle("dry",pl.w<=0);
  });
- S.xp+=(S.coins-c0)*.05*(1+pb("xp")/100);lvl();pfui();
+ qc(S.coins-c0);S.xp+=(S.coins-c0)*.05*(1+pb("xp")/100);lvl();pfui();
  $("c").textContent=fmt(S.coins);$("g").textContent=fmt(S.gems);$("ips").innerHTML="+"+fmt(inc);
  var bf=$("bf"),bd=bdef();
  if(bd){bf.style.display="block";bf.textContent="БАФФ: "+bd.n+" · "+Math.ceil(S.buff.t)+"с"}else bf.style.display="none";
- document.querySelectorAll(".ub,.pb,.bb,.eb,.pt").forEach(function(b){var c=b.dataset.cur==="g"?S.gems:S.coins;b.disabled=c<+b.dataset.cost||(b.classList.contains("bb")&&!!S.buff)});
+ document.querySelectorAll(".ub,.pb,.bb,.eb,.pt,.dcb").forEach(function(b){var c=b.dataset.cur==="g"?S.gems:S.coins;b.disabled=c<+b.dataset.cost||(b.classList.contains("bb")&&!!S.buff)});
 }
 function open(h){sbox.innerHTML=h;sheet.classList.add("on");tick(0)}
 function closeS(){sheet.classList.remove("on")}
@@ -266,7 +280,7 @@ function openPack(k){
  var P=PACKS[k],c=P.cur==="g"?"gems":"coins";if(S[c]<P.cost)return;S[c]-=P.cost;
  var rr=pick(P.w),pl=rnd(PLANTS.filter(function(p){return p.r===rr}));
  S.inv[pl.id]=(S.inv[pl.id]||0)+1;
- var gm=Math.random()<P.g?gemAmt():0;S.gems+=gm;S.xp+=20;save();sfx("open");setTimeout(function(){sfx("rev",pl.r)},350);
+ var gm=Math.random()<P.g?gemAmt():0;S.gems+=gm;S.xp+=20;qadd("o");save();sfx("open");setTimeout(function(){sfx("rev",pl.r)},350);
  open('<h2>Выпало!</h2><div style="text-align:center">'+'<div class="rv">'+psvg(pl,"spr big")+'</div>'+'<div style="font-size:10px">'+pl.n+'</div><div style="color:var(--'+RAR[pl.r][1]+');margin:6px">'+RAR[pl.r][0]+' · +'+pl.i+'/с</div>'+(gm?'<div style="display:flex;justify-content:center;align-items:center;gap:5px">+'+gm+ic("gem",14)+'</div>':'')+'</div><div class="row"><button class="g" id="no">Ок</button><button class="pb" id="again" data-k="'+k+'" data-cost="'+P.cost+'" data-cur="'+P.cur+'">Ещё '+cur(P.cur,P.cost)+'</button></div>');
  $("no").onclick=closeS;$("again").onclick=function(){openPack(k)};
 }
@@ -298,7 +312,7 @@ grid.addEventListener("click",function(e){
   dlg("Выкопать?","«"+p.n+"» вернётся в сумку.","Выкопать","x",function(){sfx("dig");S.inv[p.id]=(S.inv[p.id]||0)+1;S.plots[i].p=null;S.plots[i].w=0;build();save()});return}
  var el=e.target.closest(".plot");if(!el)return;
  var i2=+el.dataset.i,a=el.dataset.a,pl=S.plots[i2];
- if(a==="water"){pl.w=100;S.xp+=3*(1+pb("xp")/100);sfx("water");drops(el);el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");setTimeout(function(){el.classList.remove("pop")},300);
+ if(a==="water"){pl.w=100;qadd("w");S.xp+=3*(1+pb("xp")/100);sfx("water");drops(el);el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");setTimeout(function(){el.classList.remove("pop")},300);
   var ch=.06*(S.buff&&S.buff.id==="luck"?3:1)*(W.cur?W.cur.g:1)*(1+pb("gem")/100);
   if(Math.random()<ch){var n=gemAmt();S.gems+=n;sfx("gem");toast("+"+n+ic("gem",14))}
   tick(0);save()}
@@ -423,6 +437,7 @@ var PETS=[
 {n:"Единорог",r:3,t:"xp",v:50,s:"quad",pal:{B:"#ffffff",S:"#ff8fc7",N:"#c690f0"}},
 {n:"Дракончик",r:4,t:"inc",v:50,s:"quad",pal:{B:"#3fbf5a",S:"#d62800",N:"#ffd23f"}},
 {n:"Феникс",r:5,t:"inc",v:100,s:"bird",pal:{B:"#ff7a1a",Y:"#ffd23f",R:"#ff3b00",S:"#d62800"}}];
+PETS.push({n:"Пчела",r:1,t:"inc",v:8,s:"bird",pal:{B:"#ffd23f",Y:"#2b1d0e",R:"#ffd23f",S:"#2b1d0e"}},{n:"Черепаха",r:2,t:"wat",v:25,s:"quad",pal:{B:"#4caf50",S:"#2d7a2d",N:"#8b5a2b"}},{n:"Попугай",r:3,t:"xp",v:60,s:"bird",pal:{B:"#3fd16a",Y:"#ff9a00",R:"#e63946",S:"#1f8f3a"}},{n:"Золотой дракон",r:5,t:"inc",v:150,s:"quad",pal:{B:"#ffd23f",S:"#ff7a1a",N:"#ff3b00"}});
 PETS.forEach(function(p,i){p.id=i});
 var EGGS=[
 {n:"Обычное яйцо",cost:200,cur:"c",w:[70,25,5,0,0,0],pal:{w:"#f4ead0",s:"#c8a96a"},hi:"до редкого"},
@@ -458,7 +473,7 @@ function showPetShop(){
 function openEgg(k){
  var E=EGGS[k],c=E.cur==="g"?"gems":"coins";if(S[c]<E.cost)return;S[c]-=E.cost;
  var rr=pick(E.w),p=rnd(PETS.filter(function(x){return x.r===rr}));
- S.pets[p.id]=(S.pets[p.id]||0)+1;S.xp+=15;save();sfx("open");setTimeout(function(){sfx("rev",p.r)},350);
+ S.pets[p.id]=(S.pets[p.id]||0)+1;S.xp+=15;qadd("o");save();sfx("open");setTimeout(function(){sfx("rev",p.r)},350);
  open('<h2>Из яйца вылупился!</h2><div style="text-align:center"><div class="rv">'+psv(p,"spr big")+'</div><div style="font-size:10px">'+p.n+'</div><div style="color:var(--'+RAR[p.r][1]+');margin:6px">'+RAR[p.r][0]+'</div><div style="line-height:1.8">'+bt(p)+'</div></div><div class="row"><button class="g" id="back">К магазину</button><button class="eb" id="again" data-cost="'+E.cost+'" data-cur="'+E.cur+'">Ещё '+cur(E.cur,E.cost)+'</button></div>');
  $("back").onclick=showPetShop;$("again").onclick=function(){if(!this.disabled)openEgg(k)}}
 $("tt").onclick=showPets;
@@ -499,7 +514,117 @@ function wxTick(dt){
 function boot(){var cur=null;cur=getCur();if(cur&&US[cur])startGame(cur);else{build();showAuth()}}
 var last=performance.now(),acc=0;
 setInterval(function(){var n=performance.now(),dt=Math.min((n-last)/1000,1);last=n;tick(dt);acc+=dt;if(acc>3){acc=0;save()}},100);
-boot();
+/* ===== Облако (Supabase) ===== */
+var SB="https://vbpdxdgkwavrjrydoogl.supabase.co",SK="sb_publishable_S8MfRiq9liKzlBuW-j7JQw_PaK9d4oo";
+var DOMS=["tsvetferma.app","gmail.com"],SESS=null,dirty=false,ctimer=null;
+function hex(t){return Array.from(new TextEncoder().encode(t)).map(function(b){return("0"+b.toString(16)).slice(-2)}).join("")}
+function mail(l,i){return"n"+hex(l)+"@"+DOMS[i]}
+function api(path,o){o=o||{};var h={apikey:SK,"Content-Type":"application/json"};if(o.tok)h.Authorization="Bearer "+o.tok;if(o.prefer)h.Prefer=o.prefer;
+ return fetch(SB+path,{method:o.m||"GET",headers:h,body:o.b?JSON.stringify(o.b):undefined,keepalive:!!o.ka}).then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}return{ok:r.ok,st:r.status,j:j}})},function(e){throw"Нет связи: "+((e&&e.message)||e)})}
+function setSess(j){SESS={at:j.access_token,rt:j.refresh_token,exp:Date.now()/1000+(j.expires_in||3600)-60,uid:j.user.id}}
+function sessSave(rem){if(!SESS)return;try{var t=JSON.stringify({at:SESS.at,rt:SESS.rt,exp:SESS.exp,uid:SESS.uid,l:ME});localStorage.removeItem("ff_s2");sessionStorage.removeItem("ff_s2");(rem?localStorage:sessionStorage).setItem("ff_s2",t)}catch(e){}}
+function tok(){if(!SESS)return Promise.reject();if(Date.now()/1000<SESS.exp)return Promise.resolve(SESS.at);
+ return api("/auth/v1/token?grant_type=refresh_token",{m:"POST",b:{refresh_token:SESS.rt}}).then(function(r){if(!r.ok||!r.j||!r.j.access_token)throw 0;setSess(r.j);sessSave(!!localStorage.getItem("ff_s2"));return SESS.at})}
+function cloudPush(ka){if(!SESS||!ME||!US[ME])return Promise.resolve();dirty=false;
+ return tok().then(function(t){return api("/rest/v1/saves?on_conflict=user_id",{m:"POST",tok:t,ka:ka,prefer:"resolution=merge-duplicates,return=minimal",b:{user_id:SESS.uid,nick:US[ME].nick,data:{S:S,av:US[ME].av},updated_at:new Date().toISOString()}})}).then(function(r){if(!r.ok)dirty=true}).catch(function(){dirty=true})}
+function sched(){dirty=true;if(ctimer)return;ctimer=setTimeout(function(){ctimer=null;if(dirty)cloudPush()},6000)}
+function save(){if(!KEY)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}sched()}
+function usave(){try{localStorage.setItem("ff_users",JSON.stringify(US))}catch(e){}sched()}
+window.addEventListener("pagehide",function(){if(dirty)cloudPush(true)});
+document.addEventListener("visibilitychange",function(){if(document.hidden&&dirty)cloudPush(true)});
+function norm(o){if(!o||!o.plots||o.plots.length!==6)return fresh();o.gems=o.gems||0;o.inv=o.inv||{};o.buff=o.buff||null;o.lv=o.lv||1;o.xp=o.xp||0;o.rb=o.rb||0;o.pets=o.pets||{};o.eq=o.eq||[];return o}
+function signup(l,p,n,i){i=i||0;return api("/auth/v1/signup",{m:"POST",b:{email:mail(l,i),password:p,data:{nick:n}}}).then(function(r){
+ if(r.ok&&r.j&&r.j.access_token){setSess(r.j);return}
+ var c=((r.j&&(r.j.error_code||r.j.code||""))+" "+(r.j&&(r.j.msg||r.j.message)||"")).toLowerCase();
+ if(/exists|registered/.test(c))throw"Такой ник уже занят";
+ if(/weak|password/.test(c))throw"Пароль слишком простой";
+ if(/email_address_invalid|invalid/.test(c)&&i<DOMS.length-1)return signup(l,p,n,i+1);
+ if(r.ok&&r.j&&r.j.user)throw"В Supabase включено подтверждение почты. Выключите Confirm email";
+ throw"Ошибка регистрации: "+c.trim()})}
+function login(l,p,i){i=i||0;return api("/auth/v1/token?grant_type=password",{m:"POST",b:{email:mail(l,i),password:p}}).then(function(r){
+ if(r.ok&&r.j&&r.j.access_token){setSess(r.j);return}
+ if(i<DOMS.length-1)return login(l,p,i+1);
+ throw"Неверный ник или пароль"})}
+function doAuth(reg){var rem=$("rm").checked,n=$("an").value.trim(),p=$("ap").value,l=n.toLowerCase(),m=$("am");
+ if(!NICK.test(n)){m.textContent="Ник: 3–12 букв, цифр или _";return}
+ if(p.length<6){m.textContent="Пароль: минимум 6 символов";return}
+ m.textContent="Подождите…";
+ (reg?signup(l,p,n):login(l,p)).then(function(){startGame(l,rem,n)}).catch(function(e){m.textContent=typeof e==="string"?e:"Ошибка: "+((e&&e.message)||e)})}
+function startGame(l,rem,nick0){ME=l;KEY="ff_save_"+l;
+ var fin=function(){$("auth").classList.remove("on");_ak="";sessSave(rem);try{if(rem)localStorage.setItem("ff_last",l);else localStorage.removeItem("ff_last")}catch(e){}build();pfui();drawDec();toast("Привет, "+US[l].nick+"!");fix(S);setTimeout(function(){if(drInfo().ok)showQuests()},1200)};
+ tok().then(function(t){return api("/rest/v1/saves?select=nick,data&user_id=eq."+SESS.uid,{tok:t})}).then(function(r){
+  var row=r.ok&&r.j&&r.j[0];
+  if(row&&row.data&&row.data.S){S=norm(row.data.S);US[l]={nick:row.nick||nick0||l,av:row.data.av||{t:"p",v:"avm"}}}
+  else{loadSave(KEY);US[l]={nick:nick0||l,av:{t:"p",v:"avm"}};sched()}
+  fin()}).catch(function(){loadSave(KEY);US[l]=US[l]||{nick:nick0||l,av:{t:"p",v:"avm"}};fin()})}
+function boot(){var raw=null;try{raw=sessionStorage.getItem("ff_s2")||localStorage.getItem("ff_s2")}catch(e){}
+ if(raw){try{var s0=JSON.parse(raw),l=s0.l,rem=!!localStorage.getItem("ff_s2");SESS={at:s0.at,rt:s0.rt,exp:s0.exp,uid:s0.uid};ME=l;
+  tok().then(function(){startGame(l,rem,null)}).catch(function(){ME=null;SESS=null;build();showAuth("Сессия истекла, войдите снова")});return}catch(e){}}
+ build();showAuth()}
+function logout(){save();var done=function(){try{localStorage.removeItem("ff_s2");sessionStorage.removeItem("ff_s2")}catch(e){}SESS=null;ME=null;KEY="";closeS();S=fresh();build();showAuth()};cloudPush().then(done,done)}
+function nickView(){var u=US[ME];
+ open('<h2>Новый ник</h2><input id="nn" maxlength="12" value="'+u.nick+'"><div class="hint" style="line-height:1.9;margin:4px 0">Это имя в профиле. Входить нужно по нику регистрации: '+ME+'</div><div id="nm2" class="hint" style="min-height:20px;color:var(--btnx)"></div><div class="row"><button class="g" id="back">Назад</button><button id="ns">Сохранить</button></div>');
+ $("back").onclick=showProfile;
+ $("ns").onclick=function(){var n=$("nn").value.trim(),m=$("nm2");if(!NICK.test(n)){m.textContent="Ник: 3–12 букв, цифр или _";return}u.nick=n;usave();pfui();showProfile()}}
+function showAuth(m){$("auth").classList.add("on");
+ $("abox").innerHTML='<h2 style="text-align:center;font-size:12px">ЦВЕТУЩАЯ ФЕРМА</h2><div style="text-align:center;margin:8px 0">'+svg("sun")+'</div><input id="an" placeholder="Ник" maxlength="12" autocomplete="username"><input id="ap" type="password" placeholder="Пароль (от 6 символов)" autocomplete="current-password"><label class="ck"><input type="checkbox" id="rm" checked><span></span>Запомнить меня</label><div id="am" class="hint" style="min-height:22px;color:var(--btnx)">'+(m||"")+'</div><div class="row"><button id="al">Войти</button><button id="ar" class="g">Создать</button></div><div class="hint" style="text-align:center;margin-top:12px;line-height:1.8">Аккаунт работает на любом устройстве</div>';
+ try{var lt=localStorage.getItem("ff_last");if(lt)$("an").value=lt}catch(e){}
+ $("al").onclick=function(){doAuth(0)};$("ar").onclick=function(){doAuth(1)}}
+/* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
+var WK="https://farmbot.milkkofeyok.workers.dev";
+function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};return o}
+var _fresh=fresh;fresh=function(){return fix(_fresh())};
+var _norm=norm;norm=function(o){return fix(_norm(o))};
+var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
+function qday(){fix(S);if(S.q.d!==today())S.q={d:today(),w:0,o:0,c:0,k:[0,0,0]}}
+function qadd(k,n){qday();S.q[k]+=n||1}
+function qc(x){if(x>0){qday();S.q.c+=x}}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var QS=[{t:"Полей растения 30 раз",k:"w",n:30,c:200},{t:"Открой пак или яйцо",k:"o",n:1,g:3},{t:"Заработай 1000 коинов",k:"c",n:1000,c:300,g:2}];
+var DR=[{c:100},{g:2},{c:300},{pet:0},{g:5},{c:600},{g:10,pl:1}];
+function drInfo(){fix(S);var t=today(),y=new Date();y.setDate(y.getDate()-1);var ok=S.dr.d!==t,st=S.dr.st;if(ok&&S.dr.d!==today(y))st=0;return{ok:ok,st:st,t:t}}
+function rtxt(r){var a=[];if(r.c)a.push(fmt(r.c)+" коинов");if(r.g)a.push(r.g+" гемов");if(r.pet!=null)a.push("питомец");if(r.pl)a.push("растение");return a.join(" + ")}
+function giveR(r){if(r.c)S.coins+=r.c;if(r.g)S.gems+=r.g;
+ if(r.pet!=null){var p=rnd(PETS.filter(function(x){return x.r===r.pet}));S.pets[p.id]=(S.pets[p.id]||0)+1;toast("Питомец: "+p.n)}
+ if(r.pl){var pl=rnd(PLANTS.filter(function(x){return x.r===r.pl}));S.inv[pl.id]=(S.inv[pl.id]||0)+1;toast("Растение: "+pl.n)}}
+function showQuests(){qday();var di=drInfo(),day=di.st%7,h='<h2>Награды и задания</h2><div class="hint" style="margin-bottom:10px">Ежедневная награда · день '+(day+1)+'/7</div>';
+ h+='<div class="seed"><div class="in"><div>'+rtxt(DR[day])+'</div><div style="color:var(--muted)">'+(di.ok?"Можно забрать!":"Приходи завтра")+'</div></div><button id="drb"'+(di.ok?"":" disabled")+'>Забрать</button></div><div class="hint" style="margin:10px 0">Задания дня</div>';
+ QS.forEach(function(q,i){var v=Math.min(q.n,Math.floor(S.q[q.k])),done=S.q[q.k]>=q.n,k=S.q.k[i];
+  h+='<div class="seed"><div class="in"><div>'+q.t+'</div><div style="color:var(--muted)">'+fmt(v)+'/'+fmt(q.n)+' · '+rtxt(q)+'</div></div>'+(k?'<div class="hint">Готово</div>':'<button class="qb" data-i="'+i+'"'+(done?"":" disabled")+'>Забрать</button>')+'</div>'});
+ open(h+closeBtn());$("no").onclick=closeS;
+ $("drb").onclick=function(){var d=drInfo();if(!d.ok)return;giveR(DR[d.st%7]);S.dr={d:d.t,st:d.st+1};sfx("unlock");save();showQuests()};
+ document.querySelectorAll(".qb").forEach(function(b){b.onclick=function(){var i=+b.dataset.i;if(b.disabled||S.q.k[i])return;S.q.k[i]=1;giveR(QS[i]);sfx("unlock");save();showQuests()}})}
+var DEC=[{n:"Гном",s:"gnome",c:500},{n:"Пугало",s:"scare",c:1500},{n:"Колодец",s:"well",c:4000},{n:"Пруд",s:"pond",c:10000},{n:"Стог сена",s:"hay",c:25000},{n:"Почтовый ящик",s:"mail",c:60000}];
+function decB(){var n=0;if(S.dec)for(var k in S.dec)if(S.dec[k])n++;return n*.02}
+function drawDec(){var h="";DEC.forEach(function(d,i){if(S.dec&&S.dec[i])h+=svg(d.s)});$("dc").innerHTML=h}
+function showDec(){fix(S);var h='<h2>Декор фермы</h2><div class="hint" style="line-height:2;margin-bottom:12px">Каждая вещь даёт +2% к доходу</div>';
+ DEC.forEach(function(d,i){h+='<div class="seed">'+svg(d.s)+'<div class="in"><div>'+d.n+'</div><div style="color:var(--muted)">+2% к доходу</div></div>'+(S.dec[i]?'<div class="hint">Куплено</div>':'<button class="dcb" data-i="'+i+'" data-cost="'+d.c+'" data-cur="c">'+cur("c",d.c)+'</button>')+'</div>'});
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".dcb").forEach(function(b){b.onclick=function(){var d=DEC[+b.dataset.i];if(b.disabled||S.coins<d.c)return;S.coins-=d.c;S.dec[+b.dataset.i]=1;sfx("unlock");save();drawDec();showDec()}})}
+function rebirth(){var g=rnd(PLANTS.filter(function(p){return p.r===1})),rb=S.rb+1,pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec;
+ S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.coins=300;S.gems=25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",4);toast("Перерождение! Подарок: "+g.n)}
+var _cp=cloudPush;cloudPush=function(ka){var p=_cp(ka);
+ if(SESS&&ME&&US[ME])tok().then(function(t){return api("/rest/v1/leaders?on_conflict=user_id",{m:"POST",tok:t,ka:ka,prefer:"resolution=merge-duplicates,return=minimal",b:{user_id:SESS.uid,nick:US[ME].nick,lv:S.lv,rb:S.rb,av:(US[ME].av&&US[ME].av.t==="p")?US[ME].av.v:"avm",updated_at:new Date().toISOString()}})}).catch(function(){});
+ return p};
+function showLB(){open('<h2>Рейтинг</h2><div class="hint">Загрузка…</div>');
+ api("/rest/v1/leaders?select=nick,lv,rb,av&order=rb.desc,lv.desc&limit=20").then(function(r){
+  if(!r.ok||!r.j||!r.j.length){open('<h2>Рейтинг</h2><div class="hint" style="line-height:2">Пока никого нет. Поиграйте пару минут и загляните снова.</div>'+closeBtn());$("no").onclick=closeS;return}
+  var h='<h2>Рейтинг игроков</h2>';
+  r.j.forEach(function(u,i){h+='<div class="seed"><div class="av" style="width:36px;height:36px">'+svg(SPR[u.av]?u.av:"avm","")+'</div><div class="in"><div>'+(i+1)+'. '+esc(u.nick)+'</div><div style="color:var(--muted)">Ур. '+u.lv+(u.rb?' · ★'+u.rb:'')+'</div></div></div>'});
+  open(h+closeBtn());$("no").onclick=closeS}).catch(function(){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS})}
+$("tq").onclick=showQuests;$("tl").onclick=showLB;$("td").onclick=showDec;
+function tgAuto(){var tg=window.Telegram&&Telegram.WebApp;if(!tg||!tg.initData)return Promise.reject();
+ return fetch(WK+"/tg-auth",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({initData:tg.initData})}).then(function(r){return r.json()}).then(function(j){if(!j.email)throw 0;
+  return api("/auth/v1/token?grant_type=password",{m:"POST",b:{email:j.email,password:j.password}}).then(function(r){if(!r.ok||!r.j||!r.j.access_token)throw 0;setSess(r.j);return j})})}
+function boot2(){var tg=window.Telegram&&Telegram.WebApp;if(tg){try{tg.ready();tg.expand()}catch(e){}}
+ var na=null,raw=null;try{na=localStorage.getItem("ff_noauto");raw=sessionStorage.getItem("ff_s2")||localStorage.getItem("ff_s2")}catch(e){}
+ if(raw||na||!tg||!tg.initData){boot();return}
+ tgAuto().then(function(j){var l="tg"+j.id,nm=String(j.name||"").replace(/[^A-Za-zА-Яа-яЁё0-9_]/g,"").slice(0,12)||l;ME=l;startGame(l,true,nm)}).catch(function(){boot()})}
+var _sa=showAuth;showAuth=function(m){_sa(m);var tg=window.Telegram&&Telegram.WebApp;
+ if(tg&&tg.initData){var r=document.querySelector("#abox .row"),b=document.createElement("button");b.id="atg";b.textContent="Telegram";r.appendChild(b);b.onclick=function(){try{localStorage.removeItem("ff_noauto")}catch(e){}boot2()}}};
+var _lo=logout;logout=function(){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initData)localStorage.setItem("ff_noauto","1")}catch(e){}_lo()};
+boot2();
 </script>
 </body>
 </html>
