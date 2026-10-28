@@ -103,6 +103,28 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 .cbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding:2px 0 12px}
 .top2{padding:0 0 4px}
 .tabs{flex-wrap:wrap}
+.tabs{display:none!important}
+.wrap{padding-bottom:120px!important}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;justify-content:center;gap:8px;padding:12px 10px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);box-shadow:0 -4px 0 0 var(--ink)}
+.nav button{flex:1;max-width:80px;flex-direction:column;gap:5px;padding:7px 2px 6px;margin:0;font-size:6px;position:relative}
+.nav svg{width:26px;height:26px}
+.nav .bd{position:absolute;top:-8px;right:-5px;width:11px;height:11px;background:#e63946;box-shadow:0 0 0 2px var(--ink);display:none}
+#wt{bottom:calc(env(safe-area-inset-bottom,0px) + 96px)!important}
+.seg{display:flex;gap:6px;margin:0 2px 16px}
+.seg button{flex:1;font-size:8px;padding:9px 2px;margin:0}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 4px 12px}
+.tl2{flex-direction:column;gap:8px;padding:14px 4px 10px;font-size:8px;background:var(--bg)!important;color:var(--text)!important;margin:0}
+.tl2 svg{width:40px;height:40px}
+:root{--f1:sepia(1) saturate(3) brightness(1.1);--f2:hue-rotate(165deg) saturate(1.7) brightness(1.35);--f4:hue-rotate(250deg) saturate(2.6) brightness(1.4)}
+.mut1 svg.spr,.plot.m1 svg.spr{filter:var(--f1) var(--ol)}
+.mut2 svg.spr,.plot.m2 svg.spr{filter:var(--f2) var(--ol)}
+.mut3 svg.spr,.plot.m3 svg.spr{filter:hue-rotate(0deg) saturate(2) brightness(1.2) var(--ol);animation:rb 2s steps(8) infinite}
+.mut4 svg.spr,.plot.m4 svg.spr{filter:var(--f4) var(--ol);animation:fl .6s steps(2) infinite}
+.plot.m3:not(.dry) .bed3 svg.spr{animation:bob 1.4s steps(1) infinite,rb 2s steps(8) infinite}
+.plot.m4:not(.dry) .bed3 svg.spr{animation:bob 1.4s steps(1) infinite,fl .6s steps(2) infinite}
+@keyframes rb{to{filter:hue-rotate(360deg) saturate(2) brightness(1.2) var(--ol)}}
+@keyframes fl{50%{filter:var(--f4) brightness(1.6) var(--ol)}}
+.plot.dry svg.spr{filter:grayscale(1) brightness(.85) var(--ol)!important}
 .dcr{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
 .dcr svg{width:44px;height:44px}
 .bed3{position:relative;width:104px;height:132px;background:var(--bed) no-repeat center bottom/104px 88px;image-rendering:pixelated;margin:2px 0}
@@ -145,7 +167,7 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 <button class="reset g" id="reset">Начать заново</button>
 </div>
 <div class="sheet" id="sheet"><div class="px" id="sbox"></div></div>
-<div id="sc"></div><div id="wx"></div><div id="wt" class="px"></div>
+<div class="nav" id="nav"></div><div id="sc"></div><div id="wx"></div><div id="wt" class="px"></div>
 <div class="sheet on" id="auth" style="z-index:50;align-items:center;background:var(--bg)"><div class="px" id="abox" style="margin-bottom:0"></div></div>
 <div class="toast px" id="toast"></div>
 
@@ -169,6 +191,13 @@ coin:["...kkkk...","..kyyyyk..",".kyyYYyyk.",".kyYyyyyk.",".kyYyyyyk.",".kyyyyyy
 gem:["..........","..cccccc..",".cwLccccc.","cccccccccc",".cccccccc.","..cccccc..","...cccc...","....cc....","..........",".........."],
 pot:["...l..l...","..lll.lll.","...llgl...","....g.....",".eeeeeeee.",".eEEEEEEe.","..eeeeee..","..eEEEEe..","...eeee...",".........."],
 chest:["..........",".bbbbbbbb.","bBBBBBBBBb","bBBBBBBBBb","kkkkyykkkk","bBBBByBBBb","bBBBBBBBBb","bBBBBBBBBb","bbbbbbbbbb",".........."],
+shop:["rwrwrwrwrw","rwrwrwrwrw",".rwrwrwrw.","..B....B..","..B.yy.B..","..B....B..","BBBBBBBBBB","bbbbbbbbbb","b........b",".........."],
+bag:["....yy....","...BBBB...","..BBBBBB..",".BBBBBBBB.","BBBBBBBBBB","BBBByyBBBB","BBBByyBBBB","BBBBBBBBBB",".BBBBBBBB.","..bbbbbb.."],
+paw:["..........",".pp....pp.",".pp....pp.","...pppp...","pp.pppp.pp","pp.pppp.pp","..pppppp..","..pppppp..","...pppp...",".........."],
+scroll:["kkkkkkkkkk","kwwwwwwwwk","kwGGwkkkwk","kwwwwwwwwk","kwGGwkkkwk","kwwwwwwwwk","kwGGwkkkwk","kwwwwwwwwk","kkkkkkkkkk",".........."],
+more:["..........",".ww.ww.ww.",".ww.ww.ww.","..........",".ww.ww.ww.",".ww.ww.ww.","..........",".ww.ww.ww.",".ww.ww.ww.",".........."],
+potion:["...kkkk...","....kk....","....cc....","...cccc...","..cccccc..",".cccLcccc.",".cccLcccc.",".cccccccc.","..cccccc..","...kkkk..."],
+trophy:["kyyyyyyyyk","yyYyyyyyyy","y.yyyyyy.y",".y.yyyy.y.","..yyyyyy..","...yyyy...","....yy....","....yy....","..BBBBBB..","..bbbbbb.."],
 gnome:["....rr....","...rrrr...","..rrrrrr..","..ffffff..","..wkwwkw..",".wwwwwwww.","..wwwwww..","..bbbbbb..","..bbbbbb..","..kk..kk.."],
 scare:["...yyyy...","..yyyyyy..",".yyyyyyyy.","...ffff...","..fkffkf..","...ffff...","yyyBBBByyy","..yBBBBy..","...BBBB...","...bbbb..."],
 well:["...rrrr...","..rrrrrr..",".rr.bb.rr.","...b..b...","...b..b...","wwwwwwwwww","wwkkkkkkww","wwkcccckww","wwwwwwwwww",".........."],
@@ -244,7 +273,7 @@ function build(){
   if(!pl.u){h+='<div class="plot px" data-i="'+i+'" data-a="unlock"><div class="bed3 lk">'+svg("lock")+'</div><div class="nm">Закрыто</div><button class="ub" data-cost="'+UNLOCK[i]+'">'+cur("c",UNLOCK[i])+'</button></div>';return}
   if(pl.p===null){h+='<div class="plot px" data-i="'+i+'" data-a="plant"><div class="bed3"></div><div class="nm">Пусто</div><div class="hint">Нажми — посадить</div></div>';return}
   var p=PLANTS[pl.p];
-  h+='<div class="plot px" id="p'+i+'" data-i="'+i+'" data-a="water"><div class="bed3"><i class="sh"></i>'+psvg(p)+'</div><div class="nm">'+p.n+'</div><div class="rt" style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+'</div><div class="inc">+'+p.i+'/с'+ic("coin",11)+'</div><div class="bar"><i id="w'+i+'"></i></div><button class="x dig" data-i="'+i+'">Выкопать</button></div>';
+  h+='<div class="plot px m'+(pl.m||0)+'" id="p'+i+'" data-i="'+i+'" data-a="water"><div class="bed3"><i class="sh"></i>'+psvg(p)+'</div><div class="nm">'+p.n+'</div><div class="rt" style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+(pl.m?' <span style="color:'+MUT[pl.m].c+'">★'+MUT[pl.m].n+'</span>':'')+'</div><div class="inc">+'+Math.round(p.i*(pl.m?MUT[pl.m].m:1))+'/с'+ic("coin",11)+'</div><div class="bar"><i id="w'+i+'"></i></div><button class="x dig" data-i="'+i+'">Выкопать</button></div>';
  });
  grid.innerHTML=h;tick(0);
 }
@@ -255,8 +284,8 @@ function tick(dt){
  S.plots.forEach(function(pl,i){
   if(pl.p===null)return;var p=PLANTS[pl.p];
   if(id==="auto")pl.w=100;
-  if(pl.w>0&&dt>0){if(free)S.coins+=p.i*mult*dt;else{var dr=DRAIN*(wx&&wx.dr||1)*Math.max(.3,1-pb("wat")/100),use=Math.min(pl.w,dr*dt);S.coins+=p.i*mult*(use/dr);pl.w-=use}}
-  if(pl.w>0)inc+=p.i*mult;
+  if(pl.w>0&&dt>0){if(free)S.coins+=p.i*mult*mm(pl)*dt;else{var dr=DRAIN*(wx&&wx.dr||1)*Math.max(.3,1-pb("wat")/100)*(pl.m===2?.75:1),use=Math.min(pl.w,dr*dt);S.coins+=p.i*mult*mm(pl)*(use/dr);pl.w-=use}}
+  if(pl.w>0)inc+=p.i*mult*mm(pl);
   var w=$("w"+i),b=$("p"+i);if(w)w.style.width=pl.w+"%";if(b)b.classList.toggle("dry",pl.w<=0);
  });
  qc(S.coins-c0);S.xp+=(S.coins-c0)*.05*(1+pb("xp")/100);lvl();pfui();
@@ -309,11 +338,11 @@ sbox.addEventListener("click",function(e){
 grid.addEventListener("click",function(e){
  var d=e.target.closest(".dig");
  if(d){var i=+d.dataset.i,p=PLANTS[S.plots[i].p];
-  dlg("Выкопать?","«"+p.n+"» вернётся в сумку.","Выкопать","x",function(){sfx("dig");S.inv[p.id]=(S.inv[p.id]||0)+1;S.plots[i].p=null;S.plots[i].w=0;build();save()});return}
+  dlg("Выкопать?","«"+p.n+"» вернётся в сумку.","Выкопать","x",function(){sfx("dig");addInv(p.id,S.plots[i].m||0);S.plots[i].m=0;S.plots[i].p=null;S.plots[i].w=0;build();save()});return}
  var el=e.target.closest(".plot");if(!el)return;
  var i2=+el.dataset.i,a=el.dataset.a,pl=S.plots[i2];
  if(a==="water"){pl.w=100;qadd("w");S.xp+=3*(1+pb("xp")/100);sfx("water");drops(el);el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");setTimeout(function(){el.classList.remove("pop")},300);
-  var ch=.06*(S.buff&&S.buff.id==="luck"?3:1)*(W.cur?W.cur.g:1)*(1+pb("gem")/100);
+  var ch=.06*(S.buff&&S.buff.id==="luck"?3:1)*(W.cur?W.cur.g:1)*(1+pb("gem")/100)+(pl.m===3?.05:0);
   if(Math.random()<ch){var n=gemAmt();S.gems+=n;sfx("gem");toast("+"+n+ic("gem",14))}
   tick(0);save()}
  else if(a==="plant"){target=i2;showInv(i2)}
@@ -573,7 +602,7 @@ function showAuth(m){$("auth").classList.add("on");
 /* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
 var WK="https://farmbot.milkkofeyok.workers.dev";
 function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};return o}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};return o}
 var _fresh=fresh;fresh=function(){return fix(_fresh())};
 var _norm=norm;norm=function(o){return fix(_norm(o))};
 var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
@@ -624,6 +653,67 @@ function boot2(){var tg=window.Telegram&&Telegram.WebApp;if(tg){try{tg.ready();t
 var _sa=showAuth;showAuth=function(m){_sa(m);var tg=window.Telegram&&Telegram.WebApp;
  if(tg&&tg.initData){var r=document.querySelector("#abox .row"),b=document.createElement("button");b.id="atg";b.textContent="Telegram";r.appendChild(b);b.onclick=function(){try{localStorage.removeItem("ff_noauto")}catch(e){}boot2()}}};
 var _lo=logout;logout=function(){try{if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initData)localStorage.setItem("ff_noauto","1")}catch(e){}_lo()};
+/* ===== v7: мутации, магазин, новая навигация ===== */
+var MUT=[null,
+{n:"Золотой",c:"#e0a100",m:1.5,d:"доход ×1.5"},
+{n:"Алмазный",c:"#2fb3e8",m:2,d:"доход ×2, вода тратится на 25% медленнее"},
+{n:"Радужный",c:"#d6247a",m:3,d:"доход ×3, +5% шанс гема при поливе"},
+{n:"Шокированный",c:"#8a35c9",m:2.5,d:"доход ×2.5, молнии не страшны"}];
+function mm(pl){return pl.m?MUT[pl.m].m:1}
+function mmx(m){return m?MUT[m].m:1}
+function addInv(id,m,n){fix(S);n=n||1;if(m){var k=id+":"+m;S.minv[k]=(S.minv[k]||0)+n}else S.inv[id]=(S.inv[id]||0)+n}
+function takeInv(id,m){fix(S);if(m){var k=id+":"+m;if(S.minv[k]>0){S.minv[k]--;return true}}else if(S.inv[id]>0){S.inv[id]--;return true}return false}
+function rollMut(k){var r=Math.random(),c3=.004*k,c2=.012*k,c1=.04*k;if(r<c3)return 3;if(r<c3+c2)return 2;if(r<c3+c2+c1)return 1;return 0}
+function wxStrike(){var c=[];S.plots.forEach(function(pl){if(pl.p!==null&&pl.w>0&&pl.m!==4)c.push(pl)});
+ if(c.length){var t=rnd(c);if(t.m===1&&Math.random()<.35){t.m=4;sfx("rev",5);toast("Мутация: Шокированный!");build()}else{t.w=0;sfx("dig");toast("Молния! Грядка высохла")}}}
+var _ws=wxStart;wxStart=function(){_ws();if(W.cur&&W.cur.id==="bow"){var c=S.plots.filter(function(p){return p.p!==null&&!p.m});if(c.length&&Math.random()<.15){rnd(c).m=1;build();toast("Радуга позолотила растение!")}}};
+function invRows(){fix(S);var rows=[];PLANTS.forEach(function(p){var n=S.inv[p.id]||0;if(n)rows.push({p:p,m:0,n:n});for(var m=1;m<5;m++){var q=S.minv[p.id+":"+m]||0;if(q)rows.push({p:p,m:m,n:q})}});return rows}
+function showInv(pp){fix(S);var h;
+ if(pp>=0){var rows=invRows();h='<h2>Что посадить?</h2>';
+  rows.forEach(function(r){h+='<div class="seed"><div class="mut'+r.m+'" style="flex:none">'+psvg(r.p)+'</div><div class="in"><div>'+r.p.n+' ×'+r.n+'</div><div style="color:var(--'+RAR[r.p.r][1]+')">'+RAR[r.p.r][0]+'</div>'+(r.m?'<div style="color:'+MUT[r.m].c+'">★ '+MUT[r.m].n+'</div>':'')+'<div>+'+Math.round(r.p.i*mmx(r.m))+'/с</div></div><button class="plb2" data-id="'+r.p.id+'" data-m="'+r.m+'">Посадить</button></div>'});
+  if(!rows.length)h+='<div style="text-align:center;line-height:2;margin-bottom:10px">В сумке пусто.<br>Открой пак в магазине!</div><div class="row"><button id="gp">В магазин</button></div>';
+  open(h+closeBtn());$("no").onclick=closeS;if($("gp"))$("gp").onclick=function(){showShop(0)};
+  document.querySelectorAll(".plb2").forEach(function(b){b.onclick=function(){var id=+b.dataset.id,m=+b.dataset.m;if(target<0||!takeInv(id,m))return;var pl=S.plots[target];pl.p=id;pl.m=m;pl.w=100;target=-1;sfx("plant");closeS();build();save()}})}
+ else{var own=0,t='';
+  PLANTS.forEach(function(p){var n=S.inv[p.id]||0,ms=[];for(var m=1;m<5;m++){var q=S.minv[p.id+":"+m]||0;if(q){n+=q;ms.push(MUT[m].n+" ×"+q)}}
+   if(n)own++;
+   t+='<div class="seed">'+(n?psvg(p):'<span style="filter:brightness(0);opacity:.4">'+psvg(p)+'</span>')+'<div class="in"><div>'+(n?p.n+' ×'+n:"???")+'</div><div style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+'</div>'+(n?'<div>+'+p.i+'/с</div>':'')+(ms.length?'<div style="color:var(--muted)">★ '+ms.join(", ")+'</div>':'')+'</div></div>'});
+  open('<h2>Сумка · '+own+'/'+PLANTS.length+'</h2>'+t+closeBtn());$("no").onclick=closeS}}
+function openPack(k){var P=PACKS[k],c=P.cur==="g"?"gems":"coins";if(S[c]<P.cost)return;S[c]-=P.cost;fix(S);
+ var rr=pick(P.w),pl=rnd(PLANTS.filter(function(p){return p.r===rr})),m=rollMut([1,2,4][k]||1);
+ addInv(pl.id,m);var gm=Math.random()<P.g?gemAmt():0;S.gems+=gm;S.xp+=20;qadd("o");save();sfx("open");setTimeout(function(){sfx("rev",m?5:pl.r)},350);
+ open('<h2>Выпало!</h2><div style="text-align:center"><div class="rv mut'+m+'">'+psvg(pl,"spr big")+'</div><div style="font-size:10px">'+pl.n+'</div>'+(m?'<div style="color:'+MUT[m].c+';margin:6px">★ '+MUT[m].n+'</div><div class="hint" style="line-height:1.8">'+MUT[m].d+'</div>':'')+'<div style="color:var(--'+RAR[pl.r][1]+');margin:6px">'+RAR[pl.r][0]+' · +'+Math.round(pl.i*mmx(m))+'/с</div>'+(gm?'<div style="display:flex;justify-content:center;align-items:center;gap:5px">+'+gm+ic("gem",14)+'</div>':'')+'</div><div class="row"><button class="g" id="no">Ок</button><button class="pb" id="again" data-k="'+k+'" data-cost="'+P.cost+'" data-cur="'+P.cur+'">Ещё '+cur(P.cur,P.cost)+'</button></div>');
+ $("no").onclick=closeS;$("again").onclick=function(){openPack(k)}}
+function showShop(t){t=t||0;var h='<h2>Магазин</h2><div class="seg">';
+ ["Паки","Яйца","Питомцы"].forEach(function(n,i){h+='<button data-t="'+i+'"'+(i===t?'':' class="g"')+'>'+n+'</button>'});
+ h+='</div>';
+ if(t===0){h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Из паков могут выпасть мутации растений</div>';
+  PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'})}
+ else if(t===1){EGGS.forEach(function(e,k){h+='<div class="seed">'+svg("egg",null,e.pal)+'<div class="in"><div>'+e.n+'</div><div style="color:var(--muted)">'+e.hi+'</div></div><button class="eb" data-k="'+k+'" data-cost="'+e.cost+'" data-cur="'+e.cur+'">'+cur(e.cur,e.cost)+'</button></div>'})}
+ else{h+='<div class="hint" style="margin-bottom:12px">Питомцы за коины</div>';PETS.forEach(function(p){if(p.r>2)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')})}
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){showShop(+b.dataset.t)}});
+ document.querySelectorAll(".eb").forEach(function(x){x.onclick=function(){if(!x.disabled)openEgg(+x.dataset.k)}});
+ document.querySelectorAll(".pt").forEach(function(x){x.onclick=function(){var p=PETS[+x.dataset.id];if(x.disabled||S.coins<PP[p.r])return;S.coins-=PP[p.r];S.pets[p.id]=(S.pets[p.id]||0)+1;S.xp+=10;save();sfx("unlock");toast("Куплен: "+p.n);showShop(2)}})}
+showPacks=function(){showShop(0)};showPetShop=function(){showShop(1)};
+function showMuts(){var h='<h2>Мутации</h2><div class="hint" style="line-height:1.9;margin-bottom:12px">Мутации усиливают растение. Выпадают из паков с небольшим шансом, а золотой и шокированный ещё и от погоды.</div>';
+ var how=["Паки (чаще из сундуков)","Паки, редко","Паки, очень редко","Золотой + гроза: молния может превратить растение"];
+ for(var i=1;i<5;i++)h+='<div class="seed"><div class="in"><div style="color:'+MUT[i].c+'">★ '+MUT[i].n+'</div><div>'+MUT[i].d+'</div><div style="color:var(--muted)">'+how[i-1]+'</div></div></div>';
+ h+='<div class="hint" style="line-height:1.9">Ещё: во время Радуги одно растение может стать золотым</div>';
+ open(h+closeBtn());$("no").onclick=closeS}
+function showMore(){var h='<h2>Ещё</h2><div class="tg">';
+ var T=[["buff","potion","Баффы",{c:"#a855f7",L:"#e9d5ff"}],["lb","trophy","Рейтинг"],["dec","gnome","Декор"],["mut","paw","Мутации"],["mus","note","Музыка: "+(AS.m?"вкл":"выкл"),{w:AS.m?"#2e9e4f":"#9a8a70"}],["snd","spk","Звуки: "+(AS.s?"вкл":"выкл"),{w:AS.s?"#2e9e4f":"#9a8a70"}]];
+ T.forEach(function(x){h+='<button class="tl2" data-k="'+x[0]+'">'+svg(x[1],"",x[3])+'<span>'+x[2]+'</span></button>'});
+ open(h+'</div>'+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".tl2").forEach(function(b){b.onclick=function(){var k=b.dataset.k;
+  if(k==="buff")showBuffs();else if(k==="lb")showLB();else if(k==="dec")showDec();else if(k==="mut")showMuts();
+  else if(k==="mus"){$("tm").click();showMore()}else if(k==="snd"){$("ts").click();showMore()}}})}
+(function(){var N=[["shop","shop","Магазин","#d97706",showShop],["bag","bag","Сумка","#8a5c2b",function(){showInv(-1)}],["pets","paw","Питомцы","#c2307a",showPets],["quests","scroll","Задания","#2e9e4f",showQuests],["more","more","Ещё","#4a6fd8",showMore]];
+ var h="";N.forEach(function(n){h+='<button data-n="'+n[0]+'" style="background:'+n[3]+'">'+svg(n[1],"",n[1]==="scroll"?{G:"#2e9e4f"}:null)+'<span>'+n[2]+'</span><i class="bd"></i></button>'});
+ $("nav").innerHTML=h;
+ document.querySelectorAll("#nav button").forEach(function(b,i){b.onclick=function(){N[i][4]()}})})();
+function nbadge(){var b=document.querySelector('#nav [data-n="quests"] .bd');if(!b||!ME)return;var on=false;try{on=drInfo().ok;QS.forEach(function(q,i){if(S.q[q.k]>=q.n&&!S.q.k[i])on=true})}catch(e){}b.style.display=on?"block":"none"}
+setInterval(nbadge,1500);
 boot2();
 </script>
 </body>
