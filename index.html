@@ -104,6 +104,43 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 .top2{padding:0 0 4px}
 .tabs{flex-wrap:wrap}
 .tabs{display:none!important}
+.evh{padding:12px 8px;margin:0 4px 14px;background:linear-gradient(#3a1a5a,#150a22);color:#ffd23f;text-align:center;box-shadow:0 0 0 4px var(--ink)}
+.evt{font-size:15px;color:#ff8a1a;text-shadow:2px 2px 0 #000;margin-bottom:8px}
+.evh .xb{margin:6px 8px}
+.hwr{display:flex;gap:8px;margin:0 4px 16px;align-items:stretch}
+.hwn{width:26px;flex:none;display:flex;align-items:center;justify-content:center;background:#3a1a5a;color:#ffd23f;font-size:8px;box-shadow:0 0 0 3px var(--ink)}
+.hwcell{flex:1;min-width:0;padding:8px 4px;background:var(--bg);box-shadow:0 0 0 3px var(--ink);text-align:center;font-size:7px;line-height:1.7}
+.hwcell.vip{background:#3a1a5a;color:#ffd23f}
+.hwcell.got{opacity:.55}
+.hwi{display:flex;justify-content:center;gap:4px;margin-bottom:4px;flex-wrap:wrap}
+.hwcell svg,.hwcell svg.spr{width:34px!important;height:34px!important}
+.hwcell button{margin:4px 0 0;font-size:7px;padding:6px 6px}
+.hwc{position:relative;height:270px;margin:6px 4px 12px;background:radial-gradient(circle at 50% 70%,#3a1a5a,#150a22);box-shadow:0 0 0 4px var(--ink);overflow:hidden}
+.hwc .cs{position:absolute;left:50%;bottom:78px;margin-left:-64px}
+.hwc .cs svg{width:128px;height:128px}
+.cs.c1{animation:shk 1s linear 1 both}
+.cs.c2{opacity:0;animation:sh2 0s 1s forwards}
+@keyframes sh2{to{opacity:1}}
+@keyframes shk{0%{transform:translate(0,0) rotate(0)}8%{transform:translate(-5px,0) rotate(-4deg)}16%{transform:translate(5px,0) rotate(4deg)}24%{transform:translate(-6px,-3px) rotate(-5deg)}32%{transform:translate(6px,-3px) rotate(5deg)}44%{transform:translate(-6px,-6px) rotate(-5deg)}56%{transform:translate(6px,-6px) rotate(5deg)}70%{transform:translate(-7px,-8px) rotate(-6deg)}84%{transform:translate(7px,-8px) rotate(6deg)}99%{opacity:1;transform:translate(0,-10px)}100%{opacity:0;transform:none}}
+.hwc .gl{position:absolute;left:50%;bottom:40px;width:230px;height:230px;margin-left:-115px;border-radius:50%;background:radial-gradient(circle,var(--gc,#ffd23f) 0,rgba(255,170,60,.35) 40%,transparent 70%);opacity:0;animation:gl 1.6s 1s ease-out forwards}
+@keyframes gl{0%{opacity:0;transform:scale(.2)}30%{opacity:1;transform:scale(1.1)}100%{opacity:.4;transform:scale(1)}}
+.hwc .ptc{position:absolute;left:50%;bottom:140px;width:6px;height:6px;opacity:0;animation:ptc .9s 1s ease-out forwards}
+@keyframes ptc{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+.hwc .itm{position:absolute;left:50%;bottom:6px;margin-left:-40px;opacity:0;animation:itm 1.9s 1.05s forwards}
+.hwc .itm svg,.hwc .itm svg.spr{width:80px;height:80px}
+@keyframes itm{0%{opacity:1;transform:translate(0,-100px) scale(.3) rotate(0);animation-timing-function:cubic-bezier(.2,.8,.4,1)}
+35%{opacity:1;transform:translate(0,-190px) scale(1.25) rotate(360deg);animation-timing-function:cubic-bezier(.6,0,.9,.4)}
+62%{opacity:1;transform:translate(0,0) scale(1) rotate(720deg);animation-timing-function:ease-out}
+74%{opacity:1;transform:translate(0,-34px) scale(1) rotate(720deg);animation-timing-function:ease-in}
+86%{opacity:1;transform:translate(0,0) scale(1) rotate(720deg);animation-timing-function:ease-out}
+93%{opacity:1;transform:translate(0,-12px) scale(1) rotate(720deg);animation-timing-function:ease-in}
+100%{opacity:1;transform:translate(0,0) scale(1) rotate(720deg)}}
+.hwc .bt{position:absolute;top:18px;left:-40px;opacity:.9;animation:bt 3.2s linear infinite}
+.hwc .bt svg{width:34px;height:34px}
+@keyframes bt{0%{transform:translate(0,0)}25%{transform:translate(90px,14px)}50%{transform:translate(190px,-4px)}75%{transform:translate(290px,12px)}100%{transform:translate(420px,0)}}
+.fin{opacity:0;pointer-events:none}
+.fin.on{opacity:1;pointer-events:auto;transition:opacity .4s}
+
 .wrap{padding-bottom:120px!important}
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;justify-content:center;gap:8px;padding:12px 10px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);box-shadow:0 -4px 0 0 var(--ink)}
 .nav button{flex:1;max-width:80px;flex-direction:column;gap:5px;padding:7px 2px 6px;margin:0;font-size:6px;position:relative}
@@ -495,14 +532,14 @@ function showPetShop(){
  var h='<h2>Магазин питомцев</h2><div class="hint" style="margin-bottom:12px">Яйца</div>';
  EGGS.forEach(function(e,k){h+='<div class="seed">'+svg("egg",null,e.pal)+'<div class="in"><div>'+e.n+'</div><div style="color:var(--muted)">'+e.hi+'</div></div><button class="eb" data-k="'+k+'" data-cost="'+e.cost+'" data-cur="'+e.cur+'">'+cur(e.cur,e.cost)+'</button></div>'});
  h+='<div class="hint" style="margin:6px 0 12px">Питомцы за коины</div>';
- PETS.forEach(function(p){if(p.r>2)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')});
+ PETS.forEach(function(p){if(p.r>2||p.ev)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')});
  open(h+'<div class="row"><button class="g" id="back">Назад</button></div>');
  $("back").onclick=showPets;
  document.querySelectorAll(".eb").forEach(function(x){x.onclick=function(){if(!x.disabled)openEgg(+x.dataset.k)}});
  document.querySelectorAll(".pt").forEach(function(x){x.onclick=function(){var p=PETS[+x.dataset.id];if(x.disabled||S.coins<PP[p.r])return;S.coins-=PP[p.r];S.pets[p.id]=(S.pets[p.id]||0)+1;S.xp+=10;save();sfx("unlock");toast("Куплен: "+p.n);showPetShop()}})}
 function openEgg(k){
  var E=EGGS[k],c=E.cur==="g"?"gems":"coins";if(S[c]<E.cost)return;S[c]-=E.cost;
- var rr=pick(E.w),p=rnd(PETS.filter(function(x){return x.r===rr}));
+ var rr=pick(E.w),p=rnd(PETS.filter(function(x){return x.r===rr&&!x.ev}));
  S.pets[p.id]=(S.pets[p.id]||0)+1;S.xp+=15;qadd("o");save();sfx("open");setTimeout(function(){sfx("rev",p.r)},350);
  open('<h2>Из яйца вылупился!</h2><div style="text-align:center"><div class="rv">'+psv(p,"spr big")+'</div><div style="font-size:10px">'+p.n+'</div><div style="color:var(--'+RAR[p.r][1]+');margin:6px">'+RAR[p.r][0]+'</div><div style="line-height:1.8">'+bt(p)+'</div></div><div class="row"><button class="g" id="back">К магазину</button><button class="eb" id="again" data-cost="'+E.cost+'" data-cur="'+E.cur+'">Ещё '+cur(E.cur,E.cost)+'</button></div>');
  $("back").onclick=showPetShop;$("again").onclick=function(){if(!this.disabled)openEgg(k)}}
@@ -603,7 +640,7 @@ function showAuth(m){$("auth").classList.add("on");
 /* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
 var WK="https://farmbot.milkkofeyok.workers.dev";
 function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};return o}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};return o}
 var _fresh=fresh;fresh=function(){return fix(_fresh())};
 var _norm=norm;norm=function(o){return fix(_norm(o))};
 var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
@@ -616,8 +653,8 @@ var DR=[{c:100},{g:2},{c:300},{pet:0},{g:5},{c:600},{g:10,pl:1}];
 function drInfo(){fix(S);var t=today(),y=new Date();y.setDate(y.getDate()-1);var ok=S.dr.d!==t,st=S.dr.st;if(ok&&S.dr.d!==today(y))st=0;return{ok:ok,st:st,t:t}}
 function rtxt(r){var a=[];if(r.c)a.push(fmt(r.c)+" коинов");if(r.g)a.push(r.g+" гемов");if(r.pet!=null)a.push("питомец");if(r.pl)a.push("растение");return a.join(" + ")}
 function giveR(r){if(r.c)S.coins+=r.c;if(r.g)S.gems+=r.g;
- if(r.pet!=null){var p=rnd(PETS.filter(function(x){return x.r===r.pet}));S.pets[p.id]=(S.pets[p.id]||0)+1;toast("Питомец: "+p.n)}
- if(r.pl){var pl=rnd(PLANTS.filter(function(x){return x.r===r.pl}));S.inv[pl.id]=(S.inv[pl.id]||0)+1;toast("Растение: "+pl.n)}}
+ if(r.pet!=null){var p=rnd(PETS.filter(function(x){return x.r===r.pet&&!x.ev}));S.pets[p.id]=(S.pets[p.id]||0)+1;toast("Питомец: "+p.n)}
+ if(r.pl){var pl=rnd(PLANTS.filter(function(x){return x.r===r.pl&&!x.ev}));S.inv[pl.id]=(S.inv[pl.id]||0)+1;toast("Растение: "+pl.n)}}
 function showQuests(){qday();var di=drInfo(),day=di.st%7,h='<h2>Награды и задания</h2><div class="hint" style="margin-bottom:10px">Ежедневная награда · день '+(day+1)+'/7</div>';
  h+='<div class="seed"><div class="in"><div>'+rtxt(DR[day])+'</div><div style="color:var(--muted)">'+(di.ok?"Можно забрать!":"Приходи завтра")+'</div></div><button id="drb"'+(di.ok?"":" disabled")+'>Забрать</button></div><div class="hint" style="margin:10px 0">Задания дня</div>';
  QS.forEach(function(q,i){var v=Math.min(q.n,Math.floor(S.q[q.k])),done=S.q[q.k]>=q.n,k=S.q.k[i];
@@ -701,6 +738,24 @@ SPR.pet16=["................", "........kkkk....", ".......kaaaakk..", "......ka
 SPR.pet17=["ak.k..........k.", "kbkbk.....k..kck", "kdbabk...kck.kck", ".kdbbdk..kcckcck", "..kdbbakkkceecck", "kk.kbbaaakeeeek.", "fak.kbfafeeefgek", "ek.kfefefeeeeebe", "ek.kffffffeeeeea", "kekfffeeeeeeekfe", "kekeeehhhhheekka", ".keeehhhhhhhek.k", "..keehhhhhhhk...", "...kkehhhhhk....", "....kbbkkbbk....", ".....kk..kk....."];PALS.pet17={"a": "#ff7a1a", "b": "#e0a100", "c": "#fff", "d": "#ffa84a", "e": "#ffd23f", "f": "#ff3b30", "g": "#ff9a8a", "h": "#fff0a0", "k": "#2b1d0e"};
 SPR.mutic=["....yy....","...yYYy...","...yYYy...",".c.yYYy.p.","ccyYYYYypp","ccyYYYYypp",".c.yYYy.p.","...yYYy...","...yYYy...","....yy...."];
 PLANTS.forEach(function(p){p.s="plant"+p.id;p.pal=null});PETS.forEach(function(p){p.s="pet"+p.id;p.pal=null});
+/* спрайты Хэллоуина */
+SPR.plant26=["................", ".......kk....k..", "......kabk..kck.", "......kbbbkkcck.", "......kbbcccdkk.", "....kkkbbkdcdddk", "...keefghgfedkk.", "..keegfghgfgeek.", ".keegiighgfggeek", ".keegifghgfggeek", "keeeigfghggfgeee", ".keegfgghggfgeek", ".keegfgghggfgeek", "..keefgghggfeek.", "..kffffffffffk..", "...kkkkkkkkkk..."];PALS.plant26={"a": "#8ab03a", "b": "#5a7a22", "c": "#3f9e3a", "d": "#6fd05a", "e": "#e86a0a", "f": "#a84a06", "g": "#ff8a1a", "h": "#cf5a08", "i": "#ffb85a", "k": "#2b1d0e"};
+SPR.plant27=[".......kak......", "..k....kaak.....", ".kbk...kckak....", "kbdbk..kckk...k.", ".kbk..kacak..kbk", "..k...kccak.kbdb", ".....kaccaak.kbk", "....kkkefekkk.k.", "....kkkeeekkk...", "..kkkggghgggkkk.", ".kghhhhhhhhhhhgk", ".kgggggghggggggk", "..kkkgggggggkkk.", "..kijjkjjjijjjk.", "..kjjjkjjkkjkk..", "...kkk.kk..k...."];PALS.plant27={"a": "#7a3ab8", "b": "#c9a8ff", "c": "#a870e8", "d": "#fff", "e": "#ffd23f", "f": "#fff3a0", "g": "#4a1f78", "h": "#5a2a98", "i": "#6fd05a", "j": "#3f9e3a", "k": "#2b1d0e"};
+SPR.plant28=["................", "......k.k.k.....", "....kkakakakk...", "...kakbcbkbkak..", "..kkcbbdbbbcbkk.", ".kabbbbbbbdbbbak", "..kkbbdbddbdckk.", ".kabbbbdeddbbbak", "..kkbbbeeebbbkk.", "..k.kkkfekkkkgk.", ".khk..khfk..kgk.", ".khk..kffk..kik.", "..khk.kffk.kjijk", "..khhkkffkkljimj", "...khkkffkkjkkkj", "....k..kk..k...k"];PALS.plant28={"a": "#ff7a8a", "b": "#e8203a", "c": "#7a2a08", "d": "#ffc0c8", "e": "#a01228", "f": "#2d7a2d", "g": "#d8d8e8", "h": "#3f9e3a", "i": "#4a2a6a", "j": "#6a4a8a", "l": "#6fd05a", "m": "#fff", "k": "#2b1d0e"};
+SPR.plant29=["....kakkaakkak..", "..kkkaaaaaaak.k.", ".kaaaabbbbbakkak", "..kaabbbbbbbaaak", ".kkkbbbccccdbak.", "kaaadbcekkfcbk..", ".kkbbdcfkkfcbbk.", "...kbbcfkgfcdhhk", "...kbddccccbbkk.", ".kkhhbbbbbbbhk.k", "kikkkkbbbbbhhkkj", "kiik.khkihkkkkjj", ".kiik.kkihk.kjjk", ".kiik..kik..kjjk", "..kkik.kik.kjkk.", "....k...k...k..."];PALS.plant29={"a": "#a870e8", "b": "#ffffff", "c": "#7ad03a", "d": "#e63946", "e": "#fff", "f": "#3a9a2a", "g": "#d8ffb0", "h": "#7a3aa8", "i": "#3f9e3a", "j": "#6fd05a", "k": "#2b1d0e"};
+SPR.plant30=["..k...kkkkk.....", ".kakkkbbbbbkk.k.", "kacabbbdddbbbkak", ".kabbbbdddbbbaca", ".kbbbdddddddbbak", ".kbdddddddddddbk", ".kbbddkkdkkddbbk", "kbbbddkkeekddbbb", ".kbbbfeeeeefbbbk", ".kbbbeeekeeebbbk", ".kbbbbbeeebbbbbk", "..kbbbbeeebbbbk.", "...kbbebebebbak.", "....kkebebekacak", "....kekkekkekak.", "....kek.k..k.k.."];PALS.plant30={"a": "#9ad0ff", "b": "#d8efff", "c": "#fff", "d": "#f4fcff", "e": "#bfe6ff", "f": "#ffc0e0", "k": "#2b1d0e"};
+SPR.plant31=[".......kak......", "...k..kbbbk..k..", "..kckkdbbbkkkek.", "..keccdffbkccck.", "...kcckffggcckk.", "..kkkhkffikhkkjk", ".kjllhiffiihllk.", ".kllihiiiiihillk", ".kllhjjiiijjhllk", "kllljjjjjjjjjlll", "klllhiiijjiihlll", "kllljkjkjkjkjlll", ".klhjkjkjkjkjhlk", ".klhlkikikiklhlk", "..kmmmmmmmmmmhk.", "...kkkkkkkkkkk.."];PALS.plant31={"a": "#e8c8ff", "b": "#a855f7", "c": "#7a3ab8", "d": "#8ab03a", "e": "#fff", "f": "#5a7a22", "g": "#3f9e3a", "h": "#c04a00", "i": "#ff7a10", "j": "#ffe55a", "l": "#d85a00", "m": "#a84a06", "k": "#2b1d0e"};
+SPR.pet18=["....kaaaaaak....", "....kaabaaaak...", "...kaaccccak....", "....kdeedeedk...", "....kdefdefdk...", ".....kdddddk..kk", "....kgdhehdkkkdc", "...kkgggggdddddd", "..kdddigggdddddd", ".kccddgiiggkkkdd", ".kcckggggggk..kk", ".kcckjjljjjk....", "..kkkjjljjjk....", "....kjjljjjk....", "...kmmmkkmmmk...", "....kkk..kkk...."];PALS.pet18={"a": "#2b2b2b", "b": "#ffa0a0", "c": "#5f9a3a", "d": "#8fd05a", "e": "#fff", "f": "#e63946", "g": "#3a6fd8", "h": "#3a2a2a", "i": "#2a4fa8", "j": "#6b4a2a", "l": "#4a3018", "m": "#2b2b3a", "k": "#2b1d0e"};
+SPR.pet19=["................", "......k...k.....", ".k...kak.kak...k", "kkk..kbk.kbk..kk", ".kkk.kbbkbbk.kkk", "..kkkkkbbbkkkkk.", "..kckkbdbdbkkck.", "..keccbbbbbcck..", "...kkkkfbfkkk...", "......kbbbk.....", "......kbbbk.....", "......kbbbk.....", "......kgbgk.....", ".......kkk......", "................", "................"];PALS.pet19={"a": "#ff9ac0", "b": "#5a3a7a", "c": "#7a5aa0", "d": "#ff3b30", "e": "#3a2060", "f": "#fff", "g": "#e8c8a0", "k": "#2b1d0e"};
+SPR.pet20=[".......kkk......", "......kaaak.....", ".....kaaaaak....", "....kakkakkak...", "....kakkakkak...", ".....kaakaak....", ".....kkbkbkk....", "....kaaacaaak...", "....kakkakkbak..", "...kaaaaaaaaak..", "...kabkkakkbkak.", "..kakaaaaaaakak.", "..kakbaaaaabkak.", "...kkaaaaaak.k..", "....kaakkaak....", "...kbbbkkbbbk..."];PALS.pet20={"a": "#f4f0e0", "b": "#c8c4b0", "c": "#e63946", "k": "#2b1d0e"};
+SPR.pet21=["................", "................", "................", ".......kkk......", ".....kkaaakk....", "....kabaaaaak...", "...kabbaaaaaak..", "...kabbaaaaaak..", "..kaabbaaaaaaak.", "..kabccaaccaaak.", ".kaaackaackaaaak", ".kaaacdaacdaefak", "..kaaaadddaeaffk", ".kaaeaaaaaaffak.", ".kaakaaaaaaakak.", "..kk.kkkkkkk.k.."];PALS.pet21={"a": "#5ae05a", "b": "#c8ffc8", "c": "#fff", "d": "#1f7a1f", "e": "#9affaa", "f": "#f4f0e0", "k": "#2b1d0e"};
+SPR.pet22=[".k......k.....k.", "kak..kkkbkkk.kak", "acakkbbbbbbbkaca", "kakkbbbbbbbddkak", ".k.kbbbbbbbddkk.", "...kbbcbbbcddk..", "..kbbkkkbkkkddk.", "..kbbbkbbbkbddk.", ".kbbebbbkbbbedkk", "kbbbbbbkkkbbdbbb", ".kbbbbbkkkbbdbbb", "..kbbbbbkbbbddkk", "..kbbbbbbbbbddk.", "..kbbkbbkbbkbbk.", "...kk.kk.kk.kk..", "................"];PALS.pet22={"a": "#9ad0ff", "b": "#ffffff", "c": "#fff", "d": "#cfe0ff", "e": "#ffc0e0", "k": "#2b1d0e"};
+SPR.pet23=[".....kkkkkk.kak.", "....kbbbaaakakk.", "....kaaabbbakkbk", "....kkcdkcdkbbk.", "....kkcckcckkk..", "....kbbbbaaak...", "...kaaaaaaaak.kk", "...kbbbbbbbbkkbb", "...kaaaaaaaaaabb", "...kbbbbbbbbaabb", "...kaaaaaaaakkbb", "...kbbbbbbbbk.kk", "..kbaaaaaabak...", ".kbkabbbbbbbk...", "kbkakaakkaabk...", ".kakbbbkkbbbbk.."];PALS.pet23={"a": "#eadfb8", "b": "#cdbf90", "c": "#ffd23f", "d": "#fff", "k": "#2b1d0e"};
+SPR.pet24=["ak.k.......kak..", "kbkbk......kakk.", "kcbdbk....kackek", ".kdfdck..keccaek", "..kdbbakkkeeceek", "kk.kbbaaaaeggeek", "hik.kbhahgggkggk", "gk.khghghgggjfgg", "gk.khhhhhgggggbg", "kgkhhhgggggggggi", "kgkgggdddddggkhk", ".kgggdddddddglki", "..kggdddddddkk.k", "...kkgdddddk....", "....kbbkkbbk....", ".....kk..kk....."];PALS.pet24={"a": "#3a1a5a", "b": "#4a2278", "c": "#a855f7", "d": "#d0a8ff", "e": "#ffd23f", "f": "#fff", "g": "#7a3aa8", "h": "#e63ad0", "i": "#d060ff", "j": "#ffe55a", "l": "#ff9aff", "k": "#2b1d0e"};
+SPR.chA=["................", "................", "................", "....kkkkkkkkk...", ".kkkabbbbbbbakk.", "kbbbbbbbbbbbbbbk", "kaaaabbbbbbbaaaa", "kcccccccccccccck", "kaaaaaaaaaaaaaak", "kcccccaaaaacccck", "kcddddddddddddck", "kcddeeddddeeddck", "kcdddfefeffdddck", "kccccffffffcccck", "kcggggggggggggck", ".kkkkkkkkkkkkkk."];PALS.chA={"a": "#e86a0a", "b": "#ffb85a", "c": "#3a2a1a", "d": "#c8561a", "e": "#ffe55a", "f": "#a04010", "g": "#1a1010", "k": "#2b1d0e"};
+SPR.chAo=[".............kk.", "........kkkkkaak", "..kkkkkkaaaaaaak", ".kaaaaaaabbbbaak", ".kaabbbbbbbbbaak", ".kaabbbbbbbkkkk.", ".kaabbbcccccck..", ".kaaccccccccckk.", "kdccccccccccccdk", "kdccccccccccccdk", "kdeeeeeeeeeeeedk", "kdeeffeeeeffeedk", "kdeeegfgfggeeedk", "kddddggggggddddk", "kdhhhhhhhhhhhhdk", ".kkkkkkkkkkkkkk."];PALS.chAo={"a": "#ffb85a", "b": "#e86a0a", "c": "#ffe27a", "d": "#3a2a1a", "e": "#c8561a", "f": "#ffe55a", "g": "#a04010", "h": "#1a1010", "k": "#2b1d0e"};
+SPR.chB=["................", "................", "................", "....kkkkkkkkk...", ".kkkabbbbbbbakk.", "kbbbbbbbbbbbbbbk", "kaaaabbbbbbbaaaa", "kcccccccccccccck", "kaaaaaaaaaaaaaak", "kcccccaaaaacccck", "kcdeeeefffeeedck", "kceeeekkfkkeeeck", "kceeeeffkffeeeck", "kcdccccgggcccdck", "kchhhhhhhhhhhhck", ".kkkkkkkkkkkkkk."];PALS.chB={"a": "#4a2a78", "b": "#a870e8", "c": "#8a8aa0", "d": "#c9a8ff", "e": "#3a2a5a", "f": "#f4f0e0", "g": "#c8c4b0", "h": "#1a1010", "k": "#2b1d0e"};
+SPR.chBo=[".............kk.", "........kkkkkaak", "..kkkkkkaaaaaaak", ".kaaaaaaabbbbaak", ".kaabbbbbbbbbaak", ".kaabbbbbbbkkkk.", ".kaabbbcccccck..", ".kaaccccccccckk.", "kdccccccccccccdk", "kdccccccccccccdk", "kdeffffgggfffedk", "kdffffkkgkkfffdk", "kdffffggkggfffdk", "kdeddddhhhdddedk", "kdiiiiiiiiiiiidk", ".kkkkkkkkkkkkkk."];PALS.chBo={"a": "#a870e8", "b": "#4a2a78", "c": "#d080ff", "d": "#8a8aa0", "e": "#c9a8ff", "f": "#3a2a5a", "g": "#f4f0e0", "h": "#c8c4b0", "i": "#1a1010", "k": "#2b1d0e"};
 /* ===== v7: мутации, магазин, новая навигация ===== */
 var MUT=[null,
 {n:"Золотой",c:"#e0a100",m:1.5,d:"доход ×1.5"},
@@ -721,14 +776,14 @@ function showInv(pp){fix(S);var h;
   rows.forEach(function(r){h+='<div class="seed"><div class="mut'+r.m+'" style="flex:none">'+psvg(r.p)+'</div><div class="in"><div>'+r.p.n+' ×'+r.n+'</div><div style="color:var(--'+RAR[r.p.r][1]+')">'+RAR[r.p.r][0]+'</div>'+(r.m?'<div style="color:'+MUT[r.m].c+'">★ '+MUT[r.m].n+'</div>':'')+'<div>+'+Math.round(r.p.i*mmx(r.m))+'/с</div></div><button class="plb2" data-id="'+r.p.id+'" data-m="'+r.m+'">Посадить</button></div>'});
   if(!rows.length)h+='<div style="text-align:center;line-height:2;margin-bottom:10px">В сумке пусто.<br>Открой пак в магазине!</div><div class="row"><button id="gp">В магазин</button></div>';
   open(h+closeBtn());$("no").onclick=closeS;if($("gp"))$("gp").onclick=function(){showShop(0)};
-  document.querySelectorAll(".plb2").forEach(function(b){b.onclick=function(){var id=+b.dataset.id,m=+b.dataset.m;if(target<0||!takeInv(id,m))return;var pl=S.plots[target];pl.p=id;pl.m=m;pl.w=100;target=-1;sfx("plant");closeS();build();save()}})}
+  document.querySelectorAll(".plb2").forEach(function(b){b.onclick=function(){var id=+b.dataset.id,m=+b.dataset.m;if(target<0||!takeInv(id,m))return;var pl=S.plots[target];pl.p=id;pl.m=m;pl.w=100;target=-1;hct("pl");sfx("plant");closeS();build();save()}})}
  else{var own=0,t='';
   PLANTS.forEach(function(p){var n=S.inv[p.id]||0,ms=[];for(var m=1;m<5;m++){var q=S.minv[p.id+":"+m]||0;if(q){n+=q;ms.push(MUT[m].n+" ×"+q)}}
    if(n)own++;
    t+='<div class="seed">'+(n?psvg(p):'<span style="filter:brightness(0);opacity:.4">'+psvg(p)+'</span>')+'<div class="in"><div>'+(n?p.n+' ×'+n:"???")+'</div><div style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+'</div>'+(n?'<div>+'+p.i+'/с</div>':'')+(ms.length?'<div style="color:var(--muted)">★ '+ms.join(", ")+'</div>':'')+'</div></div>'});
   open('<h2>Сумка · '+own+'/'+PLANTS.length+'</h2>'+t+closeBtn());$("no").onclick=closeS}}
 function openPack(k){var P=PACKS[k],c=P.cur==="g"?"gems":"coins";if(S[c]<P.cost)return;S[c]-=P.cost;fix(S);
- var rr=pick(P.w),pl=rnd(PLANTS.filter(function(p){return p.r===rr})),m=rollMut([1,2,4][k]||1);
+ var rr=pick(P.w),pl=rnd(PLANTS.filter(function(p){return p.r===rr&&!p.ev})),m=rollMut([1,2,4][k]||1);
  addInv(pl.id,m);var gm=Math.random()<P.g?gemAmt():0;S.gems+=gm;S.xp+=20;qadd("o");save();sfx("open");setTimeout(function(){sfx("rev",m?5:pl.r)},350);
  open('<h2>Выпало!</h2><div style="text-align:center"><div class="rv mut'+m+'">'+psvg(pl,"spr big")+'</div><div style="font-size:10px">'+pl.n+'</div>'+(m?'<div style="color:'+MUT[m].c+';margin:6px">★ '+MUT[m].n+'</div><div class="hint" style="line-height:1.8">'+MUT[m].d+'</div>':'')+'<div style="color:var(--'+RAR[pl.r][1]+');margin:6px">'+RAR[pl.r][0]+' · +'+Math.round(pl.i*mmx(m))+'/с</div>'+(gm?'<div style="display:flex;justify-content:center;align-items:center;gap:5px">+'+gm+ic("gem",14)+'</div>':'')+'</div><div class="row"><button class="g" id="no">Ок</button><button class="pb" id="again" data-k="'+k+'" data-cost="'+P.cost+'" data-cur="'+P.cur+'">Ещё '+cur(P.cur,P.cost)+'</button></div>');
  $("no").onclick=closeS;$("again").onclick=function(){openPack(k)}}
@@ -738,7 +793,7 @@ function showShop(t){t=t||0;var h='<h2>Магазин</h2><div class="seg">';
  if(t===0){h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Из паков могут выпасть мутации растений</div>';
   PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'})}
  else if(t===1){EGGS.forEach(function(e,k){h+='<div class="seed">'+svg("egg",null,e.pal)+'<div class="in"><div>'+e.n+'</div><div style="color:var(--muted)">'+e.hi+'</div></div><button class="eb" data-k="'+k+'" data-cost="'+e.cost+'" data-cur="'+e.cur+'">'+cur(e.cur,e.cost)+'</button></div>'})}
- else{h+='<div class="hint" style="margin-bottom:12px">Питомцы за коины</div>';PETS.forEach(function(p){if(p.r>2)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')})}
+ else{h+='<div class="hint" style="margin-bottom:12px">Питомцы за коины</div>';PETS.forEach(function(p){if(p.r>2||p.ev)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')})}
  open(h+closeBtn());$("no").onclick=closeS;
  document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){showShop(+b.dataset.t)}});
  document.querySelectorAll(".eb").forEach(function(x){x.onclick=function(){if(!x.disabled)openEgg(+x.dataset.k)}});
@@ -756,7 +811,7 @@ function showMore(){var h='<h2>Ещё</h2><div class="tg">';
  document.querySelectorAll(".tl2").forEach(function(b){b.onclick=function(){var k=b.dataset.k;
   if(k==="buff")showBuffs();else if(k==="lb")showLB();else if(k==="dec")showDec();else if(k==="mut")showMuts();
   else if(k==="mus"){$("tm").click();showMore()}else if(k==="snd"){$("ts").click();showMore()}}})}
-(function(){var N=[["shop","shop","Магазин","#d97706",showShop],["bag","bag","Сумка","#8a5c2b",function(){showInv(-1)}],["pets","avk","Питомцы","#c2307a",showPets],["quests","scroll","Задания","#2e9e4f",showQuests],["more","more","Ещё","#4a6fd8",showMore]];
+(function(){var N=[["shop","shop","Магазин","#d97706",showShop],["bag","bag","Сумка","#8a5c2b",function(){showInv(-1)}],["pets","avk","Питомцы","#c2307a",showPets],["event","plant26","Эвент","#e8590c",showEvent],["quests","scroll","Задания","#2e9e4f",showQuests],["more","more","Ещё","#4a6fd8",showMore]];
  var h="";N.forEach(function(n){h+='<button data-n="'+n[0]+'" style="background:'+n[3]+'">'+svg(n[1],"",n[1]==="scroll"?{G:"#2e9e4f"}:null)+'<span>'+n[2]+'</span><i class="bd"></i></button>'});
  $("nav").innerHTML=h;
  document.querySelectorAll("#nav button").forEach(function(b,i){b.onclick=function(){N[i][4]()}})})();
@@ -787,7 +842,7 @@ function showInv(pp){fix(S);if(!(pp>=0)){showBag(BT);return}
  if(!rows.length)h+='<div style="text-align:center;line-height:2;margin-bottom:10px">В сумке пусто.<br>Открой пак в магазине!</div><div class="row"><button id="gp">В магазин</button></div>';
  open(h+closeBtn());$("no").onclick=closeS;if($("gp"))$("gp").onclick=function(){showShop(0)};
  bindSort(function(){showInv(pp)});
- document.querySelectorAll(".plb2").forEach(function(b){b.onclick=function(){var id=+b.dataset.id,m=+b.dataset.m;if(target<0||!takeInv(id,m))return;var pl=S.plots[target];pl.p=id;pl.m=m;pl.w=100;target=-1;sfx("plant");closeS();build();save()}})}
+ document.querySelectorAll(".plb2").forEach(function(b){b.onclick=function(){var id=+b.dataset.id,m=+b.dataset.m;if(target<0||!takeInv(id,m))return;var pl=S.plots[target];pl.p=id;pl.m=m;pl.w=100;target=-1;hct("pl");sfx("plant");closeS();build();save()}})}
 function showPets(){fix(S);var h='<h2>Питомцы</h2><div class="row" style="gap:8px;margin:0 0 12px">',b={inc:0,wat:0,gem:0,xp:0},any=false;
  for(var i=0;i<3;i++){var p=PETS[S.eq[i]];h+='<button class="slot" data-i="'+i+'" style="padding:5px"><div class="av" style="width:48px;height:48px">'+(p?psv(p,""):"")+'</div></button>'}
  S.eq.forEach(function(id){b[PETS[id].t]+=PETS[id].v});
@@ -813,6 +868,73 @@ function showMore(){var h='<h2>Ещё</h2><div class="tg">';
  document.querySelectorAll(".tl2").forEach(function(b){b.onclick=function(){var k=b.dataset.k;
   if(k==="buff")showBuffs();else if(k==="lb")showLB();else if(k==="dec")showDec();else if(k==="mut")showMuts();
   else if(k==="mus"){$("tm").click();showMore()}else if(k==="snd"){$("ts").click();showMore()}}})}
+PLANTS.push({id:26,n:"Тыква",r:2,i:38,s:"plant26",ev:1},{id:27,n:"Ведьмин цветок",r:2,i:34,s:"plant27",ev:1},{id:28,n:"Паучья лилия",r:3,i:95,s:"plant28",ev:1},{id:29,n:"Глаз-цветок",r:3,i:100,s:"plant29",ev:1},{id:30,n:"Призрачная орхидея",r:4,i:310,s:"plant30",ev:1},{id:31,n:"Тыква-Джек",r:5,i:1100,s:"plant31",ev:1});
+PETS.push({id:18,n:"Зомби",r:0,t:"wat",v:14,s:"pet18",ev:1},{id:19,n:"Летучая мышь",r:2,t:"gem",v:35,s:"pet19",ev:1},{id:20,n:"Скелет",r:2,t:"inc",v:15,s:"pet20",ev:1},{id:21,n:"Слайм",r:3,t:"xp",v:55,s:"pet21",ev:1},{id:22,n:"Призрак",r:3,t:"inc",v:38,s:"pet22",ev:1},{id:23,n:"Мумия",r:4,t:"inc",v:70,s:"pet23",ev:1},{id:24,n:"Фиолетовый дракон",r:5,t:"inc",v:170,s:"pet24",ev:1});
+/* ===== v9: Хэллоуин ===== */
+var EV_END=new Date(2026,10,12,23,59,59).getTime(),HWL=30,HWPT=100,ET=0;
+function evActive(){return Date.now()<EV_END}
+function evLeft(){var ms=Math.max(0,EV_END-Date.now()),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);return d+" д "+h+" ч"}
+function hct(k,n){fix(S);S.hw.ct[k]=(S.hw.ct[k]||0)+(n||1)}
+function qadd(k,n){qday();S.q[k]+=n||1;hct(k,n)}
+function qc(x){if(x>0){qday();S.q.c+=x;hct("c",x)}}
+function hwLv(){return Math.min(HWL,Math.floor(S.hw.pts/HWPT))}
+var FREE="c500|g2|a1|c1500|p26|g3|a1|c3000|p27|t18|g4|a1|c5000|t19|p28|g5|a2|c8000|t20|p29|g6|a2|c12000|t21|p30|g8|a3|t22|c25000|p31".split("|");
+var VIPR="g5|b1|c3000|p26m1|g8|b1|c6000|t19|p27m1|b2|g10|t20|c12000|p28m1|b2|g12|t21|c20000|p29m2|b3|g15|t22|c40000|p30m1|t23|g20|b3|p31m1|c80000|t24,b2".split("|");
+function hwRw(code){var o=[];code.split(",").forEach(function(c){var t=c[0];if(t==="p"){var m=/^p(\d+)(?:m(\d))?$/.exec(c);o.push({t:"p",id:+m[1],m:+(m[2]||0)})}else if(t==="t")o.push({t:"t",id:+c.slice(1)});else o.push({t:t,n:+c.slice(1)})});return o}
+function hwTxt(r){if(r.t==="c")return fmt(r.n)+" коинов";if(r.t==="g")return r.n+" гемов";if(r.t==="a")return"Тыквенный сундук ×"+r.n;if(r.t==="b")return"Проклятый сундук ×"+r.n;if(r.t==="p")return PLANTS[r.id].n+(r.m?" ★"+MUT[r.m].n:"");return PETS[r.id].n}
+function hwIcon(r){if(r.t==="c")return svg("coin","spr");if(r.t==="g")return svg("gem","spr");if(r.t==="a")return svg("chA","spr");if(r.t==="b")return svg("chB","spr");if(r.t==="p")return'<span class="mut'+r.m+'">'+psvg(PLANTS[r.id])+'</span>';return psvg(PETS[r.id])}
+function hwGrant(r){if(r.t==="c")S.coins+=r.n;else if(r.t==="g")S.gems+=r.n;else if(r.t==="a"||r.t==="b")S.hw.ch[r.t]+=r.n;else if(r.t==="p")addInv(r.id,r.m);else S.pets[r.id]=(S.pets[r.id]||0)+1}
+function hwClaim(tr,L){var arr=tr==="f"?S.hw.cl:S.hw.cv;if(arr[L-1])return false;if(L>hwLv()||(tr==="v"&&!S.hw.vip))return false;arr[L-1]=1;hwRw((tr==="f"?FREE:VIPR)[L-1]).forEach(hwGrant);return true}
+var HWQ={d:[{t:"Полей растения 50 раз",k:"w",n:50,p:30},{t:"Открой 2 пака или яйца",k:"o",n:2,p:30},{t:"Заработай 5000 коинов",k:"c",n:5000,p:40}],
+h:[{t:"Полей растения 15 раз",k:"w",n:15,p:15},{t:"Посади растение",k:"pl",n:1,p:10},{t:"Заработай 1500 коинов",k:"c",n:1500,p:20}],
+v:[{t:"Полей растения 100 раз",k:"w",n:100,p:60},{t:"Открой хэллоуин-сундук",k:"ch",n:1,p:50},{t:"Заработай 15000 коинов",k:"c",n:15000,p:70}]};
+function hwWin(g){fix(S);var id=g==="h"?"h"+Math.floor(Date.now()/10800000):"d"+today(),w=S.hw.win[g];if(!w||w.id!==id){w={id:id,base:JSON.parse(JSON.stringify(S.hw.ct)),done:[0,0,0]};S.hw.win[g]=w}return w}
+function hwProg(g,i){var w=hwWin(g),q=HWQ[g][i];return Math.max(0,(S.hw.ct[q.k]||0)-(w.base[q.k]||0))}
+function hwNext(g){var n=Date.now(),t;if(g==="h")t=(Math.floor(n/10800000)+1)*10800000;else{var d=new Date();t=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime()}var m=Math.max(0,t-n);return Math.floor(m/36e5)+" ч "+Math.floor(m%36e5/6e4)+" мин"}
+function hwCell(tr,L){var code=(tr==="f"?FREE:VIPR)[L-1],rs=hwRw(code),vip=S.hw.vip,cl=(tr==="f"?S.hw.cl:S.hw.cv)[L-1],ok=L<=hwLv()&&(tr==="f"||vip);
+ var st=cl?'<div class="hint">Получено</div>':ok?'<button class="hwb" data-t="'+tr+'" data-l="'+L+'">Забрать</button>':(tr==="v"&&!vip?'<div class="hint">VIP</div>':'<div class="hint">Ур. '+L+'</div>');
+ return'<div class="hwcell'+(tr==="v"?' vip':'')+(cl?' got':'')+'"><div class="hwi">'+rs.map(hwIcon).join("")+'</div><div>'+rs.map(hwTxt).join("<br>")+'</div>'+st+'</div>'}
+function keepScroll(fn){var sc=sbox.scrollTop;fn();sbox.scrollTop=sc}
+function showEvent(t){if(typeof t==="number")ET=t;fix(S);var lv=hwLv(),vip=S.hw.vip,
+ h='<div class="evh"><div class="evt">ХЭЛЛОУИН</div><div style="font-size:7px;line-height:1.8">'+(evActive()?"До конца эвента: "+evLeft():"Эвент завершён")+'</div><div style="margin:8px 0 2px;font-size:8px">Уровень пасса '+lv+'/'+HWL+' · '+(lv>=HWL?HWPT:S.hw.pts%HWPT)+'/'+HWPT+'</div><div class="xb"><i style="width:'+(lv>=HWL?100:S.hw.pts%HWPT)+'%"></i></div>'+(vip?'<div style="font-size:8px;color:#ff8aff;margin-top:4px">★ VIP активен</div>':'<button id="vipb" style="background:#a855f7">VIP за 599 '+ic("gem",12)+'</button>')+'</div><div class="seg">'+["Пасс","Задания","Сундуки"].map(function(n,i){return'<button data-t="'+i+'"'+(i===ET?'':' class="g"')+'>'+n+'</button>'}).join("")+'</div>';
+ if(ET===0){h+='<div class="row" style="margin:0 0 14px"><button id="claimall">Забрать всё</button></div><div class="hint" style="margin:0 4px 10px;display:flex;justify-content:space-around"><span>Бесплатно</span><span style="color:#c690f0">VIP</span></div>';
+  for(var L=1;L<=HWL;L++)h+='<div class="hwr"><div class="hwn">'+L+'</div>'+hwCell("f",L)+hwCell("v",L)+'</div>'}
+ else if(ET===1){
+  [["d","Ежедневные"],["h","Каждые 3 часа"],["v","VIP-задания"]].forEach(function(g){var G=g[0];h+='<div class="hint" style="margin:10px 0 8px;line-height:1.8">'+g[1]+' · обновятся через '+hwNext(G)+'</div>';
+   if(G==="v"&&!vip){h+='<div class="seed"><div class="in">Нужен VIP-пасс</div></div>';return}
+   var w=hwWin(G);HWQ[G].forEach(function(q,i){var pr=Math.min(q.n,hwProg(G,i)),done=w.done[i],ready=pr>=q.n&&!done;
+    h+='<div class="seed"><div class="in"><div>'+q.t+'</div><div style="color:var(--muted)">'+fmt(pr)+'/'+fmt(q.n)+' · +'+q.p+' очков</div></div>'+(done?'<div class="hint">Готово</div>':'<button class="hwq" data-g="'+G+'" data-i="'+i+'"'+(ready&&evActive()?'':' disabled')+'>Забрать</button>')+'</div>'})})}
+ else{[["a","Тыквенный сундук","Растения, питомцы, коины и гемы"],["b","Проклятый сундук","Больше шансов на эпик, легенду и миф"]].forEach(function(c){var n=S.hw.ch[c[0]];h+='<div class="seed">'+svg(c[0]==="a"?"chA":"chB","spr")+'<div class="in"><div>'+c[1]+' ×'+n+'</div><div style="color:var(--muted)">'+c[2]+'</div></div><button class="hwo" data-k="'+c[0]+'"'+(n>0?'':' disabled')+'>Открыть</button></div>'});
+  h+='<div class="hint" style="line-height:1.9;margin:8px 4px">Из сундуков выпадают растения и питомцы только этого эвента, иногда с мутацией.</div>'}
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){showEvent(+b.dataset.t)}});
+ if($("vipb"))$("vipb").onclick=function(){dlg("VIP-пасс","Откроет VIP-награды и VIP-задания.<br>Цена: 599 гемов","Купить","x",function(){if(S.gems<599){toast("Не хватает гемов");showEvent();return}S.gems-=599;S.hw.vip=1;sfx("rev",5);save();showEvent()})};
+ if($("claimall"))$("claimall").onclick=function(){var n=0;for(var L=1;L<=HWL;L++){if(hwClaim("f",L))n++;if(hwClaim("v",L))n++}if(n){sfx("unlock");save();toast("Получено наград: "+n)}else toast("Пока нечего забирать");keepScroll(showEvent)};
+ document.querySelectorAll(".hwb").forEach(function(b){b.onclick=function(){if(hwClaim(b.dataset.t,+b.dataset.l)){sfx("unlock");save()}keepScroll(showEvent)}});
+ document.querySelectorAll(".hwq").forEach(function(b){b.onclick=function(){var G=b.dataset.g,i=+b.dataset.i,q=HWQ[G][i],w=hwWin(G);if(b.disabled||w.done[i]||!evActive())return;if(hwProg(G,i)>=q.n){w.done[i]=1;S.hw.pts+=q.p;sfx("unlock");save()}keepScroll(showEvent)}});
+ document.querySelectorAll(".hwo").forEach(function(b){b.onclick=function(){openHw(b.dataset.k)}})}
+function hwLoot(k){var B=k==="b",cat=pick(B?[55,25,12,8]:[55,15,22,8]);
+ if(cat===0){var r=pick(B?[0,0,35,40,20,5]:[0,0,62,28,9,1]),p=rnd(PLANTS.filter(function(x){return x.ev&&x.r===r}));return{t:"p",id:p.id,m:rollMut(B?4:1.5)}}
+ if(cat===1){var r2=pick(B?[10,0,25,40,20,5]:[35,0,40,20,4,1]),q=rnd(PETS.filter(function(x){return x.ev&&x.r===r2}));return{t:"t",id:q.id}}
+ if(cat===2)return{t:"c",n:rnd(B?[15000,25000,40000]:[3000,5000,8000])};
+ return{t:"g",n:rnd(B?[5,8,12]:[2,3,5])}}
+var GCOL=["#cdbd9f","#5fd283","#6aaeff","#c690f0","#ffb340","#ff6fb5"];
+function openHw(k){fix(S);if(S.hw.ch[k]<1)return;S.hw.ch[k]--;hct("ch");var res=hwLoot(k);hwGrant(res);save();
+ var icon,name,sub="",rar=1;
+ if(res.t==="p"){var p=PLANTS[res.id];rar=res.m?5:p.r;icon='<div class="mut'+res.m+'">'+psvg(p)+'</div>';name=p.n;sub='<div style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+' · +'+Math.round(p.i*mmx(res.m))+'/с</div>'+(res.m?'<div style="color:'+MUT[res.m].c+'">★ '+MUT[res.m].n+'</div>':'')}
+ else if(res.t==="t"){var q=PETS[res.id];rar=q.r;icon=psvg(q);name=q.n;sub='<div style="color:var(--'+RAR[q.r][1]+')">'+RAR[q.r][0]+'</div><div>'+bt(q)+'</div>'}
+ else if(res.t==="c"){icon=svg("coin","spr");name="+"+fmt(res.n)+" коинов"}else{icon=svg("gem","spr");name="+"+res.n+" гемов";rar=2}
+ var pts="",cols=["#ffd23f","#ff8a1a","#a855f7","#ffffff"];for(var i=0;i<16;i++){var a=i*22.5*Math.PI/180,d=70+Math.random()*80;pts+='<i class="ptc" style="--dx:'+Math.round(Math.cos(a)*d)+'px;--dy:'+Math.round(Math.sin(a)*d-20)+'px;background:'+cols[i%4]+'"></i>'}
+ open('<h2>'+(k==="a"?"Тыквенный сундук":"Проклятый сундук")+'</h2><div class="hwc" style="--gc:'+GCOL[rar]+'"><div class="gl"></div><div class="bt">'+svg("pet19","spr")+'</div><div class="bt" style="top:50px;animation-delay:1.4s">'+svg("pet19","spr")+'</div><div class="cs c1">'+svg(k==="a"?"chA":"chB","")+'</div><div class="cs c2">'+svg(k==="a"?"chAo":"chBo","")+'</div>'+pts+'<div class="itm">'+icon+'</div></div><div class="fin" style="text-align:center;line-height:1.9"><div style="font-size:10px">'+name+'</div>'+sub+'</div><div class="row fin"><button class="g" id="no">Ок</button><button id="again2"'+(S.hw.ch[k]>0?'':' disabled')+'>Ещё ×'+S.hw.ch[k]+'</button></div>');
+ $("no").onclick=function(){showEvent(2)};$("again2").onclick=function(){if(!this.disabled)openHw(k)};
+ sfx("open");setTimeout(function(){sfx("rev",rar)},1050);
+ setTimeout(function(){document.querySelectorAll(".fin").forEach(function(e){e.classList.add("on")})},2900)}
+function nbadge(){if(!ME)return;var b=document.querySelector('#nav [data-n="quests"] .bd'),e=document.querySelector('#nav [data-n="event"] .bd'),on=false,ev=false;
+ try{on=drInfo().ok;QS.forEach(function(q,i){if(S.q[q.k]>=q.n&&!S.q.k[i])on=true});
+  fix(S);if(S.hw.ch.a+S.hw.ch.b>0)ev=true;var lv=hwLv();for(var L=1;L<=lv;L++){if(!S.hw.cl[L-1]||(S.hw.vip&&!S.hw.cv[L-1]))ev=true}
+  if(evActive()){["d","h","v"].forEach(function(g){if(g==="v"&&!S.hw.vip)return;var w=hwWin(g);HWQ[g].forEach(function(q,i){if(!w.done[i]&&hwProg(g,i)>=q.n)ev=true})})}}catch(x){}
+ if(b)b.style.display=on?"block":"none";if(e)e.style.display=ev?"block":"none"}
+
 boot2();
 </script>
 </body>
