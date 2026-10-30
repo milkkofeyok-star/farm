@@ -104,6 +104,19 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 .top2{padding:0 0 4px}
 .tabs{flex-wrap:wrap}
 .tabs{display:none!important}
+.tut{position:fixed;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);z-index:40;pointer-events:none;display:none;flex-direction:column;align-items:flex-start}
+.tut.on{display:flex}
+.tut .bub{pointer-events:auto;position:relative;width:100%;box-sizing:border-box;background:#fff;color:#1a1a1a;font-size:9px;line-height:1.9;padding:14px 12px 10px;box-shadow:0 -4px 0 0 #2b1d0e,0 4px 0 0 #2b1d0e,-4px 0 0 0 #2b1d0e,4px 0 0 0 #2b1d0e;min-height:44px}
+.tut .tail{width:28px;height:28px;margin:-3px 0 0 30px;position:relative;z-index:2;image-rendering:pixelated}
+.tut .mush{width:84px;height:80px;margin:-10px 0 0 4px;image-rendering:pixelated;animation:mb 1s steps(1) infinite}
+@keyframes mb{50%{transform:translateY(-4px)}}
+.tut .tb{display:flex;gap:10px;margin-top:10px;justify-content:flex-end;min-height:30px}
+.tut .tb button{font-size:8px;margin:3px}
+.tut .skip{position:absolute;right:6px;top:-26px;font-size:7px;padding:5px 6px;margin:0;pointer-events:auto}
+.tut-hl{outline:4px solid #ffd23f!important;outline-offset:3px;animation:thl .7s steps(1) infinite;position:relative;z-index:30}
+@keyframes thl{50%{outline-color:#ff8a1a}}
+body.tutor .sheet>div{margin-bottom:330px!important;max-height:calc(100% - 370px)!important}
+
 .evh{padding:12px 8px;margin:0 4px 14px;background:linear-gradient(#3a1a5a,#150a22);color:#ffd23f;text-align:center;box-shadow:0 0 0 4px var(--ink)}
 .evt{font-size:15px;color:#ff8a1a;text-shadow:2px 2px 0 #000;margin-bottom:8px}
 .evh .xb{margin:6px 8px}
@@ -204,7 +217,7 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 <button class="reset g" id="reset">Начать заново</button>
 </div>
 <div class="sheet" id="sheet"><div class="px" id="sbox"></div></div>
-<div class="nav" id="nav"></div><div id="sc"></div><div id="wx"></div><div id="wt" class="px"></div>
+<div class="nav" id="nav"></div><div class="tut" id="tut"></div><div id="sc"></div><div id="wx"></div><div id="wt" class="px"></div>
 <div class="sheet on" id="auth" style="z-index:50;align-items:center;background:var(--bg)"><div class="px" id="abox" style="margin-bottom:0"></div></div>
 <div class="toast px" id="toast"></div>
 
@@ -618,7 +631,7 @@ function doAuth(reg){var rem=$("rm").checked,n=$("an").value.trim(),p=$("ap").va
  m.textContent="Подождите…";
  (reg?signup(l,p,n):login(l,p)).then(function(){startGame(l,rem,n)}).catch(function(e){m.textContent=typeof e==="string"?e:"Ошибка: "+((e&&e.message)||e)})}
 function startGame(l,rem,nick0){ME=l;KEY="ff_save_"+l;
- var fin=function(){$("auth").classList.remove("on");_ak="";sessSave(rem);try{if(rem)localStorage.setItem("ff_last",l);else localStorage.removeItem("ff_last")}catch(e){}build();pfui();drawDec();toast("Привет, "+US[l].nick+"!");fix(S);setTimeout(function(){if(drInfo().ok)showQuests()},1200)};
+ var fin=function(){$("auth").classList.remove("on");_ak="";sessSave(rem);try{if(rem)localStorage.setItem("ff_last",l);else localStorage.removeItem("ff_last")}catch(e){}build();pfui();drawDec();toast("Привет, "+US[l].nick+"!");fix(S);var og=offlineGain();setTimeout(function(){if(S.tut&&S.tut.s===-1)tutAsk();else{if(S.tut&&S.tut.s>=0&&S.tut.s<99)tutStep(S.tut.s);if(og)showOffline(og);else if(drInfo().ok&&!(S.tut&&S.tut.s<99))showQuests()}},1200)};
  tok().then(function(t){return api("/rest/v1/saves?select=nick,data&user_id=eq."+SESS.uid,{tok:t})}).then(function(r){
   var row=r.ok&&r.j&&r.j[0];
   if(row&&row.data&&row.data.S){S=norm(row.data.S);US[l]={nick:row.nick||nick0||l,av:row.data.av||{t:"p",v:"avm"}}}
@@ -640,7 +653,7 @@ function showAuth(m){$("auth").classList.add("on");
 /* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
 var WK="https://farmbot.milkkofeyok.workers.dev";
 function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};return o}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};return o}
 var _fresh=fresh;fresh=function(){return fix(_fresh())};
 var _norm=norm;norm=function(o){return fix(_norm(o))};
 var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
@@ -934,6 +947,47 @@ function nbadge(){if(!ME)return;var b=document.querySelector('#nav [data-n="ques
   fix(S);if(S.hw.ch.a+S.hw.ch.b>0)ev=true;var lv=hwLv();for(var L=1;L<=lv;L++){if(!S.hw.cl[L-1]||(S.hw.vip&&!S.hw.cv[L-1]))ev=true}
   if(evActive()){["d","h","v"].forEach(function(g){if(g==="v"&&!S.hw.vip)return;var w=hwWin(g);HWQ[g].forEach(function(q,i){if(!w.done[i]&&hwProg(g,i)>=q.n)ev=true})})}}catch(x){}
  if(b)b.style.display=on?"block":"none";if(e)e.style.display=ev?"block":"none"}
+
+SPR.tail=["kwwwwwwk","kwwwwwk.","kwwwwk..","kwwwk...","kwwk....","kwk.....","kk......","k......."];
+/* ===== v10: офлайн-доход, обучение ===== */
+function save(){if(!KEY)return;S.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}sched()}
+var _fresh2=fresh;fresh=function(){var f=_fresh2();f.tut={s:-1};return f};
+function rebirth(){var g=rnd(PLANTS.filter(function(p){return p.r===1&&!p.ev})),rb=S.rb+1,pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut;
+ S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.coins=300;S.gems=25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",4);toast("Перерождение! Подарок: "+g.n)}
+function baseInc(){var t=0;S.plots.forEach(function(pl){if(pl.p!==null)t+=PLANTS[pl.p].i*mm(pl)});return t*(1+.1*S.rb)*(1+pb("inc")/100+decB())}
+function offlineGain(){var t=S.ts;if(!t)return null;var el=Math.min(Math.max(0,(Date.now()-t)/1000),7200);if(el<120)return null;var g=Math.floor(baseInc()*el*.25);S.ts=Date.now();if(g<1)return null;S.coins+=g;return{g:g,el:el}}
+function showOffline(o){var m=Math.round(o.el/60);
+ open('<h2>С возвращением!</h2><div style="text-align:center;line-height:2;font-size:9px">Пока вас не было '+(m>=60?Math.floor(m/60)+" ч "+(m%60)+" мин":m+" мин")+', ферма заработала:<div style="font-size:14px;margin:12px 0;display:flex;justify-content:center;align-items:center;gap:6px">+'+fmt(o.g)+ic("coin",16)+'</div><div class="hint" style="line-height:1.8">Это 25% дохода, максимум за 2 часа</div></div><div class="row"><button id="ofok">Забрать</button></div>');
+ sfx("unlock");save();$("ofok").onclick=function(){if(drInfo().ok&&!(S.tut&&S.tut.s<99))showQuests();else closeS()}}
+document.addEventListener("visibilitychange",function(){if(!document.hidden&&ME&&S&&S.ts&&!(S.tut&&S.tut.s>=0&&S.tut.s<99)){var o=offlineGain();if(o)showOffline(o)}});
+/* обучение */
+var TS=[
+{t:"Привет! Я Гриб-проводник. Расскажу, как играть на Цветущей Ферме!",b:"Далее"},
+{t:"Это твоя ферма. На грядках растут растения и приносят коины. Нажми на пустую грядку и посади подсолнух.",w:"pl",hl:'#grid .plot[data-a="plant"]'},
+{t:"Отлично! Теперь нажми на растение, чтобы полить его. Пока оно политое, оно приносит коины.",w:"w",hl:'#grid .plot[data-a="water"]'},
+{t:"Вода кончается за 20 секунд, поливай почаще. Иногда из воды выпадают гемы!",b:"Далее"},
+{t:"Теперь загляни в Магазин (кнопка внизу). Я дарю тебе 150 коинов!",w:"shop",hl:'#nav [data-n="shop"]',g:150},
+{t:"Здесь паки с растениями, яйца с питомцами и питомцы за коины. Купи Горшочек за 100 коинов!",w:"o"},
+{t:"Круто! Новые растения лежат в Сумке. Закрой окно и посади их на свободные грядки.",b:"Далее"},
+{t:"Питомцы дают бонусы, их надевают в «Питомцах». Ежедневная награда ждёт в «Задания», а праздничный пасс в «Эвент».",b:"Далее"},
+{t:"Вот и всё! Держи подарок: 300 коинов и 5 гемов. Удачи на ферме!",b:"Готово",fin:1}];
+var tutI=null,tutT=null,TB={pl:0,w:0,o:0};
+$("tut").innerHTML='<div class="bub"><button class="g skip" id="tsk">Пропустить</button><div id="tutx"></div><div class="tb" id="tutb"></div></div>'+svg("tail","tail")+'<img class="mush" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAXCAYAAAARIY8tAAABoklEQVR4nK2Wv3HCMBjF3ydYABhAK+RsagpYgRWCjsJr5NJTcM4KcZEFnIIa2MEDEBYAfSmwhGxLMtzxOmTp/Z7+fhAz4xERiU5HZk2940KAK4BhbZpJ6e2zqapekBdAJPg7eQMA7E5nzCajaMqxUliotRc09JmX+RbzlUKRJr3my8MRVwBlPbYNaQDu5u8o0iRqbFSkCZaHPeYrZSEX1jQwnsxs19tN3ky5ByCsYWgmRZpgdzpjU1UwEGJmEAnOpOwsx/JwjCYPyUCYNYlQp5h533c3qAil75f2Qg04kxJEgoMzeFa3fbqDTOCXANxDYDRW6g6YTUaN6QFmEzUAjWtj6K2tSKdOWzincGm3NC5kiiKdYuCst2lzFTtRnZvsU9vQ3yex4cx98ALaaUzHkNzT55vJkFkTkeASwF+ed0zNi/mIDMy9aHYGPx+fXtNMSmyqCmW+bZgt1Np+i8k+1+2C4hrWT3FzIAkwa/x+5baPK/OqBuuBa2jMfIDW7049CFa0NiSmkDnwopschceKvtkX5os3C9WP8dM1OQRq65F/Ff9mffWOukXASAAAAABJRU5ErkJggg==">';
+function cnt(k){return(S.hw&&S.hw.ct&&S.hw.ct[k])||0}
+function tutSay(t,cb){clearInterval(tutT);var el=$("tutx"),i=0;el.textContent="";tutT=setInterval(function(){i+=2;el.textContent=t.slice(0,i);if(i>=t.length){clearInterval(tutT);if(cb)cb()}},28)}
+function tutHL(sel){var e=document.querySelector(sel);document.querySelectorAll(".tut-hl").forEach(function(x){if(x!==e)x.classList.remove("tut-hl")});if(e)e.classList.add("tut-hl")}
+function tutOff(){tutI=null;clearInterval(tutT);document.querySelectorAll(".tut-hl").forEach(function(x){x.classList.remove("tut-hl")});$("tut").classList.remove("on");document.body.classList.remove("tutor")}
+function tutShow(){$("tut").classList.add("on");document.body.classList.add("tutor")}
+function tutAsk(){fix(S);tutI=-1;tutShow();$("tsk").style.display="none";$("tutb").innerHTML="";
+ tutSay("Привет! Я Гриб-проводник. Хотите ли вы пройти обучение?",function(){$("tutb").innerHTML='<button class="g" id="tno">Нет</button><button id="tyes">Да</button>';
+  $("tno").onclick=function(){S.tut.s=99;save();tutOff()};$("tyes").onclick=function(){tutStep(0)}})}
+function tutStep(i){fix(S);var st=TS[i];S.tut.s=i;if(st.g&&!S.tut["g"+i]){S.coins+=st.g;S.tut["g"+i]=1;toast("+"+st.g+" коинов")}save();
+ tutI=i;TB={pl:cnt("pl"),w:cnt("w"),o:cnt("o")};tutShow();$("tsk").style.display="";var bb=$("tutb");bb.innerHTML="";
+ tutSay(st.t,function(){if(st.b){bb.innerHTML='<button id="tnx">'+st.b+'</button>';$("tnx").onclick=function(){if(st.fin){S.coins+=300;S.gems+=5;S.tut.s=99;save();tutOff();sfx("unlock");toast("+300 коинов и 5 гемов")}else tutStep(i+1)}}})}
+$("tsk").onclick=function(){S.tut.s=99;save();tutOff()};
+setInterval(function(){if(tutI===null||tutI<0||!ME)return;var st=TS[tutI];if(!st)return;if(st.hl)tutHL(st.hl);
+ var ok=false;if(st.w==="pl")ok=cnt("pl")>TB.pl;else if(st.w==="w")ok=cnt("w")>TB.w;else if(st.w==="o")ok=cnt("o")>TB.o;else if(st.w==="shop")ok=sheet.classList.contains("on")&&sbox.innerHTML.indexOf("<h2>Магазин</h2>")>=0;
+ if(ok){sfx("unlock");tutStep(tutI+1)}},400);
 
 boot2();
 </script>
