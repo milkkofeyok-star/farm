@@ -128,6 +128,7 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 .afr .av{width:100%;height:100%;box-shadow:none;margin:0!important}
 .fcard{margin:0 4px 18px;text-align:center}
 .fimg{width:100%;max-width:300px;image-rendering:pixelated}
+.avi{width:100%;height:100%;image-rendering:pixelated}
 .cup{width:40px;height:42px;flex:none;image-rendering:pixelated}
 .rkn{width:40px;flex:none;text-align:center;font-size:10px}
 
@@ -511,7 +512,7 @@ function avView(){var h='<h2>Аватар</h2><div class="row" style="gap:8px">'
   r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(im.width,im.height),c=document.createElement("canvas");c.width=c.height=16;
    c.getContext("2d").drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,16,16);
    var c2=document.createElement("canvas");c2.width=c2.height=64;var x=c2.getContext("2d");x.imageSmoothingEnabled=false;x.drawImage(c,0,0,16,16,0,0,64,64);
-   US[ME].av={t:"u",v:c2.toDataURL("image/png")};usave();pfui();showProfile()};im.src=r.result};r.readAsDataURL(f)}}
+   US[ME].av={t:"u",v:c2.toDataURL("image/png"),s:c.toDataURL("image/png")};usave();pfui();showProfile()};im.src=r.result};r.readAsDataURL(f)}}
 $("pf").onclick=function(){if(ME)showProfile()};
 function makeBed(){
  var W=26,H=22,g=[],x,y,d;for(y=0;y<H;y++){g.push([]);for(x=0;x<W;x++)g[y].push(null)}
@@ -1051,6 +1052,26 @@ function showLB(){open('<h2>Рейтинг недели</h2><div class="hint">З
   if(!r.ok||!r.j||!r.j.length)h+='<div class="hint" style="line-height:2">Пока никого нет. Поиграйте и загляните позже.</div>';
   else r.j.forEach(function(u,i){var rk=i+1,lead=rk<=3?'<img class="cup" alt="" src="'+CUP[rk-1]+'">':'<div class="rkn">'+rk+'</div>';
    h+='<div class="seed">'+lead+'<div class="av" style="width:36px;height:36px;flex:none">'+svg(SPR[u.av]?u.av:"avm","")+'</div><div class="in"><div>'+esc(u.nick)+'</div><div style="color:var(--muted)">Ур. '+u.lv+(u.rb?' · '+rbTag(u.rb):'')+'</div><div>Очки: '+fmt(u.wpts)+'</div></div></div>'});
+  open(h+closeBtn());$("no").onclick=closeS;$("wrb").onclick=showWR}).catch(function(){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS})}
+
+/* ===== v12: надёжная синхронизация рейтинга, аватарки ===== */
+var LAST={t:0,ok:null,msg:""},_lp=0;
+function avPayload(){var a=US[ME]&&US[ME].av;if(!a)return{av:"avm",avs:null};if(a.t==="u")return{av:"avm",avs:a.s||null};return{av:a.v,avs:null}}
+function ensureAvs(){var a=US[ME]&&US[ME].av;if(a&&a.t==="u"&&!a.s&&!ensureAvs.b){ensureAvs.b=1;var im=new Image();im.onload=function(){try{var c=document.createElement("canvas");c.width=c.height=16;var x=c.getContext("2d");x.imageSmoothingEnabled=false;x.drawImage(im,0,0,16,16);a.s=c.toDataURL("image/png");usave()}catch(e){}ensureAvs.b=0};im.onerror=function(){ensureAvs.b=0};im.src=a.v}}
+cloudPush=function(ka){var p=_cp(ka);if(!(SESS&&ME&&US[ME]))return p;ensureAvs();var now=Date.now();if(!ka&&now-_lp<15000)return p;_lp=now;
+ return p.then(function(){return tok()}).then(function(t){var a=avPayload();return api("/rest/v1/rpc/push_leader",{m:"POST",tok:t,ka:ka,b:{p_nick:US[ME].nick,p_av:a.av,p_avs:a.avs}})}).then(function(r){
+  LAST={t:Date.now(),ok:!!(r.ok&&r.j==="ok"),msg:r.ok?String(r.j):((r.j&&(r.j.message||r.j.hint))||("HTTP "+r.st))}}).catch(function(){LAST={t:Date.now(),ok:false,msg:"нет связи"}})};
+var AVRE=/^data:image\/png;base64,[A-Za-z0-9+\/=]+$/;
+function lbAv(u){return u.avs&&AVRE.test(u.avs)&&u.avs.length<4000?'<img class="avi" alt="" src="'+u.avs+'">':svg(SPR[u.av]?u.av:"avm","")}
+function showLB(){open('<h2>Рейтинг недели</h2><div class="hint">Загрузка…</div>');
+ var pre=SESS?(_lp=0,cloudPush()):Promise.resolve();
+ pre.then(function(){return api("/rest/v1/leaders_now?select=nick,lv,rb,av,avs,wpts&order=wpts.desc&limit=50")}).then(function(r){
+  var mine=(S.wk&&S.wk.id===wkId())?S.wk.pts:0,me=US[ME]?US[ME].nick:"",found=false,
+  h='<h2>Рейтинг недели</h2><div class="hint" style="line-height:1.9;margin-bottom:10px">До конца недели: '+wkLeft()+'<br>Твои очки: '+fmt(mine)+'</div><div class="row" style="margin:0 0 12px"><button id="wrb">Награды</button></div>';
+  if(!r.ok||!r.j||!r.j.length)h+='<div class="hint" style="line-height:2">Пока никого нет. Поиграйте и загляните позже.</div>';
+  else r.j.forEach(function(u,i){var rk=i+1,lead=rk<=3?'<img class="cup" alt="" src="'+CUP[rk-1]+'">':'<div class="rkn">'+rk+'</div>';if(u.nick===me)found=true;
+   h+='<div class="seed">'+lead+'<div class="av" style="width:36px;height:36px;flex:none">'+lbAv(u)+'</div><div class="in"><div>'+esc(u.nick)+(u.nick===me?' (ты)':'')+'</div><div style="color:var(--muted)">Ур. '+u.lv+(u.rb?' · '+rbTag(u.rb):'')+'</div><div>Очки: '+fmt(u.wpts)+'</div></div></div>'});
+  h+='<div class="hint" style="margin-top:10px;line-height:1.9">'+(found?"":"Тебя пока нет в списке. ")+'Синхронизация: '+(LAST.t?(LAST.ok?"ок":"ошибка: "+esc(LAST.msg)):"ещё не было")+'</div>';
   open(h+closeBtn());$("no").onclick=closeS;$("wrb").onclick=showWR}).catch(function(){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS})}
 
 boot2();
