@@ -1074,6 +1074,32 @@ function showLB(){open('<h2>Рейтинг недели</h2><div class="hint">З
   h+='<div class="hint" style="margin-top:10px;line-height:1.9">'+(found?"":"Тебя пока нет в списке. ")+'Синхронизация: '+(LAST.t?(LAST.ok?"ок":"ошибка: "+esc(LAST.msg)):"ещё не было")+'</div>';
   open(h+closeBtn());$("no").onclick=closeS;$("wrb").onclick=showWR}).catch(function(){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS})}
 
+/* ===== v13: рейтинг не зависит от сохранения; неделя берётся с сервера ===== */
+var SRVWK=null,SV={t:0,ok:null,msg:""};
+function wkId(){if(SRVWK)return SRVWK;var d=new Date(),day=(d.getUTCDay()+6)%7;return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()-day)).toISOString().slice(0,10)}
+cloudPush=function(ka){
+ if(!(SESS&&ME&&US[ME]))return Promise.resolve();dirty=false;ensureAvs();
+ return tok().then(function(t){
+  return api("/rest/v1/saves?on_conflict=user_id",{m:"POST",tok:t,ka:ka,prefer:"resolution=merge-duplicates,return=minimal",b:{user_id:SESS.uid,nick:US[ME].nick,data:{S:S,av:US[ME].av},updated_at:new Date().toISOString()}}).then(function(r){
+   SV={t:Date.now(),ok:!!r.ok,msg:r.ok?"":((r.j&&(r.j.message||r.j.hint||r.j.details))||("HTTP "+r.st))};if(!r.ok)dirty=true;
+   var now=Date.now();if(!ka&&now-_lp<15000)return;_lp=now;var a=avPayload(),w=S.wk||{id:"",pts:0};
+   return api("/rest/v1/rpc/push_leader",{m:"POST",tok:t,ka:ka,b:{p_nick:US[ME].nick,p_av:a.av,p_avs:a.avs,p_lv:S.lv,p_rb:S.rb,p_wid:w.id,p_wp:Math.floor(w.pts)}}).then(function(r2){
+    var txt=r2.ok?String(r2.j):"";var ok=r2.ok&&txt.indexOf("ok")===0;
+    if(ok&&txt.indexOf("|")>0)SRVWK=txt.split("|")[1];
+    LAST={t:Date.now(),ok:ok,msg:ok?"":(r2.ok?txt:((r2.j&&(r2.j.message||r2.j.hint))||("HTTP "+r2.st)))}})})
+ }).catch(function(){SV={t:Date.now(),ok:false,msg:"нет связи"};LAST={t:Date.now(),ok:false,msg:"нет связи"};dirty=true})};
+function stLine(){return'Сохранение: '+(SV.t?(SV.ok?"ок":"ошибка: "+esc(SV.msg)):"ещё не было")+'<br>Рейтинг: '+(LAST.t?(LAST.ok?"ок":"ошибка: "+esc(LAST.msg)):"ещё не было")}
+function showLB(){open('<h2>Рейтинг недели</h2><div class="hint">Загрузка…</div>');
+ var pre=SESS?(_lp=0,cloudPush()):Promise.resolve();
+ pre.then(function(){return api("/rest/v1/leaders_now?select=nick,lv,rb,av,avs,wpts&order=wpts.desc&limit=50")}).then(function(r){
+  var mine=(S.wk&&S.wk.id===wkId())?S.wk.pts:0,me=US[ME]?US[ME].nick:"",found=false,
+  h='<h2>Рейтинг недели</h2><div class="hint" style="line-height:1.9;margin-bottom:10px">До конца недели: '+wkLeft()+'<br>Твои очки: '+fmt(mine)+'</div><div class="row" style="margin:0 0 12px"><button id="wrb">Награды</button></div>';
+  if(!r.ok||!r.j||!r.j.length)h+='<div class="hint" style="line-height:2">Пока никого нет. Поиграйте и загляните позже.</div>';
+  else r.j.forEach(function(u,i){var rk=i+1,lead=rk<=3?'<img class="cup" alt="" src="'+CUP[rk-1]+'">':'<div class="rkn">'+rk+'</div>';if(u.nick===me)found=true;
+   h+='<div class="seed">'+lead+'<div class="av" style="width:36px;height:36px;flex:none">'+lbAv(u)+'</div><div class="in"><div>'+esc(u.nick)+(u.nick===me?' (ты)':'')+'</div><div style="color:var(--muted)">Ур. '+u.lv+(u.rb?' · '+rbTag(u.rb):'')+'</div><div>Очки: '+fmt(u.wpts)+'</div></div></div>'});
+  h+='<div class="hint" style="margin-top:10px;line-height:1.9">'+(found?"":"Тебя пока нет в списке. ")+stLine()+'</div>';
+  open(h+closeBtn());$("no").onclick=closeS;$("wrb").onclick=showWR}).catch(function(){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS})}
+
 boot2();
 </script>
 </body>
