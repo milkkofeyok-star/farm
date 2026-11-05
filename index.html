@@ -104,6 +104,18 @@ body{background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fw
 .top2{padding:0 0 4px}
 .tabs{flex-wrap:wrap}
 .tabs{display:none!important}
+.plotnew{padding:12px 6px;text-align:center;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+html body.sk1,html body.sk2,html body.sk3,html body.sk4{background-image:linear-gradient(45deg,var(--bg2) 25%,transparent 25%,transparent 75%,var(--bg2) 75%),linear-gradient(45deg,var(--bg2) 25%,transparent 25%,transparent 75%,var(--bg2) 75%)!important;background-size:32px 32px,32px 32px!important;background-position:0 0,16px 16px!important}
+body.sk2 .bfl,body.sk3 .bfl{display:none}
+#sc2{position:fixed;inset:0;pointer-events:none;z-index:3;overflow:hidden}
+#sc2 i{position:absolute;top:-10px;width:6px;height:6px;opacity:.9}
+#sc2 .snow{background:#fff;animation:snf linear infinite}
+#sc2 .pet{background:#ffc0d8;animation:pef linear infinite}
+#sc2 .fly{background:#ffe27a;box-shadow:0 0 6px #ffe27a;animation:flb 2s steps(3) infinite}
+@keyframes snf{to{transform:translateY(105vh) translateX(20px)}}
+@keyframes pef{to{transform:translateY(105vh) translateX(-60px) rotate(180deg)}}
+@keyframes flb{0%{opacity:.2;transform:translate(0,0)}50%{opacity:1;transform:translate(10px,-14px)}100%{opacity:.2;transform:translate(0,0)}}
+
 .plate{position:relative;width:100%;background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;cursor:pointer;color:#f4ead0;margin:2px 0 8px}
 .plate.f0{aspect-ratio:64/20;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAUCAYAAAA9djs/AAACRElEQVR4nN2YMWvbQBTHf3eYItIlLbWHQCZZkxMCWmwTgqFTl0IXQQd37BcrmZovEA/GDsW0XlxEMR1kEYLAS75AaJtTB/vOJ9lJOoSayx8Ep9M7cf+n9/7vnUTjxUtErqi3wpwSknQuAn9vbd4lbOKQpHNxe3VJLkAc7O5Sb4V5Mwy2tcet4PTsQtxeXSLevXltyI8nScHornlX8BCv07MLUbGNRtMZkkW0KIQxHk1nAOaZC1AImmFwL6/D1kkuAeJMGZLaACBJ52bsEnkbNgeFQJLzdbqKCAlwtC+peTvLiZx2I6Dm7dCNOsSZcpK8JCfOFN2oQ83bod0IkOQoBK+855bdEtpQIfCqviE/GJ5vhcBjoD/sGSd4VR+F4LhRpxt1jI2MM2VuulEHSW4Wukxeh3uZS7nayaP9RRBopdSh0h/2/u+OHxk6bSv8YjA8N18filVB2ovGk4RmGBgnPAX84RkAx426qQpFcV/Cq/rYY7sauAwtfJpfks4J/D3r+RI31ynNMCDOFP1h78lEQFkLulGnGAFaBG3ysNAC/QIXIfltxpqLFsJCFdAiGGeKm+sUWOWLy1pQzv1NAgilFNAdklf1C4KoEE5GQrsRGOHTujaazgpOqMCqFZYsRMOu//os4GIk2GcBWHEYTWemH1hrhfXXVoi1PtqlS5NN0nnhIGT3AwDi/YePebkZsj24ad4V/Msx/8EfInGm0A5yDfftfTxJ+DkYCaF/iR28jdaS/Me3L+KwdeJe8lu4i8P3z58EwF/qmWDq4omfZwAAAABJRU5ErkJggg==")}
 .plate.f1{aspect-ratio:64/27;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAbCAYAAADMIInqAAAFGklEQVR4nNWYTWhUVxTHf+dNrCYWplrb5oPuR2PtQoSpQjOzsBBhHIolMUVbSF10E0hokJpVVxHKlIRm0U0YaxOIYymSBBOsRTNCo5C6KbZ11V0yo1Z0xCjGybtdvLl33nszE1s/EufAg5l7zr33/M85938/ZOv6DfjFqqsraQMQZfP44UMspEQXqN2AEqtsv/yDRRyN089GIQqmJo8pgP0HB0VhIdgobVlxLoUKBAiU8Xsl/yrhqilr+QJFKYUlwtnJL9VAIgnAxKluVS4IqyGrN1NBRISzEw748+kbXJy7x0AiycSpbrXavsAaBMAtU5PHmEh1A5BKZ9bEhxrwBl4V/gp22Q5OxIp9tFXA10eXs9fOaR1IJOnp7STeMQTA+FgX8Y4hs3BF2YgVQBTYUpzLcvmnffTPo2f3SyVcNYHaWq+lwOMHiyUDaFnns7fEQpRNfmkJtbzs1eGUu3+M/e2D9ACRnRv5+dINUukMS4v3mZ445rFNpTOMfvejiHI5LZB/tES+go9+/56ES5o3bTZR0dHMLz5ElSdS1tXVekjKEmF8rEvt+/BrUcvL6ITptQ6gyQ5g5uoi42Ndpgq0vqe302OndSYIrmznHy0xdeaoat1/vMRLv39F/KW4LIQaP+sqLEQEhUICgZKs+gdXtqPfu2eLOp++IeXAz1xdRNnLTKS6uXDw27JLYCCR5JdLN/nki085mfgeSJpALMy9qi78dl/0/FNnjirNGX4f/f5ZIthKVcQl2ze9hkiA8bGup2bhVDpDe0tDSdvC3DSNu1rL6tpbGgzxtbc0EO8YYnysq0S/MDdtqsEt8Y4hPv78o5Kx/6vsix0XJSDvbH7dgHeXIGCyFNm5seJA7pIup3P3dQPxj+su+YW5adPXP8b/8U3blcOVSmf44ZuTIn+f+8qAP3096DFsC+Xo6e3kvSM/rThJWyhX0reSnZZyc1XSPe2cl4cPrIhrIJF0ToJuo2gkXHRk5go9hd/udr/cAqL1T/SZW67ffvuVdM8y5+nrwRLf3bg8R+FoJMzNYDM2ivrcn56sAGSDO1DYFU7aL5tYwG2nUmauEI2EyQa3AxbRiNfKszZtAiRjOd7InjPlrwNDhcPRyyp9o/P09HbSFsrRf6iJv8aHgTzvvu3axsEhnsvDBwpNefpG52nc1WrAZ4M7WC7kvTqyD5DnZrDZg2Vr/AhQ49k5LICFuWlS6Qz9h5pQWGSD2xgcma3azINzHrARg2VrvBOwScZue3YFwwGDI7PAbk7EoHMySHP8M7IoqLrMO+L2NxQ/ggM+Zwi/sXAGMRzQfXg3gyOzpNIZkrEcb+b+WNV7+YsSC0F84LsP7zbLwLMNah7Qa1+/36zxrfmZxC7cDPtG5+nv7aQxnTHVDgVkjbtauTx8gFQ642F9p+uqPxo9V3Gq2DKE2N7SQFsoZyrAcp+7NfFlg9sYjt0tDKBjWH1EaKEQLJKxO6Ytlc6YozCApSPhZn29Xk7E7tCQu4ZgVSEfOAnTrK8TOjgyy0AiWawA8F6ClhH6Ruc5fT1otsb63O+FN4Nq+mA4dtfwm77PRCNhg80EwC2CRTa4g2gkXCALuDhzpWBaUzWffhrXdwF9FM4GtxGNhIu7gF4TjYYDisEong6hPnfNH6sqkCazvUcjYYOh/1CTsZBQXR1792xR5R4dAM/TVbXJSr4PJJKc//UfkdAr61ECH7z/VsmL0MzVRYns3Lgm7/XPSyphuDh3T5RY/Audysecc/xlsQAAAABJRU5ErkJggg==");margin-top:4px}
@@ -242,7 +254,7 @@ body.tutor .sheet>div{margin-bottom:330px!important;max-height:calc(100% - 370px
 <button class="reset g" id="reset">Начать заново</button>
 </div>
 <div class="sheet" id="sheet"><div class="px" id="sbox"></div></div>
-<div class="nav" id="nav"></div><div class="tut" id="tut"></div><div id="sc"></div><div id="wx"></div><div id="wt" class="px"></div>
+<div class="nav" id="nav"></div><div class="tut" id="tut"></div><div id="sc"></div><div id="sc2"></div><div id="wx"></div><div id="wt" class="px"></div>
 <div class="sheet on" id="auth" style="z-index:50;align-items:center;background:var(--bg)"><div class="px" id="abox" style="margin-bottom:0"></div></div>
 <div class="toast px" id="toast"></div>
 
@@ -333,7 +345,7 @@ var BUFFS=[
 var UNLOCK=[0,0,0,400,2000,8000],DRAIN=5,KEY="";
 function fresh(){var p=[];for(var i=0;i<6;i++)p.push({u:UNLOCK[i]===0,p:null,w:0});return{coins:60,gems:0,plots:p,inv:{0:2,5:1},buff:null,lv:1,xp:0,rb:0,pets:{},eq:[]}}
 var S=fresh();
-function loadSave(k){S=fresh();try{var raw=localStorage.getItem(k);if(raw){var o=JSON.parse(raw);if(o&&o.plots&&o.plots.length===6){S=o;S.gems=S.gems||0;S.inv=S.inv||{0:1,5:1};S.buff=S.buff||null;S.lv=S.lv||1;S.xp=S.xp||0;S.rb=S.rb||0;S.pets=S.pets||{};S.eq=S.eq||[]}}}catch(e){}}
+function loadSave(k){S=fresh();try{var raw=localStorage.getItem(k);if(raw){var o=JSON.parse(raw);if(o&&o.plots&&o.plots.length>=6){S=o;S.gems=S.gems||0;S.inv=S.inv||{0:1,5:1};S.buff=S.buff||null;S.lv=S.lv||1;S.xp=S.xp||0;S.rb=S.rb||0;S.pets=S.pets||{};S.eq=S.eq||[]}}}catch(e){}}
 function save(){if(!KEY)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 var $=function(i){return document.getElementById(i)};
 var grid=$("grid"),sheet=$("sheet"),sbox=$("sbox"),target=-1;
@@ -351,16 +363,16 @@ function build(){
   var p=PLANTS[pl.p];
   h+='<div class="plot px m'+(pl.m||0)+'" id="p'+i+'" data-i="'+i+'" data-a="water"><div class="bed3"><i class="sh"></i>'+psvg(p)+'</div><div class="nm">'+p.n+'</div><div class="rt" style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+(pl.m?' <span style="color:'+MUT[pl.m].c+'">★'+MUT[pl.m].n+'</span>':'')+'</div><div class="inc">+'+Math.round(p.i*(pl.m?MUT[pl.m].m:1))+'/с'+ic("coin",11)+'</div><div class="bar"><i id="w'+i+'"></i></div><button class="x dig" data-i="'+i+'">Выкопать</button></div>';
  });
- grid.innerHTML=h;tick(0);
+ if(S.plots.length<MAXP)h+=newPlotCard();grid.innerHTML=h;tick(0);
 }
 function bdef(){return S.buff?BUFFS.filter(function(b){return b.id===S.buff.id})[0]:null}
 function tick(dt){
- var pm=1+pb("inc")/100+decB(),wx=wxTick(dt),c0=S.coins,inc=0,id=S.buff&&S.buff.id,mult=(id==="x2"?2:id==="rain"?1.5:1)*(1+.1*S.rb)*(wx?wx.m:1)*pm,free=id==="auto"||id==="rain"||!!(wx&&wx.free);
+ var pm=(1+pb("inc")/100+decB())*upInc(),wx=wxTick(dt),c0=S.coins,inc=0,id=S.buff&&S.buff.id,mult=(id==="x2"?2:id==="rain"?1.5:1)*(1+.1*S.rb)*(wx?wx.m:1)*pm,free=id==="auto"||id==="rain"||!!(wx&&wx.free);
  if(S.buff&&dt>0){S.buff.t-=dt;if(S.buff.t<=0){S.buff=null;id=null;mult=(1+.1*S.rb)*(wx?wx.m:1)*pm;free=!!(wx&&wx.free);save()}}
  S.plots.forEach(function(pl,i){
   if(pl.p===null)return;var p=PLANTS[pl.p];
-  if(id==="auto")pl.w=100;
-  if(pl.w>0&&dt>0){if(free)S.coins+=p.i*mult*mm(pl)*dt;else{var dr=DRAIN*(wx&&wx.dr||1)*Math.max(.3,1-pb("wat")/100)*(pl.m===2?.75:1),use=Math.min(pl.w,dr*dt);S.coins+=p.i*mult*mm(pl)*(use/dr);pl.w-=use}}
+  if(id==="auto"||(S.up&&i<S.up.aut&&pl.p!==null))pl.w=100;
+  if(pl.w>0&&dt>0){if(free)S.coins+=p.i*mult*mm(pl)*dt;else{var dr=DRAIN*(wx&&wx.dr||1)*Math.max(.2,Math.max(.3,1-pb("wat")/100)*upWat())*(pl.m===2?.75:1),use=Math.min(pl.w,dr*dt);S.coins+=p.i*mult*mm(pl)*(use/dr);pl.w-=use}}
   if(pl.w>0)inc+=p.i*mult*mm(pl);
   var w=$("w"+i),b=$("p"+i);if(w)w.style.width=pl.w+"%";if(b)b.classList.toggle("dry",pl.w<=0);
  });
@@ -368,7 +380,7 @@ function tick(dt){
  $("c").textContent=fmt(S.coins);$("g").textContent=fmt(S.gems);$("ips").innerHTML="+"+fmt(inc);
  var bf=$("bf"),bd=bdef();
  if(bd){bf.style.display="block";bf.textContent="БАФФ: "+bd.n+" · "+Math.ceil(S.buff.t)+"с"}else bf.style.display="none";
- document.querySelectorAll(".ub,.pb,.bb,.eb,.pt,.dcb").forEach(function(b){var c=b.dataset.cur==="g"?S.gems:S.coins;b.disabled=c<+b.dataset.cost||(b.classList.contains("bb")&&!!S.buff)});
+ document.querySelectorAll(".ub,.pb,.bb,.eb,.pt,.dcb,.upb,.labb,.bmb,.skb,.npb").forEach(function(b){var c=b.dataset.cur==="g"?S.gems:S.coins;b.disabled=c<+b.dataset.cost||(b.classList.contains("bb")&&!!S.buff)});
 }
 function open(h){sbox.innerHTML=h;sheet.classList.add("on");tick(0)}
 function closeS(){sheet.classList.remove("on")}
@@ -377,7 +389,7 @@ function dlg(t,b,ok,cls,fn){open('<h2>'+t+'</h2><div style="font-size:8px;line-h
 function closeBtn(){return '<div class="row"><button class="g" id="no">Закрыть</button></div>'}
 function showPacks(){
  var h='<h2>Паки растений</h2>';
- PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'});
+ PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%'+(p.mt?' · мутации '+Math.round((p.mt[0]+p.mt[1]+p.mt[2])*100)+'%':'')+'</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'});
  open(h+closeBtn());$("no").onclick=closeS;
 }
 function pick(w){var t=w.reduce(function(a,b){return a+b},0),r=Math.random()*t;for(var i=0;i<w.length;i++){r-=w[i];if(r<0)return i}return 0}
@@ -418,7 +430,7 @@ grid.addEventListener("click",function(e){
  var el=e.target.closest(".plot");if(!el)return;
  var i2=+el.dataset.i,a=el.dataset.a,pl=S.plots[i2];
  if(a==="water"){pl.w=100;qadd("w");S.xp+=3*(1+pb("xp")/100);sfx("water");drops(el);el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");setTimeout(function(){el.classList.remove("pop")},300);
-  var ch=.06*(S.buff&&S.buff.id==="luck"?3:1)*(W.cur?W.cur.g:1)*(1+pb("gem")/100)+(pl.m===3?.05:0);
+  var ch=.06*(S.buff&&S.buff.id==="luck"?3:1)*(W.cur?W.cur.g:1)*(1+pb("gem")/100)*upGem()+(pl.m===3?.05:0);
   if(Math.random()<ch){var n=gemAmt();S.gems+=n;sfx("gem");toast("+"+n+ic("gem",14))}
   tick(0);save()}
  else if(a==="plant"){target=i2;showInv(i2)}
@@ -637,7 +649,7 @@ function save(){if(!KEY)return;try{localStorage.setItem(KEY,JSON.stringify(S))}c
 function usave(){try{localStorage.setItem("ff_users",JSON.stringify(US))}catch(e){}sched()}
 window.addEventListener("pagehide",function(){if(dirty)cloudPush(true)});
 document.addEventListener("visibilitychange",function(){if(document.hidden&&dirty)cloudPush(true)});
-function norm(o){if(!o||!o.plots||o.plots.length!==6)return fresh();o.gems=o.gems||0;o.inv=o.inv||{};o.buff=o.buff||null;o.lv=o.lv||1;o.xp=o.xp||0;o.rb=o.rb||0;o.pets=o.pets||{};o.eq=o.eq||[];return o}
+function norm(o){if(!o||!o.plots||o.plots.length<6)return fresh();o.gems=o.gems||0;o.inv=o.inv||{};o.buff=o.buff||null;o.lv=o.lv||1;o.xp=o.xp||0;o.rb=o.rb||0;o.pets=o.pets||{};o.eq=o.eq||[];return o}
 function signup(l,p,n,i){i=i||0;return api("/auth/v1/signup",{m:"POST",b:{email:mail(l,i),password:p,data:{nick:n}}}).then(function(r){
  if(r.ok&&r.j&&r.j.access_token){setSess(r.j);return}
  var c=((r.j&&(r.j.error_code||r.j.code||""))+" "+(r.j&&(r.j.msg||r.j.message)||"")).toLowerCase();
@@ -678,7 +690,7 @@ function showAuth(m){$("auth").classList.add("on");
 /* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
 var WK="https://farmbot.milkkofeyok.workers.dev";
 function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};o.wk=o.wk||{id:"",pts:0};o.fr=o.fr||{g:0,s:0};return o}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};o.wk=o.wk||{id:"",pts:0};o.fr=o.fr||{g:0,s:0};o.up=o.up||{inc:0,wat:0,aut:0,gem:0};o.sk=o.sk||{s:0,o:{}};o.bm=o.bm||{d:"",b:[]};return o}
 var _fresh=fresh;fresh=function(){return fix(_fresh())};
 var _norm=norm;norm=function(o){return fix(_norm(o))};
 var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
@@ -821,7 +833,7 @@ function showInv(pp){fix(S);var h;
    t+='<div class="seed">'+(n?psvg(p):'<span style="filter:brightness(0);opacity:.4">'+psvg(p)+'</span>')+'<div class="in"><div>'+(n?p.n+' ×'+n:"???")+'</div><div style="color:var(--'+RAR[p.r][1]+')">'+RAR[p.r][0]+'</div>'+(n?'<div>+'+p.i+'/с</div>':'')+(ms.length?'<div style="color:var(--muted)">★ '+ms.join(", ")+'</div>':'')+'</div></div>'});
   open('<h2>Сумка · '+own+'/'+PLANTS.length+'</h2>'+t+closeBtn());$("no").onclick=closeS}}
 function openPack(k){var P=PACKS[k],c=P.cur==="g"?"gems":"coins";if(S[c]<P.cost)return;S[c]-=P.cost;fix(S);
- var rr=pick(P.w),pl=rnd(PLANTS.filter(function(p){return p.r===rr&&!p.ev})),m=rollMut([1,2,4][k]||1);
+ var rr=pick(P.w),pl=rnd(PLANTS.filter(function(p){return p.r===rr&&!p.ev})),m=P.mt?rollMutP(P.mt):rollMut([1,2,4][k]||1);
  addInv(pl.id,m);var gm=Math.random()<P.g?gemAmt():0;S.gems+=gm;S.xp+=20;qadd("o");save();sfx("open");setTimeout(function(){sfx("rev",m?5:pl.r)},350);
  open('<h2>Выпало!</h2><div style="text-align:center"><div class="rv mut'+m+'">'+psvg(pl,"spr big")+'</div><div style="font-size:10px">'+pl.n+'</div>'+(m?'<div style="color:'+MUT[m].c+';margin:6px">★ '+MUT[m].n+'</div><div class="hint" style="line-height:1.8">'+MUT[m].d+'</div>':'')+'<div style="color:var(--'+RAR[pl.r][1]+');margin:6px">'+RAR[pl.r][0]+' · +'+Math.round(pl.i*mmx(m))+'/с</div>'+(gm?'<div style="display:flex;justify-content:center;align-items:center;gap:5px">+'+gm+ic("gem",14)+'</div>':'')+'</div><div class="row"><button class="g" id="no">Ок</button><button class="pb" id="again" data-k="'+k+'" data-cost="'+P.cost+'" data-cur="'+P.cur+'">Ещё '+cur(P.cur,P.cost)+'</button></div>');
  $("no").onclick=closeS;$("again").onclick=function(){openPack(k)}}
@@ -829,7 +841,7 @@ function showShop(t){t=t||0;var h='<h2>Магазин</h2><div class="seg">';
  ["Паки","Яйца","Питомцы"].forEach(function(n,i){h+='<button data-t="'+i+'"'+(i===t?'':' class="g"')+'>'+n+'</button>'});
  h+='</div>';
  if(t===0){h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Из паков могут выпасть мутации растений</div>';
-  PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'})}
+  PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%'+(p.mt?' · мутации '+Math.round((p.mt[0]+p.mt[1]+p.mt[2])*100)+'%':'')+'</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'})}
  else if(t===1){EGGS.forEach(function(e,k){h+='<div class="seed">'+svg("egg",null,e.pal)+'<div class="in"><div>'+e.n+'</div><div style="color:var(--muted)">'+e.hi+'</div></div><button class="eb" data-k="'+k+'" data-cost="'+e.cost+'" data-cur="'+e.cur+'">'+cur(e.cur,e.cost)+'</button></div>'})}
  else{h+='<div class="hint" style="margin-bottom:12px">Питомцы за коины</div>';PETS.forEach(function(p){if(p.r>2||p.ev)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')})}
  open(h+closeBtn());$("no").onclick=closeS;
@@ -979,7 +991,7 @@ function save(){if(!KEY)return;S.ts=Date.now();try{localStorage.setItem(KEY,JSON
 var _fresh2=fresh;fresh=function(){var f=_fresh2();f.tut={s:-1};return f};
 function rebirth(){var g=rnd(PLANTS.filter(function(p){return p.r===1&&!p.ev})),rb=S.rb+1,pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut;
  S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.coins=300;S.gems=25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",4);toast("Перерождение! Подарок: "+g.n)}
-function baseInc(){var t=0;S.plots.forEach(function(pl){if(pl.p!==null)t+=PLANTS[pl.p].i*mm(pl)});return t*(1+.1*S.rb)*(1+pb("inc")/100+decB())}
+function baseInc(){var t=0;S.plots.forEach(function(pl){if(pl.p!==null)t+=PLANTS[pl.p].i*mm(pl)});return t*(1+.1*S.rb)*(1+pb("inc")/100+decB())*upInc()}
 function offlineGain(){var t=S.ts;if(!t)return null;var el=Math.min(Math.max(0,(Date.now()-t)/1000),7200);if(el<120)return null;var g=Math.floor(baseInc()*el*.25);S.ts=Date.now();if(g<1)return null;S.coins+=g;return{g:g,el:el}}
 function showOffline(o){var m=Math.round(o.el/60);
  open('<h2>С возвращением!</h2><div style="text-align:center;line-height:2;font-size:9px">Пока вас не было '+(m>=60?Math.floor(m/60)+" ч "+(m%60)+" мин":m+" мин")+', ферма заработала:<div style="font-size:14px;margin:12px 0;display:flex;justify-content:center;align-items:center;gap:6px">+'+fmt(o.g)+ic("coin",16)+'</div><div class="hint" style="line-height:1.8">Это 25% дохода, максимум за 2 часа</div></div><div class="row"><button id="ofok">Забрать</button></div>');
@@ -1099,6 +1111,97 @@ function showLB(){open('<h2>Рейтинг недели</h2><div class="hint">З
    h+='<div class="seed">'+lead+'<div class="av" style="width:36px;height:36px;flex:none">'+lbAv(u)+'</div><div class="in"><div>'+esc(u.nick)+(u.nick===me?' (ты)':'')+'</div><div style="color:var(--muted)">Ур. '+u.lv+(u.rb?' · '+rbTag(u.rb):'')+'</div><div>Очки: '+fmt(u.wpts)+'</div></div></div>'});
   h+='<div class="hint" style="margin-top:10px;line-height:1.9">'+(found?"":"Тебя пока нет в списке. ")+stLine()+'</div>';
   open(h+closeBtn());$("no").onclick=closeS;$("wrb").onclick=showWR}).catch(function(){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS})}
+
+SPR.decfountain=["......k.k.k.....", ".....kakakak....", "......kbabk.....", ".....kbkakbk....", ".....kbkakbk....", "....kbkbabkbk...", "...kaccbbbccak..", "...kkkkccckkkk..", "..kak.kdck..kak.", "...k..kdck...k..", "...kkkkdckkkkk..", "..kccabdcbbacck.", ".kcbbbbbbbbbbbck", ".keeeeeeeeeeeeck", ".keeeeeeeeeeeek.", "..kkkkkkkkkkkk.."];PALS.decfountain={"a": "#b8ecff", "b": "#5ac8ff", "c": "#a8a8b4", "d": "#c8c8d4", "e": "#7a7a88", "k": "#2b1d0e"};
+SPR.decmill=["..kakk.....kkak.", "...kbbk.k.kbbk..", "...kbabkckbabk..", "....kbabdbabk...", ".....kbaeabk....", ".....kceeedk....", ".....kbaeabk....", "....kbabfbabk...", "...kbabggfbabk..", "...kbbhffifbbk..", "..kakkhffffkkak.", "...k.khjjffk.k..", "....khijjfffk...", "....khhjjfffk...", "....khhjjfffk...", ".....kkkkkkk...."];PALS.decmill={"a": "#8a5524", "b": "#f4ead0", "c": "#e06a5a", "d": "#c84a3a", "e": "#5c3a17", "f": "#ead9b0", "g": "#5ac8ff", "h": "#fff3d6", "i": "#cdbf90", "j": "#7a4a2a", "k": "#2b1d0e"};
+SPR.deckoi=["................", "................", "................", "......kkkkk.....", "....kkaaaaakkk..", "..kkaabbbbbaack.", ".kaabbddddebbafk", ".kcgddddekhefffk", "kabgggikddeddbfa", "kabgjlmddddddbba", "kabbmmmdddmmmbba", ".kabmmmdddmmmbak", ".kaabbbbbcbbbaak", "..kkaabbbbbaakk.", "....kkaaaaakk...", "......kkkkk....."];PALS.deckoi={"a": "#7a7a88", "b": "#3a9ad8", "c": "#b8ecff", "d": "#5ac8ff", "e": "#ff7a1a", "f": "#ff9a3c", "g": "#f4f4f4", "h": "#fff", "i": "#e63946", "j": "#ffd0e8", "l": "#ff9ac8", "m": "#4fbf6a", "k": "#2b1d0e"};
+SPR.deccastle=["........k....k..", ".......kak..kbkk", "..k...kbbk..kbbb", ".kak.kbbbbkkkbkk", "kcackkddddkckak.", "keccckdffdkcccck", "keccckddddkcccck", "keccckddddccccck", "kefccgddddgcfcck", "kecccgchhcgcccck", "kecccghhhhgcccck", "kefccghkkhgcfcck", "kecccghkkhgcccck", "kecccghkkhgcccck", "kecccghkkhgcccck", ".kkkkkkkkkkkkkk."];PALS.deccastle={"a": "#8a5524", "b": "#d83a3a", "c": "#8a8aa0", "d": "#d8d8e4", "e": "#a0a0b4", "f": "#2b2b3a", "g": "#b8b8c8", "h": "#5a3a22", "k": "#2b1d0e"};
+SPR.up=["....GG....","...GGGG...","..GGGGGG..",".GGGGGGGG.","...GGGG...","...GGGG...","...GGGG...","...kkkk...","..........",".........."];
+SPR.flask=["...kkkk...","....ww....","....ww....","...wwww...","..wGGGGw..",".wGGbGGGw.",".wGGGGbGw.",".wGGGGGGw.","..wwwwww..",".........."];
+SPR.plus=["....yy....","....yy....","....yy....","yyyyyyyyyy","yyyyyyyyyy","....yy....","....yy....","....yy....","..........",".........."];
+/* ===== v14: траты коинов: улучшения, грядки, лаборатория, элитные паки, декор, чёрный рынок ===== */
+var MAXP=24;
+function cs(n){n=Math.round(n);if(n>=1e12)return(n/1e12).toFixed(n>=1e13?0:1).replace(".0","")+" трлн";if(n>=1e9)return(n/1e9).toFixed(n>=1e10?0:1).replace(".0","")+" млрд";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?0:1).replace(".0","")+" млн";return fmt(n)}
+function cur(c,n){return(n>=1e6?cs(n):fmt(n))+ic(c==="g"?"gem":"coin",12)}
+/* улучшения */
+var UPG=[{k:"inc",n:"Доход",max:50,b:5e4,g:1.55,d:function(L){return"+"+L*5+"% к доходу"}},
+{k:"wat",n:"Запас воды",max:40,b:8e4,g:1.6,d:function(L){return"вода тратится на "+Math.round((1-1/(1+.04*L))*100)+"% медленнее"}},
+{k:"aut",n:"Авто-полив",max:24,b:3e5,g:1.9,d:function(L){return L+" гряд. поливаются сами"}},
+{k:"gem",n:"Удача гемов",max:30,b:1.2e5,g:1.6,d:function(L){return"шанс гема при поливе ×"+(1+.1*L).toFixed(1)}}];
+function upL(k){fix(S);return S.up[k]||0}
+function upCost(u){return Math.round(u.b*Math.pow(u.g,upL(u.k)))}
+function upInc(){return 1+.05*upL("inc")}
+function upWat(){return 1/(1+.04*upL("wat"))}
+function upGem(){return 1+.1*upL("gem")}
+function showUpg(){fix(S);var h='<h2>Улучшения фермы</h2><div class="hint" style="line-height:1.9;margin-bottom:12px">Улучшения постоянные и остаются после перерождения</div>';
+ UPG.forEach(function(u){var L=upL(u.k),mx=L>=u.max;h+='<div class="seed"><div class="in"><div>'+u.n+' · ур. '+L+'/'+u.max+'</div><div style="color:var(--muted);line-height:1.8">'+u.d(L)+(mx?'':'<br>Дальше: '+u.d(L+1))+'</div></div>'+(mx?'<div class="hint">Максимум</div>':'<button class="upb" data-k="'+u.k+'" data-cost="'+upCost(u)+'" data-cur="c">'+cur("c",upCost(u))+'</button>')+'</div>'});
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".upb").forEach(function(b){b.onclick=function(){var u=UPG.filter(function(x){return x.k===b.dataset.k})[0],c=upCost(u);if(b.disabled||S.coins<c||upL(u.k)>=u.max)return;S.coins-=c;S.up[u.k]++;sfx("unlock");save();keepScroll(showUpg)}})}
+/* грядки */
+function plotCost(n){return Math.round(2.5e6*Math.pow(1.9,n-6))}
+function newPlotCard(){var n=S.plots.length;return'<div class="plotnew px"><div class="nm">Новая грядка</div>'+svg("plus","spr")+'<button class="npb" data-cost="'+plotCost(n)+'" data-cur="c">'+cur("c",plotCost(n))+'</button><div class="hint">'+n+'/'+MAXP+'</div></div>'}
+grid.addEventListener("click",function(e){var b=e.target.closest(".npb");if(!b||b.disabled)return;var c=plotCost(S.plots.length);if(S.coins<c||S.plots.length>=MAXP)return;S.coins-=c;S.plots.push({u:true,p:null,w:0});sfx("unlock");save();build()});
+/* лаборатория мутаций */
+var LABB=[2e5,6e5,2e6,8e6,3e7,1.2e8],LABC=[.25,.15,.08],LABM=[1,3,8];
+function labCost(p,m){return LABB[p.r]*LABM[m]}
+function showLab(){fix(S);var rows=srt(invRows().filter(function(r){return r.m<3}),"p",function(r){return r.p.r}),
+ h='<h2>Лаборатория мутаций</h2><div class="hint" style="line-height:1.9;margin-bottom:10px">При неудаче растение не пропадает, теряются только коины. Из обычного: золотой 25%, из золотого: алмазный 15%, из алмазного: радужный 8%.</div>'+(rows.length?sortBtn("p"):"");
+ rows.forEach(function(r){var t=r.m+1,c=labCost(r.p,r.m);h+='<div class="seed"><div class="mut'+r.m+'" style="flex:none">'+psvg(r.p)+'</div><div class="in"><div>'+r.p.n+' ×'+r.n+'</div><div style="color:var(--muted);line-height:1.8">'+(r.m?MUT[r.m].n+' → ':'')+'<span style="color:'+MUT[t].c+'">★ '+MUT[t].n+'</span> · '+Math.round(LABC[r.m]*100)+'%</div></div><button class="labb" data-id="'+r.p.id+'" data-m="'+r.m+'" data-cost="'+c+'" data-cur="c">'+cur("c",c)+'</button></div>'});
+ if(!rows.length)h+='<div style="text-align:center;line-height:2;margin-bottom:10px">В сумке нет растений для мутации</div>';
+ open(h+closeBtn());$("no").onclick=closeS;bindSort(function(){showLab()});
+ document.querySelectorAll(".labb").forEach(function(b){b.onclick=function(){var id=+b.dataset.id,m=+b.dataset.m,p=PLANTS[id],c=labCost(p,m);if(b.disabled||S.coins<c||!takeInv(id,m))return;S.coins-=c;
+  if(Math.random()<LABC[m]){addInv(id,m+1);sfx("rev",5);toast("Мутация! ★ "+MUT[m+1].n)}else{addInv(id,m);sfx("dig");toast("Не получилось")}
+  save();keepScroll(showLab)}})}
+/* элитные паки */
+PACKS.push({n:"Элитный пак",s:"chest",pal:{b:"#4a5a7a",B:"#9ab0d8",y:"#e8f0ff"},cost:1e6,cur:"c",w:[0,10,30,35,20,5],g:.5,mt:[.20,.06,.02]},
+{n:"Королевский пак",s:"chest",pal:{b:"#5a2a8a",B:"#b070f0",y:"#ffe8ff"},cost:1e7,cur:"c",w:[0,0,20,40,30,10],g:.6,mt:[.35,.15,.06]},
+{n:"Пак Бога",s:"chest",pal:{b:"#1a1a24",B:"#ffd23f",y:"#ff3b30"},cost:1e8,cur:"c",w:[0,0,0,30,45,25],g:.7,mt:[.45,.28,.15]});
+function rollMutP(t){var r=Math.random();if(r<t[2])return 3;if(r<t[2]+t[1])return 2;if(r<t[2]+t[1]+t[0])return 1;return 0}
+/* декор и скины */
+DEC.push({n:"Фонтан",s:"decfountain",c:5e6,b:.03},{n:"Мельница",s:"decmill",c:25e6,b:.04},{n:"Пруд с рыбками",s:"deckoi",c:1e8,b:.05},{n:"Замок",s:"deccastle",c:5e8,b:.08});
+function decB(){var n=0;if(S.dec)DEC.forEach(function(d,i){if(S.dec[i])n+=d.b||.02});return n}
+var SKN=[{n:"Луг",c:0},{n:"Закат",c:2e7,bg:"#b8743c",b2:"#a96a34",p:""},{n:"Звёздная ночь",c:5e7,bg:"#1b2b4a",b2:"#17253f",p:"fly"},{n:"Зима",c:1e8,bg:"#dfe9f2",b2:"#d3e0ec",p:"snow"},{n:"Сакура",c:2.5e8,bg:"#e8a8c0",b2:"#dc9ab4",p:"pet"}],DT=0,_sk=-1;
+function showDec(t){if(typeof t==="number")DT=t;fix(S);var h='<h2>Декор и фоны</h2><div class="seg">'+["Декор","Фон фермы"].map(function(n,i){return'<button data-t="'+i+'"'+(i===DT?'':' class="g"')+'>'+n+'</button>'}).join("")+'</div>';
+ if(DT===0){h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Декор даёт бонус к доходу и появляется под грядками</div>';
+  DEC.forEach(function(d,i){h+='<div class="seed">'+svg(d.s)+'<div class="in"><div>'+d.n+'</div><div style="color:var(--muted)">+'+Math.round((d.b||.02)*100)+'% к доходу</div></div>'+(S.dec[i]?'<div class="hint">Куплено</div>':'<button class="dcb" data-i="'+i+'" data-cost="'+d.c+'" data-cur="c">'+cur("c",d.c)+'</button>')+'</div>'})}
+ else{h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Фон меняет вид всей фермы</div>';
+  SKN.forEach(function(k,i){var own=i===0||S.sk.o[i],sel=S.sk.s===i;h+='<div class="seed"><div class="av" style="width:44px;height:44px;flex:none;background:'+(k.bg||"#7ec850")+'"></div><div class="in"><div>'+k.n+'</div></div>'+(sel?'<div class="hint">Выбран</div>':own?'<button class="sks" data-i="'+i+'">Выбрать</button>':'<button class="skb" data-i="'+i+'" data-cost="'+k.c+'" data-cur="c">'+cur("c",k.c)+'</button>')+'</div>'})}
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){showDec(+b.dataset.t)}});
+ document.querySelectorAll(".dcb").forEach(function(b){b.onclick=function(){var d=DEC[+b.dataset.i];if(b.disabled||S.coins<d.c)return;S.coins-=d.c;S.dec[+b.dataset.i]=1;sfx("unlock");save();drawDec();showDec()}});
+ document.querySelectorAll(".sks").forEach(function(b){b.onclick=function(){S.sk.s=+b.dataset.i;sfx("unlock");save();showDec()}});
+ document.querySelectorAll(".skb").forEach(function(b){b.onclick=function(){var i=+b.dataset.i,k=SKN[i];if(b.disabled||S.coins<k.c)return;S.coins-=k.c;S.sk.o[i]=1;S.sk.s=i;sfx("rev",4);save();showDec()}})}
+function applySkin(){var i=(S.sk&&S.sk.s)||0,k=SKN[i],r=document.documentElement.style,b=document.body;b.className=b.className.replace(/\bsk\d\b/g,"").trim();
+ if(k.bg){b.classList.add("sk"+i);r.setProperty("--bg",k.bg);r.setProperty("--bg2",k.b2)}else{r.removeProperty("--bg");r.removeProperty("--bg2")}
+ var el=$("sc2");if(!el)return;var h="";if(k.p){for(var j=0;j<18;j++)h+='<i class="'+k.p+'" style="'+(k.p==="fly"?'top:'+Math.round(20+Math.random()*70)+'%;':'')+'left:'+Math.round(Math.random()*96)+'%;animation-delay:-'+(Math.random()*8).toFixed(1)+'s;animation-duration:'+(5+Math.random()*5).toFixed(1)+'s"></i>'}el.innerHTML=h}
+setInterval(function(){if(ME&&S&&S.sk&&_sk!==S.sk.s){_sk=S.sk.s;applySkin()}},1000);
+/* чёрный рынок */
+var BMP=[{t:"p",r:5,m:0,c:4e8,n:"Мифическое растение"},{t:"p",r:4,m:1,c:1.5e8,n:"Легендарное растение, золотое"},{t:"p",r:4,m:2,c:4e8,n:"Легендарное растение, алмазное"},
+{t:"p",r:5,m:3,c:3e9,n:"Мифическое растение, радужное"},{t:"t",r:3,c:8e7,n:"Эпический питомец"},{t:"t",r:4,c:3.5e8,n:"Легендарный питомец"},{t:"t",r:5,c:2e9,n:"Мифический питомец"},
+{t:"g",n2:25,c:2e8,n:"25 гемов"},{t:"g",n2:60,c:4.5e8,n:"60 гемов"}];
+function bmSeed(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h}
+function bmToday(){var h=bmSeed(today()),idx=BMP.map(function(_,i){return i}),out=[];for(var k=0;k<4;k++){h=(Math.imul(h,1103515245)+12345)>>>0;out.push(idx.splice(h%idx.length,1)[0])}return out}
+function bmLeft(){var d=new Date(),t=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime(),m=Math.max(0,t-Date.now());return Math.floor(m/36e5)+" ч "+Math.floor(m%36e5/6e4)+" мин"}
+function bmGive(it){if(it.t==="g"){S.gems+=it.n2;return it.n2+" гемов"}
+ if(it.t==="p"){var p=rnd(PLANTS.filter(function(x){return!x.ev&&x.r===it.r}));addInv(p.id,it.m||0);return p.n+(it.m?" ★"+MUT[it.m].n:"")}
+ var q=rnd(PETS.filter(function(x){return!x.ev&&x.r===it.r}));S.pets[q.id]=(S.pets[q.id]||0)+1;return q.n}
+function showBM(){fix(S);var t=today();if(S.bm.d!==t)S.bm={d:t,b:[]};var list=bmToday(),h='<h2>Чёрный рынок</h2><div class="hint" style="line-height:1.9;margin-bottom:12px">Товары меняются каждый день. Обновление через '+bmLeft()+'. Каждый товар можно купить один раз.</div>';
+ list.forEach(function(i){var it=BMP[i],got=S.bm.b.indexOf(i)>=0,col=it.t==="g"?"#6aaeff":"var(--c"+(it.r||2)+")";
+  h+='<div class="seed"><div style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--bg);font-size:18px;color:'+col+'">'+(it.t==="g"?ic("gem",28):"?")+'</div><div class="in"><div>'+it.n+'</div><div style="color:var(--muted)">'+(it.t==="g"?"":"случайный из редкости")+'</div></div>'+(got?'<div class="hint">Куплено</div>':'<button class="bmb" data-i="'+i+'" data-cost="'+it.c+'" data-cur="c">'+cur("c",it.c)+'</button>')+'</div>'});
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".bmb").forEach(function(b){b.onclick=function(){var i=+b.dataset.i,it=BMP[i];if(b.disabled||S.coins<it.c||S.bm.b.indexOf(i)>=0)return;S.coins-=it.c;S.bm.b.push(i);var g=bmGive(it);sfx("rev",it.r||3);toast("Получено: "+g);save();showBM()}})}
+/* перерождение: улучшения, грядки, фоны сохраняются */
+function rebirth(){var g=rnd(PLANTS.filter(function(p){return p.r===1&&!p.ev})),rb=S.rb+1,pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut,fr=S.fr,wk=S.wk,up=S.up,sk=S.sk,bm=S.bm,pl=S.plots.map(function(p){return{u:p.u,p:null,w:0}});
+ S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.fr=fr;S.wk=wk;S.up=up;S.sk=sk;S.bm=bm;S.plots=pl;S.coins=300;S.gems=25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",4);toast("Перерождение! Подарок: "+g.n)}
+/* меню «Ещё» */
+function showMore(){var h='<h2>Развитие</h2><div class="tg">',tile=function(x){return'<button class="tl2" data-k="'+x[0]+'" style="box-shadow:0 -3px 0 0 var(--ink),0 3px 0 0 var(--ink),-3px 0 0 0 var(--ink),3px 0 0 0 var(--ink),inset 0 9px 0 0 '+x[3]+'">'+svg(x[1],"",x[4])+'<span>'+x[2]+'</span></button>'};
+ [["upg","up","Улучшения","#2e9e4f",{G:"#4fd26a"}],["lab","flask","Лаборатория","#8a35c9",{G:"#a8ff7a",b:"#e8ffd0"}],["bm","bag","Чёрный рынок","#444466",{B:"#2b2b3a",b:"#1a1a24",y:"#ffd23f"}],["dec","gnome","Декор и фон","#3fa04a"]].forEach(function(x){h+=tile(x)});
+ h+='</div><h2 style="margin-top:6px">Прочее</h2><div class="tg">';
+ [["buff","potion","Баффы","#a855f7",{c:"#a855f7",L:"#e9d5ff"}],["lb","trophy","Рейтинг","#e0a100"],["mut","mutic","Мутации","#d6247a"],["mus","note","Музыка: "+(AS.m?"вкл":"выкл"),"#4a6fd8",{w:AS.m?"#2e9e4f":"#9a8a70"}],["snd","spk","Звуки: "+(AS.s?"вкл":"выкл"),"#1fa8a0",{w:AS.s?"#2e9e4f":"#9a8a70"}]].forEach(function(x){h+=tile(x)});
+ open(h+'</div>'+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".tl2").forEach(function(b){b.onclick=function(){var k=b.dataset.k;
+  if(k==="upg")showUpg();else if(k==="lab")showLab();else if(k==="bm")showBM();else if(k==="dec")showDec();else if(k==="buff")showBuffs();else if(k==="lb")showLB();else if(k==="mut")showMuts();
+  else if(k==="mus"){$("tm").click();showMore()}else if(k==="snd"){$("ts").click();showMore()}}})}
 
 boot2();
 </script>
