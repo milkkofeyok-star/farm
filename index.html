@@ -367,8 +367,8 @@ function build(){
 }
 function bdef(){return S.buff?BUFFS.filter(function(b){return b.id===S.buff.id})[0]:null}
 function tick(dt){
- var pm=(1+pb("inc")/100+decB())*upInc(),wx=wxTick(dt),c0=S.coins,inc=0,id=S.buff&&S.buff.id,mult=(id==="x2"?2:id==="rain"?1.5:1)*(1+.1*S.rb)*(wx?wx.m:1)*pm,free=id==="auto"||id==="rain"||!!(wx&&wx.free);
- if(S.buff&&dt>0){S.buff.t-=dt;if(S.buff.t<=0){S.buff=null;id=null;mult=(1+.1*S.rb)*(wx?wx.m:1)*pm;free=!!(wx&&wx.free);save()}}
+ var pm=(1+pb("inc")/100+decB())*upInc(),wx=wxTick(dt),c0=S.coins,inc=0,id=S.buff&&S.buff.id,mult=(id==="x2"?2:id==="rain"?1.5:1)*rbMult()*(wx?wx.m:1)*pm,free=id==="auto"||id==="rain"||!!(wx&&wx.free);
+ if(S.buff&&dt>0){S.buff.t-=dt;if(S.buff.t<=0){S.buff=null;id=null;mult=rbMult()*(wx?wx.m:1)*pm;free=!!(wx&&wx.free);save()}}
  S.plots.forEach(function(pl,i){
   if(pl.p===null)return;var p=PLANTS[pl.p];
   if(id==="auto"||(S.up&&i<S.up.aut&&pl.p!==null))pl.w=100;
@@ -380,7 +380,7 @@ function tick(dt){
  $("c").textContent=fmt(S.coins);$("g").textContent=fmt(S.gems);$("ips").innerHTML="+"+fmt(inc);
  var bf=$("bf"),bd=bdef();
  if(bd){bf.style.display="block";bf.textContent="БАФФ: "+bd.n+" · "+Math.ceil(S.buff.t)+"с"}else bf.style.display="none";
- document.querySelectorAll(".ub,.pb,.bb,.eb,.pt,.dcb,.upb,.labb,.bmb,.skb,.npb").forEach(function(b){var c=b.dataset.cur==="g"?S.gems:S.coins;b.disabled=c<+b.dataset.cost||(b.classList.contains("bb")&&!!S.buff)});
+ document.querySelectorAll(".ub,.pb,.bb,.eb,.pt,.dcb,.upb,.labb,.bmb,.skb,.npb,.fbuy").forEach(function(b){var c=b.dataset.cur==="g"?S.gems:S.coins;b.disabled=c<+b.dataset.cost||(b.classList.contains("bb")&&!!S.buff)});
 }
 function open(h){sbox.innerHTML=h;sheet.classList.add("on");tick(0)}
 function closeS(){sheet.classList.remove("on")}
@@ -503,9 +503,9 @@ function logout(){save();try{localStorage.removeItem("ff_cur");sessionStorage.re
 function rebirth(){var g=rnd(PLANTS.filter(function(p){return p.r===1})),rb=S.rb+1;
  var pt=S.pets,eq=S.eq;S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.coins=300;S.gems=25;S.inv={};S.inv[g.id]=1;save();build();sfx("rev",4);toast("Перерождение! Подарок: "+g.n)}
 function showProfile(){var u=US[ME];if(!u)return;
- open('<h2>Профиль</h2><div style="text-align:center"><div class="afr f'+((S.fr&&S.fr.s)||0)+'"><div class="in"><div class="av">'+avh(u.av)+'</div></div></div><div style="font-size:11px">'+u.nick+'</div><div class="hint" style="margin:10px 0;line-height:2.2">Ур. '+S.lv+'/100'+(S.lv<100?' · XP '+fmt(S.xp)+'/'+fmt(need(S.lv)):'')+'<br>Перерождений: '+S.rb+' · доход +'+S.rb*10+'%</div></div><div class="row"><button id="pn">Ник</button><button id="pa">Аватар</button><button id="pfm">Рамка</button></div><div class="row"><button id="pr" class="x"'+(S.lv<100?' disabled':'')+'>Перерождение</button></div>'+(S.lv<100?'<div class="hint" style="text-align:center">Откроется на 100 уровне</div>':'')+'<div class="row"><button class="g" id="po">Выйти</button><button class="g" id="no">Закрыть</button></div>');
+ open('<h2>Профиль</h2><div style="text-align:center"><div class="afr f'+((S.fr&&S.fr.s)||0)+'"><div class="in"><div class="av">'+avh(u.av)+'</div></div></div><div style="font-size:11px">'+u.nick+'</div><div class="hint" style="margin:10px 0;line-height:2.2">Ур. '+S.lv+'/100'+(S.lv<100?' · XP '+fmt(S.xp)+'/'+fmt(need(S.lv)):'')+'<br>Перерождений: '+S.rb+' · доход +'+Math.round(rbBonus(S.rb)*100)+'%</div></div><div class="row"><button id="pn">Ник</button><button id="pa">Аватар</button><button id="pfm">Рамка</button></div><div class="row"><button id="pr" class="x"'+(S.lv<100||S.coins<rbCost(S.rb)?' disabled':'')+'>'+(rbMega()?'Мегаперерождение':'Перерождение')+' '+cur("c",rbCost(S.rb))+'</button></div>'+(S.lv<100?'<div class="hint" style="text-align:center">Откроется на 100 уровне</div>':S.coins<rbCost(S.rb)?'<div class="hint" style="text-align:center">Нужно '+cs(rbCost(S.rb))+' коинов</div>':'')+'<div class="row"><button class="g" id="po">Выйти</button><button class="g" id="no">Закрыть</button></div>');
  $("no").onclick=closeS;$("pn").onclick=nickView;$("pa").onclick=avView;$("pfm").onclick=showFrames;$("po").onclick=logout;
- $("pr").onclick=function(){dlg("Переродиться?","Растения, коины, гемы и уровень сбросятся.<br>Взамен: +10% к доходу навсегда и подарок: необычное растение, 300 коинов и 25 гемов.","Переродиться","x",rebirth)}}
+ $("pr").onclick=function(){dlg(rbMega()?"Мегаперерождение?":"Переродиться?",rbMega()?"Сбросятся растения, коины, гемы, уровень и ВСЕ улучшения фермы.<br>Взамен: +5% к доходу навсегда, звезда становится мега-звездой, подарок: редкое или эпическое растение, 5 000 коинов и 40 гемов.<br>Цена: "+fmt(rbCost(S.rb))+" коинов":"Растения, коины, гемы и уровень сбросятся.<br>Взамен: +10% к доходу навсегда и подарок: необычное растение, 300 коинов и 25 гемов.<br>Цена: "+fmt(rbCost(S.rb))+" коинов",rbMega()?"Мега!":"Переродиться","x",rebirth)}}
 function nickView(){var u=US[ME];
  open('<h2>Новый ник</h2><input id="nn" maxlength="12" value="'+u.nick+'"><div id="nm2" class="hint" style="min-height:20px;color:var(--btnx)"></div><div class="row"><button class="g" id="back">Назад</button><button id="ns">Сохранить</button></div>');
  $("back").onclick=showProfile;
@@ -690,7 +690,7 @@ function showAuth(m){$("auth").classList.add("on");
 /* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
 var WK="https://farmbot.milkkofeyok.workers.dev";
 function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};o.wk=o.wk||{id:"",pts:0};o.fr=o.fr||{g:0,s:0};o.up=o.up||{inc:0,wat:0,aut:0,gem:0};o.sk=o.sk||{s:0,o:{}};o.bm=o.bm||{d:"",b:[]};return o}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};o.wk=o.wk||{id:"",pts:0};o.fr=o.fr||{g:0,s:0};o.up=o.up||{inc:0,wat:0,aut:0,gem:0};o.sk=o.sk||{s:0,o:{}};o.bm=o.bm||{d:"",b:[]};if(!o.sat){o.sat={};o.food={0:10,1:3,2:1,3:0};(o.eq||[]).forEach(function(id){o.sat[id]=Date.now()+6e5})}o.food=o.food||{0:0,1:0,2:0,3:0};return o}
 var _fresh=fresh;fresh=function(){return fix(_fresh())};
 var _norm=norm;norm=function(o){return fix(_norm(o))};
 var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
@@ -991,7 +991,7 @@ function save(){if(!KEY)return;S.ts=Date.now();try{localStorage.setItem(KEY,JSON
 var _fresh2=fresh;fresh=function(){var f=_fresh2();f.tut={s:-1};return f};
 function rebirth(){var g=rnd(PLANTS.filter(function(p){return p.r===1&&!p.ev})),rb=S.rb+1,pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut;
  S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.coins=300;S.gems=25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",4);toast("Перерождение! Подарок: "+g.n)}
-function baseInc(){var t=0;S.plots.forEach(function(pl){if(pl.p!==null)t+=PLANTS[pl.p].i*mm(pl)});return t*(1+.1*S.rb)*(1+pb("inc")/100+decB())*upInc()}
+function baseInc(){var t=0;S.plots.forEach(function(pl){if(pl.p!==null)t+=PLANTS[pl.p].i*mm(pl)});return t*rbMult()*(1+pb("inc")/100+decB())*upInc()}
 function offlineGain(){var t=S.ts;if(!t)return null;var el=Math.min(Math.max(0,(Date.now()-t)/1000),7200);if(el<120)return null;var g=Math.floor(baseInc()*el*.25);S.ts=Date.now();if(g<1)return null;S.coins+=g;return{g:g,el:el}}
 function showOffline(o){var m=Math.round(o.el/60);
  open('<h2>С возвращением!</h2><div style="text-align:center;line-height:2;font-size:9px">Пока вас не было '+(m>=60?Math.floor(m/60)+" ч "+(m%60)+" мин":m+" мин")+', ферма заработала:<div style="font-size:14px;margin:12px 0;display:flex;justify-content:center;align-items:center;gap:6px">+'+fmt(o.g)+ic("coin",16)+'</div><div class="hint" style="line-height:1.8">Это 25% дохода, максимум за 2 часа</div></div><div class="row"><button id="ofok">Забрать</button></div>');
@@ -1202,6 +1202,67 @@ function showMore(){var h='<h2>Развитие</h2><div class="tg">',tile=funct
  document.querySelectorAll(".tl2").forEach(function(b){b.onclick=function(){var k=b.dataset.k;
   if(k==="upg")showUpg();else if(k==="lab")showLab();else if(k==="bm")showBM();else if(k==="dec")showDec();else if(k==="buff")showBuffs();else if(k==="lb")showLB();else if(k==="mut")showMuts();
   else if(k==="mus"){$("tm").click();showMore()}else if(k==="snd"){$("ts").click();showMore()}}})}
+
+SPR.food0=["................", "................", "........k.......", "......kkakk.....", "....kkbaacbkk...", "...kacbbabbcak..", "..kaaabakabaaak.", "...kabaaaaabak..", ".kkkaaaaaaaaakk.", "kdddaaaaaaaaaddk", ".keedddddddddeek", ".keeeeffeeeeeeek", "..keeeeeeeeeeek.", "...kddddddddek..", "...kddddddddk...", "....kkkkkkkk...."];PALS.food0={"a": "#b87a3a", "b": "#8a5524", "c": "#d8a060", "d": "#a02a22", "e": "#d8483a", "f": "#ff8a7a", "k": "#2b1d0e"};
+SPR.food1=["..........kak...", "..k......kaaak..", ".kbk....kaacaak.", "kbdbk....kaecaak", ".kbk......kaaaaa", "..k......kaaaeak", "........kaaekak.", ".......kcaek.k..", "......kcaek.....", "...k.kaaek......", "..kakaaek....k..", ".kacaaek....kbk.", "kaaacaak...kbdbk", ".kaeaaaak...kbk.", "..kaaeak.....k..", "...kkak........."];PALS.food1={"a": "#ffd23f", "b": "#ffe27a", "c": "#fff3a0", "d": "#fff", "e": "#e0a100", "k": "#2b1d0e"};
+SPR.food2=["................", ".....k......k...", "....kak.k..kbk..", "...kaakkckkbbk..", "....kkkkdkkkk...", "....keedddek....", "...kddddddddk...", "...kfffffffffk..", "..kfffffffffffk.", "..kefffgfffffek.", "..keeegefeeeeek.", "..keeeeedeeeeek.", "..keeeededeeeek.", "...kehhhhhhhek..", "....kkeeeeekk...", "......kkkkk....."];PALS.food2={"a": "#ff8fc7", "b": "#6fd9a0", "c": "#fff3a0", "d": "#ffd23f", "e": "#8a45c8", "f": "#b070f0", "g": "#d0a0ff", "h": "#5a2a8a", "k": "#2b1d0e"};
+SPR.food3=[".......kak...k..", "..k...kabak.kck.", ".kck.kkkakkkcbck", "kcbckddkkkddkck.", ".kckddddkddddk..", ".kkkdddeeedddkk.", "kffffdddefddfffk", "kffffffddffffffk", "kffffffddffffffk", ".kgggggddgggggk.", ".khhhhhddhhhhhk.", ".khhahhddhhahhk.", ".khhhhhddhhhhhk.", ".kiiiiiddiiiiik.", ".kiiiiiddiiiiik.", "..kkkkkkkkkkkk.."];PALS.food3={"a": "#fff3a0", "b": "#fff", "c": "#ffe27a", "d": "#e63946", "e": "#a01228", "f": "#ffc860", "g": "#ffd278", "h": "#ffb340", "i": "#e07a10", "k": "#2b1d0e"};
+/* ===== v15: перерождение за коины, мегаперерождение, питомцы едят ===== */
+var MEGAI="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAACQklEQVR4nLWUsWvbQBTGf08i0FK6FNO5bUxsx4KQ/AXuErI3g+fmT8garMh7hvQf6NqhHQuBDO3YpQnBslybgJOthpKlmAZc3esg6SzZbmIKPTjEnb73fe/effdQVe6bxigdHzXmfqyqshQo9B3Vm7ca+o4ug3dIRyLAP43ZWEvabYtGgasZIAOpgpFkoZjCfjajwNVuWyytaE4iDERFHVQMAPWWShS4urb+AndzFafUpHu8x7ofS0aS4T1fZS5TwP6oNDwqDY+8en5026IZJh+3kBRIshyNYXRrg2aLXWl4MLqF0die6k7SektlEF0DMYzGGFHcrfJUlFSUmEF0Tb1VzBLSmuYTCdtOWitFRajtvEKvznG3yjilJgCdN68LJF7LWGIREGPUEgFUa6ugysr2Ab8HHy0hQHx2ibtVJj67RJ5tWtLeyYeCgHQO0erO7vR4V+esbB9gfrwDwNw8xnnyE6fUtHt5AafUZHLatvv93jA5fhhMb7kgcP0Vd3PNEmcigBWanLbp94bTTH2Vgk9h3quV2nPcp49wNvYxF0eYh1W+nbxPL2Teo+l9FElVpz4EGHyKqDXWk+w29uke77H2Mln3P4fUWyoyc/9zlooCV/M+tDUUMBdHySLn4yhw5x5IgdQmnfowq1UswPdfyRfS/diKzjaiQpeKAldVDP3ekH5viOerqBjkQTWxUPqCPF8lw6gYskaUyy7pgZ1DtHPIwn4Z+o5Ovuz+tZ/Oxv7fJn3XyOy1qHksDlhCOTvistg/cR1hEoxZQ6YAAAAASUVORK5CYII=";
+function rbBonus(n){return .1*Math.min(n,19)+.05*Math.max(0,n-19)}
+function rbMult(){return 1+rbBonus(S.rb||0)}
+function rbTag(n){return'<span class="rbt"><img class="rbs" alt="" src="'+(n>=20?MEGAI:STARI)+'">'+n+'</span>'}
+function rbCost(n){return n<19?Math.round(5e6*Math.pow(1.45,n)):Math.round(5e9*Math.pow(1.5,n-19))}
+function rbMega(){return(S.rb||0)>=19}
+function rebirth(){if(S.lv<100||S.coins<rbCost(S.rb))return;var mega=rbMega(),pool=PLANTS.filter(function(p){return!p.ev&&(mega?(p.r===2||p.r===3):p.r===1)}),g=rnd(pool),rb=S.rb+1,
+ pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut,fr=S.fr,wk=S.wk,up=S.up,sk=S.sk,bm=S.bm,fd=S.food,st=S.sat,pl=S.plots.map(function(p){return{u:p.u,p:null,w:0}});
+ S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.fr=fr;S.wk=wk;S.up=mega?{inc:0,wat:0,aut:0,gem:0}:up;S.sk=sk;S.bm=bm;S.food=fd;S.sat=st;S.plots=pl;
+ S.coins=mega?5000:300;S.gems=mega?40:25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",mega?5:4);toast((mega?"Мегаперерождение! ":"Перерождение! ")+"Подарок: "+g.n)}
+/* еда и сытость питомцев */
+var FOODS=[{n:"Корм",r:0,m:1,c:5000,s:"food0"},{n:"Золотая косточка",r:2,m:3,c:50000,s:"food1"},{n:"Мешочек лакомств",r:3,m:5,c:100000,s:"food2"},{n:"Элитные лакомства",r:4,m:10,c:150000,s:"food3"}];
+function petFed(id){return!!(S.sat&&S.sat[id]>Date.now())}
+function pb(t){var v=0;if(S.eq)S.eq.forEach(function(id){var p=PETS[id];if(p&&p.t===t&&petFed(id))v+=p.v});return v}
+function mm2(ms){var s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+":"+("0"+s%60).slice(-2)}
+function feed(id,fi){fix(S);var f=FOODS[fi],rem=Math.max(0,(S.sat[id]||0)-Date.now());if(!(S.food[fi]>0)){toast("Нет такой еды");return false}if(rem>=f.m*60000){toast("Уже сыт дольше");return false}S.food[fi]--;S.sat[id]=Date.now()+f.m*60000;sfx("unlock");save();return true}
+setInterval(function(){document.querySelectorAll(".sat").forEach(function(e){var id=+e.dataset.id,r=(S.sat&&S.sat[id]||0)-Date.now();e.textContent=r>0?mm2(r):"голоден";e.style.color=r>0?"":"#e63946"})},1000);
+function showFeed(id){fix(S);var p=PETS[id],h='<h2>Покормить</h2><div class="hint" style="line-height:1.9;margin-bottom:12px">'+p.n+'. Сытость: <span class="sat" data-id="'+id+'">'+(petFed(id)?mm2(S.sat[id]-Date.now()):"голоден")+'</span><br>Еда не складывается: время берётся от лучшей еды.</div>';
+ FOODS.forEach(function(f,i){h+='<div class="seed">'+svg(f.s,"spr")+'<div class="in"><div>'+f.n+' ×'+(S.food[i]||0)+'</div><div style="color:var(--'+RAR[f.r][1]+')">'+RAR[f.r][0]+' · '+f.m+' мин</div></div><button class="fdg" data-f="'+i+'"'+(S.food[i]>0?'':' disabled')+'>Дать</button></div>'});
+ open(h+'<div class="row"><button id="fshop">В магазин</button><button class="g" id="no">Назад</button></div>');$("no").onclick=showPets;$("fshop").onclick=function(){showShop(3)};
+ document.querySelectorAll(".fdg").forEach(function(b){b.onclick=function(){if(b.disabled)return;if(feed(id,+b.dataset.f))showFeed(id)}})}
+function showPets(){fix(S);var h='<h2>Питомцы</h2><div class="row" style="gap:8px;margin:0 0 12px">',b={inc:0,wat:0,gem:0,xp:0};
+ for(var i=0;i<3;i++){var p=PETS[S.eq[i]];h+='<button class="slot" data-i="'+i+'" style="padding:5px"><div class="av" style="width:48px;height:48px">'+(p?psv(p,""):"")+'</div></button>'}
+ S.eq.forEach(function(id){if(petFed(id))b[PETS[id].t]+=PETS[id].v});
+ h+='</div><div class="hint" style="line-height:2.2;margin-bottom:12px">Надето '+S.eq.length+'/3 · бонусы только у сытых<br>Доход +'+b.inc+'% · Вода −'+b.wat+'%<br>Гемы +'+b.gem+'% · Опыт +'+b.xp+'%</div>';
+ S.eq.forEach(function(id){var p=PETS[id],f=petFed(id);h+='<div class="seed">'+psv(p)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">'+bt(p)+'</div><div>Сытость: <span class="sat" data-id="'+id+'" style="'+(f?'':'color:#e63946')+'">'+(f?mm2(S.sat[id]-Date.now()):"голоден")+'</span></div></div><button class="fdb" data-id="'+id+'">Покормить</button></div>'});
+ var list=srt(PETS.filter(function(p){return S.pets[p.id]>0}),"t",function(p){return p.r});
+ if(list.length)h+=sortBtn("t");
+ list.forEach(function(p){var n=S.pets[p.id],used=S.eq.filter(function(x){return x===p.id}).length;
+  h+=prow(p,n,'<button class="eq" data-id="'+p.id+'"'+(used>=n||S.eq.length>=3?' disabled':'')+'>Надеть</button>')});
+ if(!list.length)h+='<div style="text-align:center;line-height:2;margin-bottom:10px">Питомцев пока нет.<br>Загляни в магазин!</div>';
+ open(h+'<div class="row"><button id="shp">Магазин</button><button class="g" id="no">Закрыть</button></div>');
+ $("no").onclick=closeS;$("shp").onclick=function(){showShop(2)};bindSort(showPets);
+ document.querySelectorAll(".slot").forEach(function(x){x.onclick=function(){S.eq.splice(+x.dataset.i,1);save();showPets()}});
+ document.querySelectorAll(".eq").forEach(function(x){x.onclick=function(){if(S.eq.length<3){S.eq.push(+x.dataset.id);sfx("plant");save();showPets()}}});
+ document.querySelectorAll(".fdb").forEach(function(x){x.onclick=function(){showFeed(+x.dataset.id)}})}
+function showShop(t){t=t||0;var h='<h2>Магазин</h2><div class="seg">';
+ ["Паки","Яйца","Питомцы","Еда"].forEach(function(n,i){h+='<button data-t="'+i+'"'+(i===t?'':' class="g"')+'>'+n+'</button>'});h+='</div>';
+ if(t===0){h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Из паков могут выпасть мутации растений</div>';
+  PACKS.forEach(function(p,k){h+='<div class="seed">'+svg(p.s,null,p.pal)+'<div class="in"><div>'+p.n+'</div><div style="color:var(--muted)">Шанс гемов +'+Math.round(p.g*100)+'%'+(p.mt?' · мутации '+Math.round((p.mt[0]+p.mt[1]+p.mt[2])*100)+'%':'')+'</div></div><button class="pb" data-k="'+k+'" data-cost="'+p.cost+'" data-cur="'+p.cur+'">'+cur(p.cur,p.cost)+'</button></div>'})}
+ else if(t===1){EGGS.forEach(function(e,k){h+='<div class="seed">'+svg("egg",null,e.pal)+'<div class="in"><div>'+e.n+'</div><div style="color:var(--muted)">'+e.hi+'</div></div><button class="eb" data-k="'+k+'" data-cost="'+e.cost+'" data-cur="'+e.cur+'">'+cur(e.cur,e.cost)+'</button></div>'})}
+ else if(t===2){h+='<div class="hint" style="margin-bottom:12px">Питомцы за коины</div>';PETS.forEach(function(p){if(p.r>2||p.ev)return;h+=prow(p,0,'<button class="pt" data-id="'+p.id+'" data-cost="'+PP[p.r]+'" data-cur="c">'+cur("c",PP[p.r])+'</button>')})}
+ else{fix(S);h+='<div class="hint" style="line-height:1.9;margin-bottom:12px">Питомцы дают бонусы только пока сыты. Еда не складывается: время берётся от лучшей еды.</div>';
+  FOODS.forEach(function(f,i){h+='<div class="seed">'+svg(f.s,"spr")+'<div class="in"><div>'+f.n+' ×'+(S.food[i]||0)+'</div><div style="color:var(--'+RAR[f.r][1]+')">'+RAR[f.r][0]+' · сытость '+f.m+' мин</div></div><div style="display:flex;flex-direction:column"><button class="fbuy" data-f="'+i+'" data-n="1" data-cost="'+f.c+'" data-cur="c">'+cur("c",f.c)+'</button><button class="fbuy" data-f="'+i+'" data-n="10" data-cost="'+f.c*10+'" data-cur="c">×10 '+cur("c",f.c*10)+'</button></div></div>'})}
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){showShop(+b.dataset.t)}});
+ document.querySelectorAll(".eb").forEach(function(x){x.onclick=function(){if(!x.disabled)openEgg(+x.dataset.k)}});
+ document.querySelectorAll(".pt").forEach(function(x){x.onclick=function(){var p=PETS[+x.dataset.id];if(x.disabled||S.coins<PP[p.r])return;S.coins-=PP[p.r];S.pets[p.id]=(S.pets[p.id]||0)+1;S.xp+=10;save();sfx("unlock");toast("Куплен: "+p.n);showShop(2)}});
+ document.querySelectorAll(".fbuy").forEach(function(x){x.onclick=function(){var i=+x.dataset.f,n=+x.dataset.n,c=FOODS[i].c*n;if(x.disabled||S.coins<c)return;S.coins-=c;S.food[i]=(S.food[i]||0)+n;sfx("unlock");save();keepScroll(function(){showShop(3)})}})}
+function nbadge(){if(!ME)return;var b=document.querySelector('#nav [data-n="quests"] .bd'),e=document.querySelector('#nav [data-n="event"] .bd'),pe=document.querySelector('#nav [data-n="pets"] .bd'),on=false,ev=false,hung=false;
+ try{on=drInfo().ok;QS.forEach(function(q,i){if(S.q[q.k]>=q.n&&!S.q.k[i])on=true});
+  fix(S);hung=S.eq.length>0&&S.eq.some(function(id){return!petFed(id)});
+  if(S.hw.ch.a+S.hw.ch.b>0)ev=true;var lv=hwLv();for(var L=1;L<=lv;L++){if(!S.hw.cl[L-1]||(S.hw.vip&&!S.hw.cv[L-1]))ev=true}
+  if(evActive()){["d","h","v"].forEach(function(g){if(g==="v"&&!S.hw.vip)return;var w=hwWin(g);HWQ[g].forEach(function(q,i){if(!w.done[i]&&hwProg(g,i)>=q.n)ev=true})})}}catch(x){}
+ if(b)b.style.display=on?"block":"none";if(e)e.style.display=ev?"block":"none";if(pe)pe.style.display=hung?"block":"none"}
 
 boot2();
 </script>
