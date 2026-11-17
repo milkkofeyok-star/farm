@@ -720,7 +720,7 @@ function showAuth(m){$("auth").classList.add("on");
 /* ===== v6: задания, награды, рейтинг, декор, вход через Telegram ===== */
 var WK="https://farmbot.milkkofeyok.workers.dev";
 function today(d){d=d||new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};o.wk=o.wk||{id:"",pts:0};o.fr=o.fr||{g:0,s:0};o.up=o.up||{inc:0,wat:0,aut:0,gem:0};o.sk=o.sk||{s:0,o:{}};o.bm=o.bm||{d:"",b:[]};if(!o.sat){o.sat={};o.food={0:10,1:3,2:1,3:0};(o.eq||[]).forEach(function(id){o.sat[id]=Date.now()+6e5})}o.food=o.food||{0:0,1:0,2:0,3:0};return o}
+function fix(o){o.dr=o.dr||{d:"",st:0};o.q=o.q||{d:"",w:0,o:0,c:0,k:[0,0,0]};o.dec=o.dec||{};o.minv=o.minv||{};o.hw=o.hw||{pts:0,vip:0,cl:[],cv:[],ch:{a:0,b:0},ct:{},win:{}};o.tut=o.tut||{s:99};o.wk=o.wk||{id:"",pts:0};o.fr=o.fr||{g:0,s:0};o.up=o.up||{inc:0,wat:0,aut:0,gem:0};o.sk=o.sk||{s:0,o:{}};o.bm=o.bm||{d:"",b:[]};if(!o.sat){o.sat={};o.food={0:10,1:3,2:1,3:0};(o.eq||[]).forEach(function(id){o.sat[id]=Date.now()+6e5})}o.food=o.food||{0:0,1:0,2:0,3:0};o.evd=o.evd||{};return o}
 var _fresh=fresh;fresh=function(){return fix(_fresh())};
 var _norm=norm;norm=function(o){return fix(_norm(o))};
 var _ls=loadSave;loadSave=function(k){_ls(k);fix(S)};
@@ -975,7 +975,7 @@ function hwCell(tr,L){var code=(tr==="f"?FREE:VIPR)[L-1],rs=hwRw(code),vip=S.hw.
  var st=cl?'<div class="hint">Получено</div>':ok?'<button class="hwb" data-t="'+tr+'" data-l="'+L+'">Забрать</button>':(tr==="v"&&!vip?'<div class="hint">VIP</div>':'<div class="hint">Ур. '+L+'</div>');
  return'<div class="hwcell'+(tr==="v"?' vip':'')+(cl?' got':'')+'"><div class="hwi">'+rs.map(hwIcon).join("")+'</div><div>'+rs.map(hwTxt).join("<br>")+'</div>'+st+'</div>'}
 function keepScroll(fn){var sc=sbox.scrollTop;fn();sbox.scrollTop=sc}
-function showEvent(t){if(typeof t==="number")ET=t;fix(S);var lv=hwLv(),vip=S.hw.vip,
+function showEvent(t){if(Date.now()>=EV_END){showEventEnded();return}if(typeof t==="number")ET=t;fix(S);var lv=hwLv(),vip=S.hw.vip,
  h='<div class="evh"><div class="evt">ХЭЛЛОУИН</div><div style="font-size:7px;line-height:1.8">'+(evActive()?"До конца эвента: "+evLeft():"Эвент завершён")+'</div><div style="margin:8px 0 2px;font-size:8px">Уровень пасса '+lv+'/'+HWL+' · '+(lv>=HWL?HWPT:S.hw.pts%HWPT)+'/'+HWPT+'</div><div class="xb"><i style="width:'+(lv>=HWL?100:S.hw.pts%HWPT)+'%"></i></div>'+(vip?'<div style="font-size:8px;color:#ff8aff;margin-top:4px">★ VIP активен</div>':'<button id="vipb" style="background:#a855f7">VIP за 599 '+ic("gem",12)+'</button>')+'</div><div class="seg">'+["Пасс","Задания","Сундуки"].map(function(n,i){return'<button data-t="'+i+'"'+(i===ET?'':' class="g"')+'>'+n+'</button>'}).join("")+'</div>';
  if(ET===0){h+='<div class="row" style="margin:0 0 14px"><button id="claimall">Забрать всё</button></div><div class="hint" style="margin:0 4px 10px;display:flex;justify-content:space-around"><span>Бесплатно</span><span style="color:#c690f0">VIP</span></div>';
   for(var L=1;L<=HWL;L++)h+='<div class="hwr"><div class="hwn">'+L+'</div>'+hwCell("f",L)+hwCell("v",L)+'</div>'}
@@ -1245,8 +1245,8 @@ function rbTag(n){return'<span class="rbt"><img class="rbs" alt="" src="'+(n>=20
 function rbCost(n){return n<19?Math.round(5e6*Math.pow(1.45,n)):Math.round(5e9*Math.pow(1.5,n-19))}
 function rbMega(){return(S.rb||0)>=19}
 function rebirth(){if(S.lv<100||S.coins<rbCost(S.rb))return;var mega=rbMega(),pool=PLANTS.filter(function(p){return!p.ev&&(mega?(p.r===2||p.r===3):p.r===1)}),g=rnd(pool),rb=S.rb+1,
- pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut,fr=S.fr,wk=S.wk,up=S.up,sk=S.sk,bm=S.bm,fd=S.food,st=S.sat,pl=S.plots.map(function(p){return{u:p.u,p:null,w:0}});
- S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.fr=fr;S.wk=wk;S.up=mega?{inc:0,wat:0,aut:0,gem:0}:up;S.sk=sk;S.bm=bm;S.food=fd;S.sat=st;S.plots=pl;
+ pt=S.pets,eq=S.eq,dr=S.dr,q=S.q,dc=S.dec,hw=S.hw,tt=S.tut,fr=S.fr,wk=S.wk,up=S.up,sk=S.sk,bm=S.bm,fd=S.food,st=S.sat,ed=S.evd,pl=S.plots.map(function(p){return{u:p.u,p:null,w:0}});
+ S=fresh();S.rb=rb;S.pets=pt;S.eq=eq;S.dr=dr;S.q=q;S.dec=dc;S.hw=hw;S.tut=tt;S.fr=fr;S.wk=wk;S.up=mega?{inc:0,wat:0,aut:0,gem:0}:up;S.sk=sk;S.bm=bm;S.food=fd;S.sat=st;S.evd=ed;S.plots=pl;
  S.coins=mega?5000:300;S.gems=mega?40:25;S.inv={};S.inv[g.id]=1;save();build();drawDec();sfx("rev",mega?5:4);toast((mega?"Мегаперерождение! ":"Перерождение! ")+"Подарок: "+g.n)}
 /* еда и сытость питомцев */
 var FOODS=[{n:"Корм",r:0,m:1,c:5000,s:"food0"},{n:"Золотая косточка",r:2,m:3,c:50000,s:"food1"},{n:"Мешочек лакомств",r:3,m:5,c:100000,s:"food2"},{n:"Элитные лакомства",r:4,m:10,c:150000,s:"food3"}];
@@ -1306,6 +1306,27 @@ function showLB(){var cached=LBC&&LBC.r;if(cached)lbRender(cached);else open('<h
  var pre=SESS?(_lp=0,cloudPush()):Promise.resolve();
  pre.then(function(){return api("/rest/v1/leaders_now?select=nick,lv,rb,av,avs,wpts&order=wpts.desc&limit=50")}).then(function(r){if(r.ok&&r.j)LBC={t:Date.now(),r:r};
   if(sheet.classList.contains("on")&&sbox.innerHTML.indexOf("<h2>Рейтинг недели</h2>")>=0)lbRender(r)}).catch(function(){if(!cached){open('<h2>Рейтинг</h2><div class="hint">Нет связи</div>'+closeBtn());$("no").onclick=closeS}})}
+
+/* ===== v17: события заканчиваются сами, награды выдаются автоматически ===== */
+function hwSettle(){fix(S);var got=[],lv=hwLv(),vip=S.hw.vip;
+ for(var L=1;L<=lv;L++){["f","v"].forEach(function(tr){var arr=tr==="f"?S.hw.cl:S.hw.cv;if(arr[L-1]||(tr==="v"&&!vip))return;arr[L-1]=1;hwRw((tr==="f"?FREE:VIPR)[L-1]).forEach(function(r){hwGrant(r);got.push(r)})})}
+ S.evd.hw=1;save();var ch=S.hw.ch.a+S.hw.ch.b;if(!got.length&&!ch)return;
+ var c=0,g=0,names=[];got.forEach(function(r){if(r.t==="c")c+=r.n;else if(r.t==="g")g+=r.n;else if(r.t!=="a"&&r.t!=="b")names.push(hwTxt(r))});
+ var h='<h2>Эвент завершён</h2><div class="hint" style="line-height:1.9;margin-bottom:10px">Хэллоуин закончился. Неполученные награды пасса выданы автоматически.</div>';
+ if(c||g)h+='<div class="seed"><div class="in"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'+(c?'+'+fmt(c)+ic("coin",14):'')+(g?' +'+g+ic("gem",14):'')+'</div></div></div>';
+ if(names.length)h+='<div class="seed"><div class="in"><div>Растения и питомцы</div><div style="color:var(--muted);line-height:1.8">'+names.slice(0,8).join(", ")+(names.length>8?" и ещё "+(names.length-8):"")+'</div></div></div>';
+ if(ch)h+='<div class="seed"><div class="in"><div>Сундуки к открытию: '+ch+'</div><div style="color:var(--muted);line-height:1.8">Тыквенных '+S.hw.ch.a+', проклятых '+S.hw.ch.b+'</div></div><button id="evo">Открыть</button></div>';
+ open(h+closeBtn());$("no").onclick=closeS;if($("evo"))$("evo").onclick=showEventEnded;sfx("rev",5)}
+function showEventEnded(){fix(S);var h='<h2>Хэллоуин завершён</h2><div class="hint" style="line-height:1.9;margin-bottom:12px">Осталось открыть сундуки. Когда они закончатся, кнопка пропадёт.</div>',n=S.hw.ch.a+S.hw.ch.b;
+ [["a","Тыквенный сундук"],["b","Проклятый сундук"]].forEach(function(c){var k=S.hw.ch[c[0]];h+='<div class="seed">'+svg(c[0]==="a"?"chA":"chB","spr")+'<div class="in"><div>'+c[1]+' ×'+k+'</div></div><button class="hwo" data-k="'+c[0]+'"'+(k>0?'':' disabled')+'>Открыть</button></div>'});
+ if(!n)h+='<div class="hint" style="line-height:1.9">Все сундуки открыты.</div>';
+ open(h+closeBtn());$("no").onclick=closeS;
+ document.querySelectorAll(".hwo").forEach(function(b){b.onclick=function(){openHw(b.dataset.k)}});navEvent()}
+var EVENTS=[{id:"hw",end:EV_END,settle:hwSettle,left:function(){fix(S);return S.hw.ch.a+S.hw.ch.b}}];
+function navEvent(){var b=document.querySelector('#nav [data-n="event"]');if(!b||!ME||!S||!S.hw)return;var act=Date.now()<EV_END,left=S.hw.ch?S.hw.ch.a+S.hw.ch.b:0;b.style.display=(act||left>0)?"":"none";var sp=b.querySelector("span");if(sp)sp.textContent=act?"Эвент":"Сундуки"}
+function evTick(){navEvent();if(!ME||!S||!S.evd||!S.hw)return;if(sheet.classList.contains("on"))return;if(S.tut&&S.tut.s>=0&&S.tut.s<99)return;if(typeof LD!=="undefined"&&!LD.done)return;
+ EVENTS.forEach(function(e){if(Date.now()>=e.end&&!S.evd[e.id])e.settle()})}
+setInterval(evTick,3000);
 
 boot2();
 </script>
